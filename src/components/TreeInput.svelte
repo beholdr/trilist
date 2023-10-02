@@ -13,12 +13,15 @@
   import Tree from './Tree.svelte'
   import { dispatch } from '../lib/events'
   import { treeLib, type OptionItem, type TreeItemId } from '../lib/tree'
+
+  // TODO: add customization via vars
   import { getStyles } from '../theme'
 
   export let options: OptionItem[]
   export let selected: TreeItemId[] = []
   export let expanded: string[] = []
-  // export let onlyLeafs: boolean = true;
+  // export let groups: boolean = false
+  // export let single: boolean = false
 
   let component: HTMLElement
 

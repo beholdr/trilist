@@ -11,6 +11,7 @@
     treeLib.toggleExpanded(item.key, !selected)
   }
 
+  // TODO: add other events: select/unselect, expand/collapse, open/close, search
   const dispatch = createEventDispatcher()
 
   const handleToggle = (item: TreeItem, selected: boolean) => {

@@ -46,6 +46,7 @@ const init = (
   selected: TreeItemId[] = [],
   expanded: string[] = []
 ) => {
+  // TODO: add loading options from url
   tree = options.map((item) => processData(item))
 
   // TODO: unify item / item.id / item.key arguments?

@@ -4,24 +4,36 @@
     props: {
       options: { type: 'Array' },
       selected: { type: 'Array' },
-      expanded: { type: 'Array' }
+      expanded: { type: 'Array' },
+      expandCollapseControls: {
+        attribute: 'expand-collapse-controls',
+        type: 'Boolean'
+      }
     }
   }}
 />
 
 <script lang="ts">
-  import Tree from './Tree.svelte'
   import { dispatch } from '../lib/events'
   import { treeLib, type OptionItem, type TreeItemId } from '../lib/tree'
+  import Tree from './Tree.svelte'
+  import TreeControl from './TreeControl.svelte'
 
   // TODO: add customization via vars
   import { getStyles } from '../theme'
 
-  export let options: OptionItem[]
+  //////////////////////////////////////////////////////////////////////////////
+
+  export let options: OptionItem[] = []
   export let selected: TreeItemId[] = []
   export let expanded: string[] = []
+
   // export let groups: boolean = false
   // export let single: boolean = false
+
+  export let expandCollapseControls = false
+
+  //////////////////////////////////////////////////////////////////////////////
 
   let component: HTMLElement
 
@@ -35,9 +47,8 @@
 {@html getStyles()}
 
 <main {...$$restProps} bind:this={component}>
-  <div class="float-right text-sm">
-    <button on:click={treeLib.expandAll}>Expand all</button> /
-    <button on:click={treeLib.collapseAll}>Collapse all</button>
-  </div>
+  {#if expandCollapseControls}
+    <TreeControl />
+  {/if}
   <Tree {tree} on:selectItem={onSelectItem} />
 </main>

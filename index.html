@@ -1,13 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + Svelte + TS</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>TreeInput</title>
+
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%220.9em%22 font-size=%22120%22>🌳</text></svg>">
+</head>
+
+<body>
+  <div id="app">
+    <tree-input id="tree-input" expanded='["1", "4"]' selected='["4", "11"]' />
+  </div>
+
+  <script type="module" src="/src/main.ts"></script>
+
+  <script>
+    const tree = [
+      {
+        id: 1,
+        label: "Category 1",
+        children: [
+          { id: "11", label: "Leaf 11" },
+          { id: "12", label: "Leaf 12" },
+        ],
+      },
+      {
+        id: "2",
+        label: "Category 2",
+        children: [
+          { id: "11", label: "Leaf 11" },
+          {
+            id: "21", label: "Category 21", children: [
+              { id: "11", label: "Leaf 11" },
+              { id: "211", label: "Leaf 211" },
+              { id: "212", label: "Leaf 212" },
+            ]
+          },
+        ],
+      },
+      {
+        id: "3",
+        label: "Category 3"
+      },
+      {
+        id: "4",
+        label: "Category 4",
+        children: [
+          { id: "41", label: "Leaf 41" },
+          { id: "42", label: "Leaf 42" }
+        ]
+      },
+    ];
+
+    /* const tree = []
+    for (let i = 1; i < 100; i++) {
+      const item = {
+        id: i,
+        label: 'Category ' + i,
+        children: []
+      }
+
+
+      for (let ii = 1; ii < 50; ii++) {
+        item.children.push({
+          id: `l-${i}-${ii}`,
+          label: 'Label ' + ii
+        })
+      }
+
+      tree.push(item)
+    } */
+
+    const input = document.getElementById('tree-input')
+    input.setAttribute('tree', JSON.stringify(tree))
+    input.addEventListener('selectItem', (event) => console.log(event))
+  </script>
+</body>
+
 </html>

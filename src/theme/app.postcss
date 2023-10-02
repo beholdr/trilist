@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:host {
+  color: initial;
+}
+
+@layer components {
+  .expand-button {
+    /* TODO: use https://www.npmjs.com/package/postcss-inline-svg */
+    background: url('../assets/bullet.svg');
+  }
+}

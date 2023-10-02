@@ -5,10 +5,15 @@ import { expandedStore } from '../stores/expanded'
 
 export type TreeItemId = string | number
 
-export interface TreeItem {
-  key: string
+// TODO: configurable `id` and `label` fields
+export interface OptionItem {
   id: TreeItemId
   label: string
+  children?: OptionItem[]
+}
+
+export interface TreeItem extends OptionItem {
+  key: string
   children?: TreeItem[]
 }
 
@@ -23,7 +28,7 @@ const recursiveDeepCopy = (obj: any): any =>
     {}
   )
 
-const processData = (item: TreeItem, key = '') => {
+const processData = (item: OptionItem, key = '') => {
   const result = recursiveDeepCopy(item)
   result.key = key ? key + '-' + result.id : result.id.toString()
 
@@ -37,13 +42,11 @@ const processData = (item: TreeItem, key = '') => {
 }
 
 const init = (
-  data: TreeItem[],
+  options: OptionItem[],
   selected: TreeItemId[] = [],
   expanded: string[] = []
 ) => {
-  // console.time('init')
-  tree = data.map((item) => processData(item))
-  // console.timeEnd('init')
+  tree = options.map((item) => processData(item))
 
   // TODO: unify item / item.id / item.key arguments?
 

@@ -15,9 +15,14 @@ export const extendElement = (ceConstructor: any) =>
     }
   }
 
-export const dispatch = (component: HTMLElement, type: string, detail: any) => {
-  if (component.parentNode && 'host' in component.parentNode) {
-    const host = component.parentNode.host as HTMLElement
-    host.dispatchEvent(new CustomEvent(type, { detail }))
+const findHost = (el: Element | ShadowRoot): Element | null => {
+  if ('host' in el) {
+    return el.host
   }
+
+  return el.parentNode ? findHost(el.parentNode as Element) : null
+}
+
+export const dispatch = (el: HTMLElement, type: string, detail: any) => {
+  findHost(el)?.dispatchEvent(new CustomEvent(type, { detail }))
 }

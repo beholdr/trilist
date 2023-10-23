@@ -3,6 +3,8 @@
     tag: 'trilist-view',
     extend: extendElement,
     props: {
+      selected: { type: 'Array' },
+      expanded: { type: 'Array' },
       treeControls: { attribute: 'tree-controls', type: 'Boolean' }
     }
   }}
@@ -10,7 +12,7 @@
 
 <script lang="ts">
   import { dispatch, EventName, extendElement } from '../lib/components'
-  import { Tree, type ComponentOptions } from '../lib/tree'
+  import { Tree, type ComponentOptions, type TreeItemId } from '../lib/tree'
 
   import TreeList from './TreeList.svelte'
   import TreeControls from './TreeControls.svelte'
@@ -19,12 +21,21 @@
 
   //////////////////////////////////////////////////////////////////////////////
 
+  export let selected: TreeItemId[] = []
+  export let expanded: string[] = []
   export let treeControls = false
 
   let el: HTMLElement
   let tree: Tree | undefined
 
   export const init = (options: ComponentOptions) => {
+    if (selected.length) {
+      options.selected = selected.concat(options.selected ?? [])
+    }
+    if (expanded.length) {
+      options.expanded = expanded.concat(options.expanded ?? [])
+    }
+
     tree = new Tree(options)
   }
 

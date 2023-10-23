@@ -3,6 +3,8 @@
     tag: 'trilist-select',
     extend: extendElement,
     props: {
+      selected: { type: 'Array' },
+      expanded: { type: 'Array' },
       treeControls: { attribute: 'tree-controls', type: 'Boolean' }
     }
   }}
@@ -10,7 +12,7 @@
 
 <script lang="ts">
   import { type SvelteComponent } from 'svelte'
-  import { type ComponentOptions } from '../lib/tree'
+  import { type ComponentOptions, type TreeItemId } from '../lib/tree'
   import { extendElement } from '../lib/components'
 
   import TrilistView from './TrilistView.svelte'
@@ -18,6 +20,8 @@
 
   //////////////////////////////////////////////////////////////////////////////
 
+  export let selected: TreeItemId[] = []
+  export let expanded: string[] = []
   export let treeControls = false
   export let placeholder = 'Please select...'
   // export let groups: boolean = false
@@ -41,6 +45,6 @@
 
   <Modal bind:showModal>
     <h2 slot="header">{placeholder}</h2>
-    <TrilistView bind:this={treeEl} {treeControls} on:select />
+    <TrilistView bind:this={treeEl} {selected} {expanded} {treeControls} on:select />
   </Modal>
 </div>

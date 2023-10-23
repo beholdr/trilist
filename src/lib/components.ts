@@ -21,6 +21,6 @@ const findHost = (el: Element | ShadowRoot): Element | null => {
   return el.parentNode ? findHost(el.parentNode as Element) : null
 }
 
-export const dispatch = (el: HTMLElement, type: string, detail: any) => {
+export const dispatch = (el: HTMLElement, type: EventName, detail: any) => {
   findHost(el)?.dispatchEvent(new CustomEvent(type, { detail }))
 }

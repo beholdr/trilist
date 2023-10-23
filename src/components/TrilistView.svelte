@@ -14,7 +14,7 @@
 
 <script lang="ts">
   import { dispatch, EventName, extendElement } from '../lib/components'
-  import { Tree, type ComponentOptions, type TreeItemId } from '../lib/tree'
+  import { Tree, type ComponentOptions, type TreeItemKey } from '../lib/tree'
 
   import TreeList from './TreeList.svelte'
   import TreeControls from './TreeControls.svelte'
@@ -25,8 +25,8 @@
 
   export let selectable = false
   export let multiselect = false
-  export let selected: TreeItemId[] = []
-  export let expanded: string[] = []
+  export let selected: TreeItemKey[] = []
+  export let expanded: TreeItemKey[] = []
   export let treeControls = false
 
   let el: HTMLElement

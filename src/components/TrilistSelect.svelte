@@ -13,7 +13,7 @@
 
 <script lang="ts">
   import { type SvelteComponent } from 'svelte'
-  import { type ComponentOptions, type TreeItemId } from '../lib/tree'
+  import { type ComponentOptions, type TreeItemKey } from '../lib/tree'
   import { extendElement } from '../lib/components'
 
   import TrilistView from './TrilistView.svelte'
@@ -22,8 +22,8 @@
   //////////////////////////////////////////////////////////////////////////////
 
   export let multiselect = false
-  export let selected: TreeItemId[] = []
-  export let expanded: string[] = []
+  export let selected: TreeItemKey[] = []
+  export let expanded: TreeItemKey[] = []
   export let treeControls = false
   export let placeholder = 'Please select...'
   // export let groups: boolean = false

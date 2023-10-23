@@ -1,26 +1,24 @@
 import { get } from 'svelte/store'
-import { createExpandedStore } from '../stores/expanded'
-import { createIndeterminateStore } from '../stores/indeterminate'
-import { createSelectedStore } from '../stores/selected'
+import { createDataStore } from '../stores/data'
 
-export type TreeItemId = string | number
+export type TreeItemKey = string | number
 
 interface OptionItem {
-  id: TreeItemId
+  id: TreeItemKey
   label: string
   children?: OptionItem[]
 }
 
 export interface ComponentOptions {
   items: OptionItem[]
-  selected?: TreeItemId[]
-  expanded?: string[]
+  selected?: TreeItemKey[]
+  expanded?: TreeItemKey[]
   multiselect?: boolean
   labelHook?: (item: TreeItem) => string
 }
 
 export interface TreeItem extends OptionItem {
-  key: string
+  key: TreeItemKey
   children?: TreeItem[]
 }
 
@@ -28,9 +26,9 @@ export class Tree {
   items: TreeItem[] = []
   options: ComponentOptions
 
-  expanded = createExpandedStore()
-  indeterminate = createIndeterminateStore()
-  selected = createSelectedStore()
+  expanded = createDataStore()
+  indeterminate = createDataStore()
+  selected = createDataStore()
 
   constructor(options: ComponentOptions) {
     this.options = options
@@ -66,14 +64,14 @@ export class Tree {
 
   setExpandDeep(item: TreeItem, value = true) {
     if (item.children) {
-      this.expanded.setExpanded(item.key, value)
+      this.expanded.setValue(item.key, value)
     }
 
     item.children?.forEach((child) => this.setExpandDeep(child, value))
   }
 
   toggleExpanded(item: TreeItem, value = true) {
-    this.expanded.setExpanded(item.key, value)
+    this.expanded.setValue(item.key, value)
   }
 
   expandAll() {
@@ -111,7 +109,7 @@ export class Tree {
   }
 
   protected setSelectedDeep(item: TreeItem, value = true) {
-    this.selected.setSelected(item.id, value)
+    this.selected.setValue(item.id, value)
 
     item.children?.forEach((child) => this.setSelectedDeep(child, value))
   }
@@ -138,13 +136,13 @@ export class Tree {
     const selected = children.filter((id) => selectedItems.has(id)).length
 
     if (!selected) {
-      this.indeterminate.setIndeterminate(item.key, false)
+      this.indeterminate.setValue(item.key, false)
     } else if (children.length > selected) {
-      this.selected.setSelected(item.id, false)
-      this.indeterminate.setIndeterminate(item.key, true)
+      this.selected.setValue(item.id, false)
+      this.indeterminate.setValue(item.key, true)
     } else if (children.length === selected) {
-      this.selected.setSelected(item.id, true)
-      this.indeterminate.setIndeterminate(item.key, false)
+      this.selected.setValue(item.id, true)
+      this.indeterminate.setValue(item.key, false)
     }
 
     item.children?.forEach((item) => this.setIndeterminateDeep(item))

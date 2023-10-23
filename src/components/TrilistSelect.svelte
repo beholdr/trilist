@@ -9,63 +9,36 @@
 />
 
 <script lang="ts">
-  import { expandedStore } from '../stores/expanded'
-  import { selectedStore } from '../stores/selected'
-  import { indeterminateStore } from '../stores/indeterminate'
-  import { dispatch, extendElement } from '../lib/components'
-  import { treeLib, type TreeItem, type ComponentOptions } from '../lib/tree'
+  import { type SvelteComponent } from 'svelte'
+  import { extendElement } from '../lib/components'
+  import { type ComponentOptions } from '../lib/tree'
 
-  import Tree from './Tree.svelte'
-  import TreeControls from './TreeControls.svelte'
+  import TrilistView from './TrilistView.svelte'
   import Modal from './Modal.svelte'
 
-  import { getStyles } from '../theme'
-
   //////////////////////////////////////////////////////////////////////////////
-
-  // export let options: OptionItem[] = []
-  // export let selected: TreeItemId[] = []
-  // export let expanded: string[] = []
 
   export let treeControls = false
   export let placeholder = 'Please select...'
   // export let groups: boolean = false
   // export let single: boolean = false
 
-  let component: HTMLElement
-  let tree: TreeItem[] = []
+  let component: SvelteComponent
   let showModal = false
 
   export const init = (options: ComponentOptions) => {
-    tree = treeLib.init(options.options)
-  }
-
-  const onSelectItem = (e: CustomEvent) => {
-    dispatch(component, 'select', e.detail)
+    component.init(options)
   }
 </script>
 
-{@html getStyles()}
-
-<div {...$$restProps} bind:this={component}>
+<div {...$$restProps}>
   <button class="trilist-select" on:click={() => (showModal = true)}>
     {placeholder}
   </button>
 
   <Modal bind:showModal>
     <h2 slot="header">{placeholder}</h2>
-    <div>
-      {#if treeControls}
-        <TreeControls />
-      {/if}
-      <Tree
-        {tree}
-        {expandedStore}
-        {selectedStore}
-        {indeterminateStore}
-        on:selectItem={onSelectItem}
-      />
-    </div>
+    <TrilistView bind:this={component} {treeControls} />
   </Modal>
 </div>
 

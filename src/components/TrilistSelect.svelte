@@ -45,6 +45,13 @@
 
   <Modal bind:showModal>
     <h2 slot="header">{placeholder}</h2>
-    <TrilistView bind:this={treeEl} {selected} {expanded} {treeControls} on:select />
+    <TrilistView
+      bind:this={treeEl}
+      {selected}
+      {expanded}
+      {treeControls}
+      selectable
+      on:select
+    />
   </Modal>
 </div>

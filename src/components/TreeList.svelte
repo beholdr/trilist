@@ -6,6 +6,8 @@
   export let tree: Tree
   export let items: TreeItem[] = tree.items ?? []
 
+  export let selectable = false
+
   const expanded = tree.expanded
   const selected = tree.selected
   const indeterminate = tree.indeterminate
@@ -36,20 +38,23 @@
             handleExpand(item, $expanded.has(item.key))}
         />
         <label class="align-middle">
-          <input
-            type="checkbox"
-            class="-mt-1 mr-1 text-primary"
-            checked={$selected.has(item.id)}
-            indeterminate={$indeterminate.has(item.key)}
-            on:click={() => handleToggle(item, $selected.has(item.id))}
-          />
+          {#if selectable}
+            <input
+              type="checkbox"
+              class="-mt-1 mr-1 text-primary"
+              checked={$selected.has(item.id)}
+              indeterminate={$indeterminate.has(item.key)}
+              on:click={() => handleToggle(item, $selected.has(item.id))}
+            />
+          {/if}
           {@html getLabel(item)}
         </label>
         {#if $expanded.has(item.key)}
           <svelte:self
             {tree}
+            {selectable}
             items={item.children}
-            class="ml-7 mt-2"
+            class={selectable ? 'ml-7 mt-2' : 'ml-5 mt-2'}
             on:select
           />
         {/if}
@@ -57,12 +62,14 @@
         <span>
           <span class="invisible inline-block h-5 w-5 pr-1 align-middle" />
           <label class="align-middle">
-            <input
-              type="checkbox"
-              class="-mt-1 mr-1 text-primary"
-              checked={$selected.has(item.id)}
-              on:click={() => handleToggle(item, $selected.has(item.id))}
-            />
+            {#if selectable}
+              <input
+                type="checkbox"
+                class="-mt-1 mr-1 text-primary"
+                checked={$selected.has(item.id)}
+                on:click={() => handleToggle(item, $selected.has(item.id))}
+              />
+            {/if}
             {@html getLabel(item)}
           </label>
         </span>

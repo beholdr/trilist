@@ -3,6 +3,7 @@
     tag: 'trilist-view',
     extend: extendElement,
     props: {
+      selectable: { type: 'Boolean' },
       selected: { type: 'Array' },
       expanded: { type: 'Array' },
       treeControls: { attribute: 'tree-controls', type: 'Boolean' }
@@ -21,6 +22,7 @@
 
   //////////////////////////////////////////////////////////////////////////////
 
+  export let selectable = false
   export let selected: TreeItemId[] = []
   export let expanded: string[] = []
   export let treeControls = false
@@ -52,6 +54,6 @@
       <TreeControls {tree} />
     {/if}
 
-    <TreeList {tree} on:select={onSelect} />
+    <TreeList {tree} {selectable} on:select={onSelect} />
   </div>
 {/if}

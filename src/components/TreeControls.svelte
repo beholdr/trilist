@@ -7,7 +7,7 @@
   export let tree: Tree
 </script>
 
-<div class="float-right text-sm">
+<div>
   <button on:click={() => tree.expandAll()}>
     <img src={plusIcon} class="w-5" alt="Expand all" />
   </button>

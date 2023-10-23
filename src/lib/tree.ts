@@ -62,14 +62,6 @@ export class Tree {
     this.items.forEach((item) => this.setIndeterminateDeep(item))
   }
 
-  setExpandDeep(item: TreeItem, value = true) {
-    if (item.children) {
-      this.expanded.setValue(item.key, value)
-    }
-
-    item.children?.forEach((child) => this.setExpandDeep(child, value))
-  }
-
   toggleExpanded(item: TreeItem, value = true) {
     this.expanded.setValue(item.key, value)
   }
@@ -106,6 +98,14 @@ export class Tree {
     }
 
     return result
+  }
+
+  protected setExpandDeep(item: TreeItem, value = true) {
+    if (item.children) {
+      this.expanded.setValue(item.key, value)
+    }
+
+    item.children?.forEach((child) => this.setExpandDeep(child, value))
   }
 
   protected setSelectedDeep(item: TreeItem, value = true) {

@@ -15,6 +15,7 @@ export interface ComponentOptions {
   items: OptionItem[]
   selected?: TreeItemId[]
   expanded?: string[]
+  labelHook?: (item: TreeItem) => string
 }
 
 export interface TreeItem extends OptionItem {
@@ -24,12 +25,14 @@ export interface TreeItem extends OptionItem {
 
 export class Tree {
   items: TreeItem[] = []
+  options: ComponentOptions
 
   expanded = createExpandedStore()
   indeterminate = createIndeterminateStore()
   selected = createSelectedStore()
 
   constructor(options: ComponentOptions) {
+    this.options = options
     this.items = options.items.map((item) => this.processData(item))
 
     if (options.selected?.length) {

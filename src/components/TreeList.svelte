@@ -10,11 +10,14 @@
   const selected = tree.selected
   const indeterminate = tree.indeterminate
 
+  const dispatch = createEventDispatcher()
+
+  const getLabel = (item: TreeItem) =>
+    tree.options.labelHook ? tree.options.labelHook(item) : item.label
+
   const handleExpand = (item: TreeItem, selected: boolean) => {
     tree.toggleExpanded(item, !selected)
   }
-
-  const dispatch = createEventDispatcher()
 
   const handleToggle = (item: TreeItem, selected: boolean) => {
     tree.toggleSelected(item, !selected)
@@ -40,7 +43,7 @@
             indeterminate={$indeterminate.has(item.key)}
             on:click={() => handleToggle(item, $selected.has(item.id))}
           />
-          {item.label}
+          {@html getLabel(item)}
         </label>
         {#if $expanded.has(item.key)}
           <svelte:self
@@ -60,7 +63,7 @@
               checked={$selected.has(item.id)}
               on:click={() => handleToggle(item, $selected.has(item.id))}
             />
-            {item.label}
+            {@html getLabel(item)}
           </label>
         </span>
       {/if}

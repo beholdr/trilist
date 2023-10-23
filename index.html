@@ -111,7 +111,8 @@
     const el2 = document.getElementById('trilist-2')
     el2.addEventListener('connect', (e) => {
       e.detail.el.init({
-        items: tree2
+        items: tree2,
+        labelHook: (item) => item.label + ' → <a style="text-decoration: underline" href="' + item.id + '">edit</a>'
       })
     })
 

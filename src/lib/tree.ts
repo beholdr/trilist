@@ -5,14 +5,14 @@ import { createSelectedStore } from '../stores/selected'
 
 export type TreeItemId = string | number
 
-export interface ComponentOptions {
-  options: TreeItem[]
-}
-
-export interface OptionItem {
+interface OptionItem {
   id: TreeItemId
   label: string
   children?: OptionItem[]
+}
+
+export interface ComponentOptions {
+  items: OptionItem[]
 }
 
 export interface TreeItem extends OptionItem {
@@ -28,11 +28,11 @@ export class Tree {
   selected = createSelectedStore()
 
   constructor(
-    options: OptionItem[],
+    items: OptionItem[],
     selected: TreeItemId[] = [],
     expanded: string[] = []
   ) {
-    this.items = options.map((item) => this.processData(item))
+    this.items = items.map((item) => this.processData(item))
 
     if (selected.length) {
       // selected.forEach(item => toggleSelected(item, true))

@@ -25,7 +25,7 @@
   let tree: Tree | undefined
 
   export const init = (options: ComponentOptions) => {
-    tree = new Tree(options.options)
+    tree = new Tree(options.items)
   }
 
   const onSelect = (e: CustomEvent) => {

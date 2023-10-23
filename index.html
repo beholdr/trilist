@@ -101,7 +101,7 @@
     const el1 = document.getElementById('trilist-1')
     el1.addEventListener('connect', (e) => {
       e.detail.el.init({
-        options: tree1
+        items: tree1
       })
     })
     el1.addEventListener('select', (e) => console.log({ select: e }))
@@ -109,14 +109,14 @@
     const el2 = document.getElementById('trilist-2')
     el2.addEventListener('connect', (e) => {
       e.detail.el.init({
-        options: tree2
+        items: tree2
       })
     })
 
     const el3 = document.getElementById('trilist-3')
     el3.addEventListener('connect', (e) => {
       e.detail.el.init({
-        options: tree1
+        items: tree1
       })
     })
     el3.addEventListener('select', (e) => console.log({ select: e }))
@@ -124,7 +124,7 @@
     const el4 = document.getElementById('trilist-4')
     el4.addEventListener('connect', (e) => {
       e.detail.el.init({
-        options: tree2
+        items: tree2
       })
     })
   </script>

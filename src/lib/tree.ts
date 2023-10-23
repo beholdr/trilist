@@ -5,6 +5,10 @@ import { expandedStore } from '../stores/expanded'
 
 export type TreeItemId = string | number
 
+export interface ComponentOptions {
+  options: TreeItem[]
+}
+
 // TODO: configurable `id` and `label` fields
 export interface OptionItem {
   id: TreeItemId

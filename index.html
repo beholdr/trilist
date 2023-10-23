@@ -9,22 +9,38 @@
 
   <link rel="icon"
     href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%220.9em%22 font-size=%22120%22>☘️</text></svg>">
+  <style>
+    html {
+      /*
+      --trilist-placholder-color: #999;
+      --trilist-border-color: #999;
+      --trilist-border-hover-color: #777;
+      --trilist-border-radius: 0;
+      */
+    }
+
+    #app {
+      margin: 1.5em auto;
+      max-width: 1200px;
+      display: grid;
+      grid-auto-flow: column;
+      gap: 1.5em;
+    }
+  </style>
 </head>
 
 <body>
   <div id="app">
-    <tree-input
-      expand-collapse-controls
-      id="tree-input"
-      expanded='["1", "4"]'
-      selected='["4", "11"]'
-    />
+    <trilist-view id="trilist-1" tree-controls></trilist-view>
+    <trilist-view id="trilist-2"></trilist-view>
+    <trilist-select id="trilist-3" placeholder="Выберите..."></trilist-select>
+    <trilist-select id="trilist-4"></trilist-select>
   </div>
 
   <script type="module" src="/src/main.ts"></script>
 
   <script>
-    const tree = [
+    const tree1 = [
       {
         id: 1,
         label: "Category 1",
@@ -60,6 +76,8 @@
         ]
       },
     ];
+    const tree2 = JSON.parse(JSON.stringify(tree1))
+    tree2.push({ id: 5, label: "Category 5" })
 
     /* const tree = []
     for (let i = 1; i < 100; i++) {
@@ -80,9 +98,34 @@
       tree.push(item)
     } */
 
-    const input = document.getElementById('tree-input')
-    input.setAttribute('options', JSON.stringify(tree))
-    input.addEventListener('selectItem', (event) => console.log(event))
+    const el1 = document.getElementById('trilist-1')
+    el1.addEventListener('connect', (e) => {
+      e.detail.el.init({
+        options: tree1
+      })
+    })
+    el1.addEventListener('select', (e) => console.log({ select: e }))
+
+    const el2 = document.getElementById('trilist-2')
+    el2.addEventListener('connect', (e) => {
+      e.detail.el.init({
+        options: tree2
+      })
+    })
+
+    const el3 = document.getElementById('trilist-3')
+    el3.addEventListener('connect', (e) => {
+      e.detail.el.init({
+        options: tree1
+      })
+    })
+
+    const el4 = document.getElementById('trilist-4')
+    el4.addEventListener('connect', (e) => {
+      e.detail.el.init({
+        options: tree2
+      })
+    })
   </script>
 </body>
 

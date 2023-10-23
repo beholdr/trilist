@@ -11,7 +11,7 @@
   const indeterminate = tree.indeterminate
 
   const handleExpand = (item: TreeItem, selected: boolean) => {
-    tree.toggleExpanded(item.key, !selected)
+    tree.toggleExpanded(item, !selected)
   }
 
   const dispatch = createEventDispatcher()

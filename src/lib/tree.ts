@@ -34,8 +34,6 @@ export class Tree {
   ) {
     this.items = options.map((item) => this.processData(item))
 
-    // TODO: unify item / item.id / item.key arguments?
-
     if (selected.length) {
       // selected.forEach(item => toggleSelected(item, true))
       this.selected.set(new Set(selected))
@@ -57,8 +55,8 @@ export class Tree {
     item.children?.forEach((child) => this.setExpandDeep(child, value))
   }
 
-  toggleExpanded(key: string, value = true) {
-    this.expanded.setExpanded(key, value)
+  toggleExpanded(item: TreeItem, value = true) {
+    this.expanded.setExpanded(item.key, value)
   }
 
   expandAll() {

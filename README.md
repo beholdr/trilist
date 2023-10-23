@@ -1,3 +1,3 @@
-# TreeInput
+# Trilist
 
-Simple input for tree data selection.
+A simple library for working with tree data: tree-view and tree-select input.

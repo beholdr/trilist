@@ -4,6 +4,7 @@
     extend: extendElement,
     props: {
       selectable: { type: 'Boolean' },
+      multiselect: { type: 'Boolean' },
       selected: { type: 'Array' },
       expanded: { type: 'Array' },
       treeControls: { attribute: 'tree-controls', type: 'Boolean' }
@@ -23,6 +24,7 @@
   //////////////////////////////////////////////////////////////////////////////
 
   export let selectable = false
+  export let multiselect = false
   export let selected: TreeItemId[] = []
   export let expanded: string[] = []
   export let treeControls = false
@@ -36,6 +38,9 @@
     }
     if (expanded.length) {
       options.expanded = expanded.concat(options.expanded ?? [])
+    }
+    if (multiselect) {
+      options.multiselect = true
     }
 
     tree = new Tree(options)
@@ -54,6 +59,6 @@
       <TreeControls {tree} />
     {/if}
 
-    <TreeList {tree} {selectable} on:select={onSelect} />
+    <TreeList {tree} {selectable} {multiselect} on:select={onSelect} />
   </div>
 {/if}

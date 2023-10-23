@@ -3,6 +3,7 @@
     tag: 'trilist-select',
     extend: extendElement,
     props: {
+      multiselect: { type: 'Boolean' },
       selected: { type: 'Array' },
       expanded: { type: 'Array' },
       treeControls: { attribute: 'tree-controls', type: 'Boolean' }
@@ -20,6 +21,7 @@
 
   //////////////////////////////////////////////////////////////////////////////
 
+  export let multiselect = false
   export let selected: TreeItemId[] = []
   export let expanded: string[] = []
   export let treeControls = false
@@ -50,6 +52,7 @@
       {selected}
       {expanded}
       {treeControls}
+      {multiselect}
       selectable
       on:select
     />

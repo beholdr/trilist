@@ -15,6 +15,7 @@ export interface ComponentOptions {
   items: OptionItem[]
   selected?: TreeItemId[]
   expanded?: string[]
+  multiselect?: boolean
   labelHook?: (item: TreeItem) => string
 }
 
@@ -36,7 +37,13 @@ export class Tree {
     this.items = options.items.map((item) => this.processData(item))
 
     if (options.selected?.length) {
-      this.selected.set(options.selected)
+      if (this.options.multiselect) {
+        this.selected.set(options.selected)
+      } else {
+        // select first option
+        this.selected.set([options.selected[0]])
+      }
+
       this.items.forEach((item) => this.setIndeterminateDeep(item))
     }
 
@@ -44,7 +51,16 @@ export class Tree {
   }
 
   toggleSelected(item: TreeItem, value = true) {
-    this.setSelectedDeep(item, value)
+    if (this.options.multiselect) {
+      this.setSelectedDeep(item, value)
+    } else {
+      if (value) {
+        this.selected.set([item.id])
+      } else {
+        this.selected.set([])
+      }
+    }
+
     this.items.forEach((item) => this.setIndeterminateDeep(item))
   }
 
@@ -122,7 +138,6 @@ export class Tree {
     const selected = children.filter((id) => selectedItems.has(id)).length
 
     if (!selected) {
-      this.selected.setSelected(item.id, false)
       this.indeterminate.setIndeterminate(item.key, false)
     } else if (children.length > selected) {
       this.selected.setSelected(item.id, false)

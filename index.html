@@ -101,7 +101,9 @@
     const el1 = document.getElementById('trilist-1')
     el1.addEventListener('connect', (e) => {
       e.detail.el.init({
-        items: tree1
+        items: tree1,
+        selected: ['3', '42'],
+        expanded: ['4']
       })
     })
     el1.addEventListener('select', (e) => console.log({ select: e }))

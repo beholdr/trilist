@@ -13,6 +13,8 @@ interface OptionItem {
 
 export interface ComponentOptions {
   items: OptionItem[]
+  selected?: TreeItemId[]
+  expanded?: string[]
 }
 
 export interface TreeItem extends OptionItem {
@@ -27,19 +29,15 @@ export class Tree {
   indeterminate = createIndeterminateStore()
   selected = createSelectedStore()
 
-  constructor(
-    items: OptionItem[],
-    selected: TreeItemId[] = [],
-    expanded: string[] = []
-  ) {
-    this.items = items.map((item) => this.processData(item))
+  constructor(options: ComponentOptions) {
+    this.items = options.items.map((item) => this.processData(item))
 
-    if (selected.length) {
-      // selected.forEach(item => toggleSelected(item, true))
-      this.selected.set(new Set(selected))
+    if (options.selected?.length) {
+      this.selected.set(new Set(options.selected))
       this.items.forEach((item) => this.setIndeterminateDeep(item))
     }
-    this.expanded.set(new Set(expanded))
+
+    this.expanded.set(new Set(options.expanded))
   }
 
   toggleSelected(item: TreeItem, value = true) {

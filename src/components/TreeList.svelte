@@ -35,7 +35,7 @@
         <label class="align-middle">
           <input
             type="checkbox"
-            class="-mt-1 mr-1"
+            class="-mt-1 mr-1 text-primary"
             checked={$selected.has(item.id)}
             indeterminate={$indeterminate.has(item.key)}
             on:click={() => handleToggle(item, $selected.has(item.id))}
@@ -56,7 +56,7 @@
           <label class="align-middle">
             <input
               type="checkbox"
-              class="-mt-1 mr-1"
+              class="-mt-1 mr-1 text-primary"
               checked={$selected.has(item.id)}
               on:click={() => handleToggle(item, $selected.has(item.id))}
             />

@@ -32,7 +32,10 @@
 </script>
 
 <div {...$$restProps}>
-  <button class="trilist-select" on:click={() => (showModal = true)}>
+  <button
+    class="block w-full px-3 py-2 text-left text-gray-400 rounded border border-gray-400 hover:border-gray-500 bg-[url(src/assets/tree.svg)] bg-no-repeat bg-[size:20px] bg-[right_10px_center]"
+    on:click={() => (showModal = true)}
+  >
     {placeholder}
   </button>
 
@@ -41,20 +44,3 @@
     <TrilistView bind:this={treeEl} {treeControls} on:select />
   </Modal>
 </div>
-
-<style>
-  .trilist-select {
-    display: block;
-    width: 100%;
-    text-align: left;
-    color: var(--trilist-placholder-color, #999);
-    background: url('src/assets/tree.svg') no-repeat right 10px top 50%;
-    background-size: 20px;
-    border: 1px solid var(--trilist-border-color, #999);
-    border-radius: var(--trilist-border-radius, 0);
-    padding: 8px 12px;
-  }
-  .trilist-select:hover {
-    border-color: var(--trilist-border-hover-color, #777);
-  }
-</style>

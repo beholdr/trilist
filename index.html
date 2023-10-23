@@ -11,12 +11,11 @@
     href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%220.9em%22 font-size=%22120%22>☘️</text></svg>">
   <style>
     html {
-      /*
-      --trilist-placholder-color: #999;
-      --trilist-border-color: #999;
-      --trilist-border-hover-color: #777;
+      color: #888;
+
+      /* Overrides */
+      --trilist-color-primary: rgb(220, 45, 75);
       --trilist-border-radius: 0;
-      */
     }
 
     #app {
@@ -30,6 +29,7 @@
 </head>
 
 <body>
+  <h1>Examples:</h1>
   <div id="app">
     <trilist-view id="trilist-1" tree-controls></trilist-view>
     <trilist-view id="trilist-2"></trilist-view>

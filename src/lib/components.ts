@@ -1,8 +1,17 @@
+// TODO: add interfaces for CustomEvents
+
+export enum EventName {
+  connect = 'connect',
+  select = 'select'
+}
+
 export const extendElement = (ceConstructor: any) =>
   class extends ceConstructor {
     async connectedCallback() {
       await super.connectedCallback()
-      this.dispatchEvent(new CustomEvent('connect', { detail: { el: this } }))
+      this.dispatchEvent(
+        new CustomEvent(EventName.connect, { detail: { el: this } })
+      )
     }
   }
 

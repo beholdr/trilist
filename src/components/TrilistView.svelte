@@ -12,7 +12,7 @@
   import { expandedStore } from '../stores/expanded'
   import { selectedStore } from '../stores/selected'
   import { indeterminateStore } from '../stores/indeterminate'
-  import { dispatch, extendElement } from '../lib/components'
+  import { EventName, dispatch, extendElement } from '../lib/components'
   import { treeLib, type TreeItem, type ComponentOptions } from '../lib/tree'
 
   import Tree from './Tree.svelte'
@@ -32,7 +32,7 @@
   }
 
   const onSelectItem = (e: CustomEvent) => {
-    dispatch(component, 'select', e.detail)
+    dispatch(component, EventName.connect, e.detail)
   }
 </script>
 

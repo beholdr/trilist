@@ -13,7 +13,7 @@ export const createIndeterminateStore = () => {
         })
 
   return {
-    set,
+    set: (value?: string[]) => set(new Set(value)),
     subscribe,
     setIndeterminate
   }

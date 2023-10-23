@@ -36,11 +36,11 @@ export class Tree {
     this.items = options.items.map((item) => this.processData(item))
 
     if (options.selected?.length) {
-      this.selected.set(new Set(options.selected))
+      this.selected.set(options.selected)
       this.items.forEach((item) => this.setIndeterminateDeep(item))
     }
 
-    this.expanded.set(new Set(options.expanded))
+    this.expanded.set(options.expanded)
   }
 
   toggleSelected(item: TreeItem, value = true) {

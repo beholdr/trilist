@@ -13,7 +13,7 @@ export const createExpandedStore = () => {
         })
 
   return {
-    set,
+    set: (value?: string[]) => set(new Set(value)),
     subscribe,
     setExpanded
   }

@@ -14,7 +14,7 @@ export const createSelectedStore = () => {
         })
 
   return {
-    set,
+    set: (value?: TreeItemId[]) => set(new Set(value)),
     subscribe,
     setSelected
   }

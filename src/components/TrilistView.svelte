@@ -9,13 +9,10 @@
 />
 
 <script lang="ts">
-  import { expandedStore } from '../stores/expanded'
-  import { selectedStore } from '../stores/selected'
-  import { indeterminateStore } from '../stores/indeterminate'
-  import { EventName, dispatch, extendElement } from '../lib/components'
-  import { treeLib, type TreeItem, type ComponentOptions } from '../lib/tree'
+  import { dispatch, EventName, extendElement } from '../lib/components'
+  import { Tree, type ComponentOptions } from '../lib/tree'
 
-  import Tree from './Tree.svelte'
+  import TreeList from './TreeList.svelte'
   import TreeControls from './TreeControls.svelte'
 
   import { getStyles } from '../theme'
@@ -24,30 +21,26 @@
 
   export let treeControls = false
 
-  let component: HTMLElement
-  let tree: TreeItem[] = []
+  let el: HTMLElement
+  let tree: Tree | undefined
 
   export const init = (options: ComponentOptions) => {
-    tree = treeLib.init(options.options)
+    tree = new Tree(options.options)
   }
 
-  const onSelectItem = (e: CustomEvent) => {
-    dispatch(component, EventName.connect, e.detail)
+  const onSelect = (e: CustomEvent) => {
+    dispatch(el, EventName.select, e.detail)
   }
 </script>
 
 {@html getStyles()}
 
-<div {...$$restProps} bind:this={component}>
-  {#if treeControls}
-    <TreeControls />
-  {/if}
+{#if tree}
+  <div {...$$restProps} bind:this={el}>
+    {#if treeControls}
+      <TreeControls {tree} />
+    {/if}
 
-  <Tree
-    {tree}
-    {expandedStore}
-    {selectedStore}
-    {indeterminateStore}
-    on:selectItem={onSelectItem}
-  />
-</div>
+    <TreeList {tree} on:select={onSelect} />
+  </div>
+{/if}

@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store'
 
-const createExpandedStore = () => {
+export const createExpandedStore = () => {
   const { set, subscribe, update } = writable<Set<string>>(new Set([]))
 
   const setExpanded = (key: string, value = true) =>
@@ -18,5 +18,3 @@ const createExpandedStore = () => {
     setExpanded
   }
 }
-
-export const expandedStore = createExpandedStore()

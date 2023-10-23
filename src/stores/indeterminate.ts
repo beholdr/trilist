@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store'
 
-const createIndeterminateStore = () => {
+export const createIndeterminateStore = () => {
   const { set, subscribe, update } = writable<Set<string>>(new Set([]))
 
   const setIndeterminate = (key: string, value = true) =>
@@ -18,5 +18,3 @@ const createIndeterminateStore = () => {
     setIndeterminate
   }
 }
-
-export const indeterminateStore = createIndeterminateStore()

@@ -10,8 +10,8 @@
 
 <script lang="ts">
   import { type SvelteComponent } from 'svelte'
-  import { extendElement } from '../lib/components'
   import { type ComponentOptions } from '../lib/tree'
+  import { extendElement } from '../lib/components'
 
   import TrilistView from './TrilistView.svelte'
   import Modal from './Modal.svelte'
@@ -23,11 +23,11 @@
   // export let groups: boolean = false
   // export let single: boolean = false
 
-  let component: SvelteComponent
+  let treeEl: SvelteComponent
   let showModal = false
 
   export const init = (options: ComponentOptions) => {
-    component.init(options)
+    treeEl.init(options)
   }
 </script>
 
@@ -38,7 +38,7 @@
 
   <Modal bind:showModal>
     <h2 slot="header">{placeholder}</h2>
-    <TrilistView bind:this={component} {treeControls} />
+    <TrilistView bind:this={treeEl} {treeControls} on:select />
   </Modal>
 </div>
 

@@ -1,7 +1,7 @@
 import { get } from 'svelte/store'
-import { selectedStore } from '../stores/selected'
-import { indeterminateStore } from '../stores/indeterminate'
-import { expandedStore } from '../stores/expanded'
+import { createExpandedStore } from '../stores/expanded'
+import { createIndeterminateStore } from '../stores/indeterminate'
+import { createSelectedStore } from '../stores/selected'
 
 export type TreeItemId = string | number
 
@@ -21,120 +21,120 @@ export interface TreeItem extends OptionItem {
   children?: TreeItem[]
 }
 
-let tree: TreeItem[] = []
+export class Tree {
+  items: TreeItem[] = []
 
-const recursiveDeepCopy = (obj: any): any =>
-  Object.keys(obj).reduce(
-    (v, d) =>
-      Object.assign(v, {
-        [d]: obj[d].constructor === Object ? recursiveDeepCopy(obj[d]) : obj[d]
-      }),
-    {}
-  )
+  expanded = createExpandedStore()
+  indeterminate = createIndeterminateStore()
+  selected = createSelectedStore()
 
-const processData = (item: OptionItem, key = '') => {
-  const result = recursiveDeepCopy(item)
-  result.key = key ? key + '-' + result.id : result.id.toString()
+  constructor(
+    options: OptionItem[],
+    selected: TreeItemId[] = [],
+    expanded: string[] = []
+  ) {
+    // TODO: add loading options from url
+    this.items = options.map((item) => this.processData(item))
 
-  if (result.children) {
-    result.children = result.children.map((child: TreeItem) =>
-      processData(child, result.key)
+    // TODO: unify item / item.id / item.key arguments?
+
+    if (selected.length) {
+      // selected.forEach(item => toggleSelected(item, true))
+      this.selected.set(new Set(selected))
+      this.items.forEach((item) => this.setIndeterminateDeep(item))
+    }
+    this.expanded.set(new Set(expanded))
+  }
+
+  toggleSelected(item: TreeItem, value = true) {
+    this.setSelectedDeep(item, value)
+    this.items.forEach((item) => this.setIndeterminateDeep(item))
+  }
+
+  setExpandDeep(item: TreeItem, value = true) {
+    if (item.children) {
+      this.expanded.setExpanded(item.key, value)
+    }
+
+    item.children?.forEach((child) => this.setExpandDeep(child, value))
+  }
+
+  toggleExpanded(key: string, value = true) {
+    this.expanded.setExpanded(key, value)
+  }
+
+  expandAll() {
+    this.items.forEach((item) => this.setExpandDeep(item, true))
+  }
+
+  collapseAll() {
+    this.items.forEach((item) => this.setExpandDeep(item, false))
+  }
+
+  protected recursiveDeepCopy(obj: any): any {
+    return Object.keys(obj).reduce(
+      (v, d) =>
+        Object.assign(v, {
+          [d]:
+            obj[d].constructor === Object
+              ? this.recursiveDeepCopy(obj[d])
+              : obj[d]
+        }),
+      {}
     )
   }
 
-  return result
-}
+  protected processData(item: OptionItem, key = '') {
+    const result = this.recursiveDeepCopy(item)
+    result.key = key ? key + '-' + result.id : result.id.toString()
 
-const init = (
-  options: OptionItem[],
-  selected: TreeItemId[] = [],
-  expanded: string[] = []
-) => {
-  // TODO: add loading options from url
-  tree = options.map((item) => processData(item))
+    if (result.children) {
+      result.children = result.children.map((child: TreeItem) =>
+        this.processData(child, result.key)
+      )
+    }
 
-  // TODO: unify item / item.id / item.key arguments?
-
-  if (selected.length) {
-    // selected.forEach(item => toggleSelected(item, true))
-    selectedStore.set(new Set(selected))
-    tree.forEach(setIndeterminateDeep)
-  }
-  expandedStore.set(new Set(expanded))
-
-  return tree
-}
-
-const setSelectedDeep = (item: TreeItem, value = true) => {
-  selectedStore.setSelected(item.id, value)
-
-  item.children?.forEach((child) => setSelectedDeep(child, value))
-}
-
-const getChildrenDeep = (item: TreeItem) => {
-  if (!item.children) return []
-
-  let result = item.children
-    .filter((child) => !child.children?.length)
-    .map((child) => child.id)
-
-  item.children.forEach((child) => {
-    result = [...result, ...getChildrenDeep(child)]
-  })
-
-  return result
-}
-
-const setIndeterminateDeep = (item: TreeItem) => {
-  if (!item.children) return
-
-  const selectedItems = get(selectedStore)
-  const children = getChildrenDeep(item)
-  const selected = children.filter((id) => selectedItems.has(id)).length
-
-  if (!selected) {
-    selectedStore.setSelected(item.id, false)
-    indeterminateStore.setIndeterminate(item.key, false)
-  } else if (children.length > selected) {
-    selectedStore.setSelected(item.id, false)
-    indeterminateStore.setIndeterminate(item.key, true)
-  } else if (children.length === selected) {
-    selectedStore.setSelected(item.id, true)
-    indeterminateStore.setIndeterminate(item.key, false)
+    return result
   }
 
-  item.children?.forEach(setIndeterminateDeep)
-}
+  protected setSelectedDeep(item: TreeItem, value = true) {
+    this.selected.setSelected(item.id, value)
 
-const toggleSelected = (item: TreeItem, value = true) => {
-  setSelectedDeep(item, value)
-  tree.forEach(setIndeterminateDeep)
-}
-
-const setExpandDeep = (item: TreeItem, value = true) => {
-  if (item.children) {
-    expandedStore.setExpanded(item.key, value)
+    item.children?.forEach((child) => this.setSelectedDeep(child, value))
   }
 
-  item.children?.forEach((child) => setExpandDeep(child, value))
-}
+  protected getChildrenDeep(item: TreeItem) {
+    if (!item.children) return []
 
-const toggleExpanded = (key: string, value = true) => {
-  expandedStore.setExpanded(key, value)
-}
+    let result = item.children
+      .filter((child) => !child.children?.length)
+      .map((child) => child.id)
 
-const expandAll = () => {
-  tree.forEach((item) => setExpandDeep(item, true))
-}
+    item.children.forEach((child) => {
+      result = [...result, ...this.getChildrenDeep(child)]
+    })
 
-const collapseAll = () => {
-  tree.forEach((item) => setExpandDeep(item, false))
-}
+    return result
+  }
 
-export const treeLib = {
-  init,
-  toggleSelected,
-  toggleExpanded,
-  expandAll,
-  collapseAll
+  protected setIndeterminateDeep(item: TreeItem) {
+    if (!item.children) return
+
+    const selectedItems = get(this.selected)
+    const children = this.getChildrenDeep(item)
+    const selected = children.filter((id) => selectedItems.has(id)).length
+
+    if (!selected) {
+      this.selected.setSelected(item.id, false)
+      this.indeterminate.setIndeterminate(item.key, false)
+    } else if (children.length > selected) {
+      this.selected.setSelected(item.id, false)
+      this.indeterminate.setIndeterminate(item.key, true)
+    } else if (children.length === selected) {
+      this.selected.setSelected(item.id, true)
+      this.indeterminate.setIndeterminate(item.key, false)
+    }
+
+    item.children?.forEach((item) => this.setIndeterminateDeep(item))
+  }
 }

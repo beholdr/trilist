@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store'
 import { type TreeItemId } from '../lib/tree'
 
-const createSelectedStore = () => {
+export const createSelectedStore = () => {
   const { set, subscribe, update } = writable<Set<TreeItemId>>(new Set([]))
 
   const setSelected = (id: TreeItemId, value = true) =>
@@ -19,5 +19,3 @@ const createSelectedStore = () => {
     setSelected
   }
 }
-
-export const selectedStore = createSelectedStore()

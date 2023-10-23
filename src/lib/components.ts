@@ -1,5 +1,3 @@
-// TODO: add interfaces for CustomEvents
-
 export enum EventName {
   connect = 'connect',
   select = 'select'

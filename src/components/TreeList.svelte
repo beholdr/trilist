@@ -14,7 +14,6 @@
     tree.toggleExpanded(item.key, !selected)
   }
 
-  // TODO: add other events: select/unselect, expand/collapse, open/close, search
   const dispatch = createEventDispatcher()
 
   const handleToggle = (item: TreeItem, selected: boolean) => {
@@ -71,7 +70,6 @@
 
 <style>
   .expand-button {
-    /* TODO: use https://www.npmjs.com/package/postcss-inline-svg */
     background: url('src/assets/bullet.svg');
   }
 </style>

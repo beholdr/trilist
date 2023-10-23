@@ -9,7 +9,6 @@ export interface ComponentOptions {
   options: TreeItem[]
 }
 
-// TODO: configurable `id` and `label` fields
 export interface OptionItem {
   id: TreeItemId
   label: string
@@ -33,7 +32,6 @@ export class Tree {
     selected: TreeItemId[] = [],
     expanded: string[] = []
   ) {
-    // TODO: add loading options from url
     this.items = options.map((item) => this.processData(item))
 
     // TODO: unify item / item.id / item.key arguments?

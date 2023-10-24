@@ -78,8 +78,9 @@
   {/each}
 </ul>
 
-<style>
+<style lang="postcss">
   .expand-button {
-    background: url('src/assets/bullet.svg');
+    background: svg-load('../assets/bullet.svg', stroke=rgb(156 163 175))
+      no-repeat;
   }
 </style>

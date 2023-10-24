@@ -39,7 +39,7 @@
 
 <div {...$$restProps}>
   <button
-    class="block w-full px-3 py-2 text-left text-gray-400 rounded border border-gray-400 hover:border-gray-500 bg-[url(src/assets/tree.svg)] bg-no-repeat bg-[size:20px] bg-[right_10px_center]"
+    class="select-button block w-full px-3 py-2 text-left text-gray-500 rounded border border-gray-400 hover:border-gray-500"
     on:click={() => (showModal = true)}
   >
     {placeholder}
@@ -58,3 +58,10 @@
     />
   </Modal>
 </div>
+
+<style lang="postcss">
+  .select-button {
+    background: svg-load('../assets/tree.svg', stroke=rgb(156 163 175)) no-repeat right 10px center;
+    background-size: 20px;
+  }
+</style>

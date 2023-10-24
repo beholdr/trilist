@@ -55,7 +55,7 @@ export class Tree {
       if (value) {
         this.selected.set([item.id])
       } else {
-        this.selected.set([])
+        this.selected.clear()
       }
     }
 

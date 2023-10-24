@@ -16,6 +16,7 @@ export const createDataStore = () => {
   return {
     subscribe,
     set: (value?: TreeItemKey[]) => set(new Set(value)),
+    clear: () => set(new Set([])),
     setValue
   }
 }

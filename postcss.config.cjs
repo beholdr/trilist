@@ -1,7 +1,7 @@
 module.exports = {
   plugins: {
     tailwindcss: {},
-    '@thedutchcoder/postcss-rem-to-px': {},
+    'postcss-rem-to-responsive-pixel': { propList: ['*'] },
     'postcss-inline-svg': {},
     autoprefixer: {}
   }

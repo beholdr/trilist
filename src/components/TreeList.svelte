@@ -32,7 +32,7 @@
     <li class="mb-2">
       {#if item.children}
         <button
-          class="expand-button inline-block h-5 w-5 -rotate-90 pr-1 align-middle transition-transform"
+          class="expand-button inline-block h-5 w-5 -rotate-90 mr-0.5 align-middle transition-transform"
           class:rotate-0={$expanded.has(item.key)}
           on:click|preventDefault={() =>
             handleExpand(item, $expanded.has(item.key))}
@@ -54,13 +54,13 @@
             {tree}
             {selectable}
             items={item.children}
-            class={selectable ? 'ml-7 mt-2' : 'ml-5 mt-2'}
+            class={selectable ? 'ml-6 pl-0.5 mt-2' : 'ml-4 pl-0.5 mt-2'}
             on:select
           />
         {/if}
       {:else}
         <span>
-          <span class="invisible inline-block h-5 w-5 pr-1 align-middle" />
+          <span class="invisible inline-block h-5 w-5 mr-0.5 align-middle" />
           <label class="align-middle">
             {#if selectable}
               <input

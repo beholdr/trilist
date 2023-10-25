@@ -40,11 +40,11 @@
 
 <div {...$$restProps}>
   <button
-    class="flex justify-between items-center w-full px-3 py-2 text-left text-gray-500 rounded border border-tri-gray hover:border-tri-gray-darker"
+    class="flex justify-between items-center w-full px-3 py-2 text-left rounded border border-tri-gray hover:border-tri-gray-darker"
     on:click={() => (showModal = true)}
   >
-    {placeholder}
-    <span class="text-tri-gray">{@html TreeIcon}</span>
+    <span class="text-gray-500 truncate">{placeholder}</span>
+    <span class="text-tri-gray ml-2">{@html TreeIcon}</span>
   </button>
 
   <Modal bind:showModal>

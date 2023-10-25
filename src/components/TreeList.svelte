@@ -49,7 +49,7 @@
                 on:click={() => handleToggle(item, $selected.has(item.id))}
               />
             {/if}
-            {@html tree.getItemLabel(item)}
+            {@html tree.labelHook ? tree.labelHook(item) : item.label}
           </label>
         </div>
         <div class:hidden={!$expanded.has(item.key)} class="ml-6 mt-3">
@@ -67,7 +67,7 @@
                 on:click={() => handleToggle(item, $selected.has(item.id))}
               />
             {/if}
-            {@html tree.getItemLabel(item)}
+            {@html tree.labelHook ? tree.labelHook(item) : item.label}
           </label>
         </div>
       {/if}

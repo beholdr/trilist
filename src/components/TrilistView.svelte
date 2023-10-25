@@ -5,6 +5,7 @@
     props: {
       selectable: { type: 'Boolean' },
       multiselect: { type: 'Boolean' },
+      leafs: { type: 'Boolean' },
       selected: { type: 'Array' },
       expanded: { type: 'Array' },
       filter: { type: 'Boolean' },
@@ -26,6 +27,7 @@
 
   export let selectable = false
   export let multiselect = false
+  export let leafs = false
   export let selected: TreeType.TreeItemKey[] = []
   export let expanded: TreeType.TreeItemKey[] = []
   export let filter = false
@@ -46,6 +48,9 @@
     }
     if (multiselect) {
       options.multiselect = true
+    }
+    if (leafs) {
+      options.leafs = true
     }
 
     items = tree.init(options)

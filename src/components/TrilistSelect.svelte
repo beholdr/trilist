@@ -27,8 +27,6 @@
   export let placeholder = 'Please select...'
   export let filter = false
   export let filterPlaceholder = 'Quick search'
-  // export let groups: boolean = false
-  // export let single: boolean = false
 
   let treeEl: SvelteComponent
   let showModal = false

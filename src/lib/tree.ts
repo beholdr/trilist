@@ -1,7 +1,10 @@
-import { get } from 'svelte/store'
+import { get, type Readable } from 'svelte/store'
 import { createDataStore } from '../stores/data'
+import { createValueStore } from '../stores/value'
 
 export type TreeItemKey = string | number
+
+type TreeItemHook = (item: TreeItem) => string
 
 interface OptionItem {
   id: TreeItemKey
@@ -14,7 +17,8 @@ export interface ComponentOptions {
   selected?: TreeItemKey[]
   expanded?: TreeItemKey[]
   multiselect?: boolean
-  labelHook?: (item: TreeItem) => string
+  leafs?: boolean
+  labelHook?: TreeItemHook
 }
 
 export interface TreeItem extends OptionItem {
@@ -23,21 +27,24 @@ export interface TreeItem extends OptionItem {
 }
 
 export class Tree {
-  protected items: TreeItem[] = []
-  protected options: ComponentOptions | undefined
-  protected query = ''
+  items: TreeItem[] = []
+  multiselect = false
+  leafs = false
+  labelHook: TreeItemHook | undefined
 
   readonly expanded = createDataStore()
   readonly hidden = createDataStore()
   readonly indeterminate = createDataStore()
   readonly selected = createDataStore()
+  readonly value = createValueStore(this)
 
   init(options: ComponentOptions) {
-    this.options = options
     this.items = options.items.map((item) => this.processData(item))
+    this.multiselect = options.multiselect ?? false
+    this.leafs = options.leafs ?? false
 
     if (options.selected?.length) {
-      if (this.options.multiselect) {
+      if (this.multiselect) {
         this.selected.set(options.selected)
       } else {
         // select first option
@@ -52,12 +59,8 @@ export class Tree {
     return this.items
   }
 
-  getItemLabel(item: TreeItem) {
-    return this.options?.labelHook ? this.options?.labelHook(item) : item.label
-  }
-
   toggleSelected(item: TreeItem, value = true) {
-    if (this.options?.multiselect) {
+    if (this.multiselect) {
       this.setSelectedDeep(item, value)
     } else {
       if (value) {
@@ -83,21 +86,36 @@ export class Tree {
   }
 
   filter(query: string) {
-    this.query = query.toLowerCase()
-
     this.hidden.clear()
 
     if (!query || query.length < 2) {
       return
     }
 
-    this.items.forEach((item) => this.filterDeep(item))
+    this.items.forEach((item) => this.filterDeep(item, query.toLowerCase()))
   }
 
-  protected filterDeep(item: TreeItem) {
-    const matchLabel = item.label.toLowerCase().includes(this.query)
+  findItemById(id: TreeItemKey, item?: TreeItem): TreeItem | null {
+    if (item && item.id === id) {
+      return item
+    }
+
+    const elements = !item ? this.items : item.children ?? []
+
+    for (const el of elements) {
+      const result = this.findItemById(id, el)
+      if (result) {
+        return result
+      }
+    }
+
+    return null
+  }
+
+  protected filterDeep(item: TreeItem, query: string) {
+    const matchLabel = item.label.toLowerCase().includes(query)
     const matchDeep = this.getChildrenDeep(item, true).some((item) =>
-      item.label.toLowerCase().includes(this.query)
+      item.label.toLowerCase().includes(query)
     )
 
     if (!matchLabel && !matchDeep) {
@@ -111,7 +129,7 @@ export class Tree {
 
     // don't filter out children if category matched by label
     if (!matchLabel && item.children?.length) {
-      item.children?.forEach((child) => this.filterDeep(child))
+      item.children?.forEach((child) => this.filterDeep(child, query))
     }
   }
 

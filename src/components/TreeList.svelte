@@ -52,7 +52,6 @@
         </label>
         <div class:hidden={!$expanded.has(item.key)}>
           <svelte:self
-            {tree}
             items={item.children}
             {selectable}
             class={selectable ? 'ml-6 pl-0.5 mt-2' : 'ml-4 pl-0.5 mt-2'}

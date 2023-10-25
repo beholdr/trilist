@@ -3,6 +3,7 @@
   import type { Tree, TreeItem } from '../lib/tree'
   import { EventName } from '../lib/components'
 
+  import BulletIcon from '../assets/bullet.svg?raw'
 
   export let items: TreeItem[]
   export let selectable = false
@@ -30,11 +31,13 @@
     <li class="mb-2" class:hidden={$hidden.has(item.key)}>
       {#if item.children}
         <button
-          class="expand-button inline-block h-5 w-5 -rotate-90 mr-0.5 align-middle transition-transform"
+          class="inline-block h-5 w-5 text-linecolor -rotate-90 mr-0.5 align-middle transition-transform"
           class:rotate-0={$expanded.has(item.key)}
           on:click|preventDefault={() =>
             handleExpand(item, $expanded.has(item.key))}
-        />
+        >
+          {@html BulletIcon}
+        </button>
         <label class="align-middle">
           {#if selectable}
             <input
@@ -75,10 +78,3 @@
     </li>
   {/each}
 </ul>
-
-<style lang="postcss">
-  .expand-button {
-    background: svg-load('../assets/bullet.svg', stroke=rgb(156 163 175))
-      no-repeat;
-  }
-</style>

@@ -1,34 +1,41 @@
 <script lang="ts">
-  import { Tree } from '../lib/tree'
+  import { getContext } from 'svelte'
+  import type { Tree } from '../lib/tree'
 
-  export let tree: Tree
+  import ExpandIcon from '../assets/expand.svg?raw'
+  import CollapseIcon from '../assets/collapse.svg?raw'
+
+  export let treeControls = false
+  export let filterPlaceholder: string
+
+  const tree = getContext<Tree>('tree')
+
+  const handleFilter = (query: string) => {
+    tree.filter(query)
+  }
 </script>
 
 <div class="mb-4 flex gap-x-2.5">
   <input
-    class="flex-grow rounded border-gray-400"
+    on:input={(e) => handleFilter(e.currentTarget.value)}
+    class="flex-grow rounded border-linecolor"
     type="search"
-    placeholder="Quick search"
+    placeholder={filterPlaceholder}
   />
-  <button
-    class="expand-all-button w-10 rounded border border-gray-400 hover:border-gray-500"
-    title="Expand all"
-    on:click={() => tree.expandAll()}
-  />
-  <button
-    class="collapse-all-button w-10 rounded border border-gray-400 hover:border-gray-500"
-    title="Collapse all"
-    on:click={() => tree.collapseAll()}
-  />
+  {#if treeControls}
+    <button
+      class="w-[42px] rounded border flex items-center justify-center text-linecolor hover:text-linecolor2 border-linecolor hover:border-linecolor2 active:bg-gray-100"
+      title="Expand all"
+      on:click={() => tree.expandAll()}
+    >
+      {@html ExpandIcon}
+    </button>
+    <button
+      class="w-[42px] rounded border flex items-center justify-center text-linecolor hover:text-linecolor2 border-linecolor hover:border-linecolor2 active:bg-gray-100"
+      title="Collapse all"
+      on:click={() => tree.collapseAll()}
+    >
+      {@html CollapseIcon}
+    </button>
+  {/if}
 </div>
-
-<style lang="postcss">
-  .expand-all-button {
-    background: svg-load('../assets/expand.svg', fill=rgb(156 163 175))
-      no-repeat 50%;
-  }
-  .collapse-all-button {
-    background: svg-load('../assets/collapse.svg', fill=rgb(156 163 175))
-      no-repeat 50%;
-  }
-</style>

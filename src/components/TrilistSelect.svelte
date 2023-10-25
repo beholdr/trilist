@@ -20,6 +20,7 @@
   import TrilistView from './TrilistView.svelte'
   import Modal from './Modal.svelte'
 
+  import TreeIcon from '../assets/tree.svg?raw'
 
   export let multiselect = false
   export let selected: TreeItemKey[] = []
@@ -41,10 +42,11 @@
 
 <div {...$$restProps}>
   <button
-    class="select-button block w-full px-3 py-2 text-left text-gray-500 rounded border border-gray-400 hover:border-gray-500"
+    class="flex justify-between items-center w-full px-3 py-2 text-left text-gray-500 rounded border border-linecolor hover:border-linecolor2"
     on:click={() => (showModal = true)}
   >
     {placeholder}
+    <span class="text-linecolor">{@html TreeIcon}</span>
   </button>
 
   <Modal bind:showModal>
@@ -62,10 +64,3 @@
     />
   </Modal>
 </div>
-
-<style lang="postcss">
-  .select-button {
-    background: svg-load('../assets/tree.svg', stroke=rgb(156 163 175)) no-repeat right 10px center;
-    background-size: 20px;
-  }
-</style>

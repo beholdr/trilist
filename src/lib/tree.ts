@@ -1,5 +1,5 @@
-import { get, type Readable } from 'svelte/store'
-import { createDataStore } from '../stores/data'
+import { get } from 'svelte/store'
+import { createStateStore } from '../stores/state'
 import { createValueStore } from '../stores/value'
 
 export type TreeItemKey = string | number
@@ -32,10 +32,10 @@ export class Tree {
   leafs = false
   labelHook: TreeItemHook | undefined
 
-  readonly expanded = createDataStore()
-  readonly hidden = createDataStore()
-  readonly indeterminate = createDataStore()
-  readonly selected = createDataStore()
+  readonly expanded = createStateStore()
+  readonly hidden = createStateStore()
+  readonly indeterminate = createStateStore()
+  readonly selected = createStateStore()
   readonly value = createValueStore(this)
 
   init(options: ComponentOptions) {

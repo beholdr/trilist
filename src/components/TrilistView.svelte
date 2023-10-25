@@ -8,8 +8,7 @@
       selected: { type: 'Array' },
       expanded: { type: 'Array' },
       filter: { type: 'Boolean' },
-      filterPlaceholder: { attribute: 'filter-placeholder', type: 'String' },
-      treeControls: { attribute: 'tree-controls', type: 'Boolean' }
+      filterPlaceholder: { attribute: 'filter-placeholder', type: 'String' }
     }
   }}
 />
@@ -20,8 +19,8 @@
   import { Tree } from '../lib/tree'
   import type * as TreeType from '../lib/tree'
 
+  import TreeFilter from './TreeFilter.svelte'
   import TreeList from './TreeList.svelte'
-  import TreeControls from './TreeControls.svelte'
 
   import { getStyles } from '../theme'
 
@@ -31,7 +30,6 @@
   export let expanded: TreeType.TreeItemKey[] = []
   export let filter = false
   export let filterPlaceholder = 'Quick search'
-  export let treeControls = false
 
   const tree = new Tree()
   setContext('tree', tree)
@@ -62,7 +60,7 @@
 
 <div {...$$restProps} bind:this={el}>
   {#if filter}
-    <TreeControls {treeControls} {filterPlaceholder} />
+    <TreeFilter {filterPlaceholder} />
   {/if}
 
   <TreeList {items} {selectable} on:select={onSelect} />

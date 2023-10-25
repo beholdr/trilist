@@ -8,7 +8,6 @@
       expanded: { type: 'Array' },
       filter: { type: 'Boolean' },
       filterPlaceholder: { attribute: 'filter-placeholder', type: 'String' },
-      treeControls: { attribute: 'tree-controls', type: 'Boolean' }
     }
   }}
 />
@@ -28,7 +27,6 @@
   export let placeholder = 'Please select...'
   export let filter = false
   export let filterPlaceholder = 'Quick search'
-  export let treeControls = false
   // export let groups: boolean = false
   // export let single: boolean = false
 
@@ -57,7 +55,6 @@
       {expanded}
       {filter}
       {filterPlaceholder}
-      {treeControls}
       {multiselect}
       selectable
       on:select

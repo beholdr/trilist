@@ -28,51 +28,48 @@
 
 <ul {...$$restProps}>
   {#each items as item}
-    <li class="mb-2" class:hidden={$hidden.has(item.key)}>
+    <li class="mb-3" class:hidden={$hidden.has(item.key)}>
       {#if item.children}
-        <button
-          class="inline-block h-5 w-5 text-tri-gray -rotate-90 mr-0.5 align-middle transition-transform"
-          class:rotate-0={$expanded.has(item.key)}
-          on:click|preventDefault={() =>
-            handleExpand(item, $expanded.has(item.key))}
-        >
-          {@html BulletIcon}
-        </button>
-        <label class="align-middle">
-          {#if selectable}
-            <input
-              type="checkbox"
-              class="-mt-1 mr-1 text-tri-primary"
-              checked={$selected.has(item.id)}
-              indeterminate={$indeterminate.has(item.key)}
-              on:click={() => handleToggle(item, $selected.has(item.id))}
-            />
-          {/if}
-          <span>{@html tree.getItemLabel(item)}</span>
-        </label>
-        <div class:hidden={!$expanded.has(item.key)}>
-          <svelte:self
-            items={item.children}
-            {selectable}
-            class={selectable ? 'ml-6 pl-0.5 mt-2' : 'ml-4 pl-0.5 mt-2'}
-            on:select
-          />
-        </div>
-      {:else}
-        <span>
-          <span class="invisible inline-block h-5 w-5 mr-0.5 align-middle" />
-          <label class="align-middle">
+        <div class="flex">
+          <button
+            class="flex-none h-5 w-5 text-tri-gray -rotate-90 mr-1 mt-0.5 transition-transform"
+            class:rotate-0={$expanded.has(item.key)}
+            on:click|preventDefault={() =>
+              handleExpand(item, $expanded.has(item.key))}
+          >
+            {@html BulletIcon}
+          </button>
+          <label class="inline-flex">
             {#if selectable}
               <input
                 type="checkbox"
-                class="-mt-1 mr-1 text-tri-primary"
+                class="mt-1 mr-2 flex-none text-tri-primary"
+                checked={$selected.has(item.id)}
+                indeterminate={$indeterminate.has(item.key)}
+                on:click={() => handleToggle(item, $selected.has(item.id))}
+              />
+            {/if}
+            {@html tree.getItemLabel(item)}
+          </label>
+        </div>
+        <div class:hidden={!$expanded.has(item.key)} class="ml-6 mt-3">
+          <svelte:self items={item.children} {selectable} on:select />
+        </div>
+      {:else}
+        <div class="flex">
+          <div class="invisible flex-none h-5 w-5 mr-1 mt-0.5" />
+          <label class="inline-flex">
+            {#if selectable}
+              <input
+                type="checkbox"
+                class="mt-1 mr-2 flex-none text-tri-primary"
                 checked={$selected.has(item.id)}
                 on:click={() => handleToggle(item, $selected.has(item.id))}
               />
             {/if}
             {@html tree.getItemLabel(item)}
           </label>
-        </span>
+        </div>
       {/if}
     </li>
   {/each}

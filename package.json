@@ -1,8 +1,19 @@
 {
   "name": "trilist",
-  "private": true,
+  "description": "A simple library for working with tree data",
+  "author": "Alexander Shabunevich",
   "version": "0.0.0",
+  "license": "MIT",
   "type": "module",
+  "main": "./dist/trilist.umd.js",
+  "exports": {
+    ".": {
+      "require": "./dist/trilist.umd.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -13,6 +24,7 @@
     "@sveltejs/vite-plugin-svelte": "^2.0.0",
     "@tailwindcss/forms": "^0.5.6",
     "@tsconfig/svelte": "^5.0.2",
+    "@types/node": "^20.8.8",
     "autoprefixer": "^10.4.16",
     "postcss": "^8.4.31",
     "postcss-rem-to-responsive-pixel": "^5.1.3",
@@ -22,6 +34,7 @@
     "tslib": "^2.4.1",
     "typescript": "^4.9.3",
     "vite": "^4.0.0",
+    "vite-plugin-banner": "^0.7.1",
     "vite-svg-loader": "^4.0.0"
   }
 }

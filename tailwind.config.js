@@ -8,9 +8,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: 'var(--trilist-color-primary, ' + colors.blue[600] + ')',
-        linecolor: 'var(--trilist-color-linecolor, ' + colors.gray[400] + ')',
-        linecolor2: 'var(--trilist-color-linecolor2, ' + colors.gray[500] + ')'
+        'tri-primary': 'var(--trilist-color-primary, ' + colors.blue[600] + ')',
+        'tri-gray': 'var(--trilist-color-lines, ' + colors.gray[400] + ')',
+        'tri-gray-darker':
+          'var(--trilist-color-lines-darker, ' + colors.gray[500] + ')'
       },
       borderRadius: {
         DEFAULT:

@@ -31,7 +31,7 @@
     <li class="mb-2" class:hidden={$hidden.has(item.key)}>
       {#if item.children}
         <button
-          class="inline-block h-5 w-5 text-linecolor -rotate-90 mr-0.5 align-middle transition-transform"
+          class="inline-block h-5 w-5 text-tri-gray -rotate-90 mr-0.5 align-middle transition-transform"
           class:rotate-0={$expanded.has(item.key)}
           on:click|preventDefault={() =>
             handleExpand(item, $expanded.has(item.key))}
@@ -42,7 +42,7 @@
           {#if selectable}
             <input
               type="checkbox"
-              class="-mt-1 mr-1 text-primary"
+              class="-mt-1 mr-1 text-tri-primary"
               checked={$selected.has(item.id)}
               indeterminate={$indeterminate.has(item.key)}
               on:click={() => handleToggle(item, $selected.has(item.id))}
@@ -66,7 +66,7 @@
             {#if selectable}
               <input
                 type="checkbox"
-                class="-mt-1 mr-1 text-primary"
+                class="-mt-1 mr-1 text-tri-primary"
                 checked={$selected.has(item.id)}
                 on:click={() => handleToggle(item, $selected.has(item.id))}
               />

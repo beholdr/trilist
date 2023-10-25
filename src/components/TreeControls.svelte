@@ -18,20 +18,20 @@
 <div class="mb-4 flex gap-x-2.5">
   <input
     on:input={(e) => handleFilter(e.currentTarget.value)}
-    class="flex-grow rounded border-linecolor"
+    class="flex-grow rounded border-tri-gray"
     type="search"
     placeholder={filterPlaceholder}
   />
   {#if treeControls}
     <button
-      class="w-[42px] rounded border flex items-center justify-center text-linecolor hover:text-linecolor2 border-linecolor hover:border-linecolor2 active:bg-gray-100"
+      class="w-[42px] rounded border flex items-center justify-center text-tri-gray hover:text-tri-gray-darker border-tri-gray hover:border-tri-gray-darker active:bg-gray-100"
       title="Expand all"
       on:click={() => tree.expandAll()}
     >
       {@html ExpandIcon}
     </button>
     <button
-      class="w-[42px] rounded border flex items-center justify-center text-linecolor hover:text-linecolor2 border-linecolor hover:border-linecolor2 active:bg-gray-100"
+      class="w-[42px] rounded border flex items-center justify-center text-tri-gray hover:text-tri-gray-darker border-tri-gray hover:border-tri-gray-darker active:bg-gray-100"
       title="Collapse all"
       on:click={() => tree.collapseAll()}
     >

@@ -22,14 +22,14 @@
     placeholder={filterPlaceholder}
   />
   <button
-    class="w-[42px] rounded border flex items-center justify-center text-tri-gray hover:text-tri-gray-darker border-tri-gray hover:border-tri-gray-darker active:bg-gray-100"
+    class="px-2 rounded border flex items-center justify-center text-tri-gray hover:text-tri-gray-darker border-tri-gray hover:border-tri-gray-darker active:bg-gray-100"
     title="Expand all"
     on:click={() => tree.expandAll()}
   >
     {@html ExpandIcon}
   </button>
   <button
-    class="w-[42px] rounded border flex items-center justify-center text-tri-gray hover:text-tri-gray-darker border-tri-gray hover:border-tri-gray-darker active:bg-gray-100"
+    class="px-2 rounded border flex items-center justify-center text-tri-gray hover:text-tri-gray-darker border-tri-gray hover:border-tri-gray-darker active:bg-gray-100"
     title="Collapse all"
     on:click={() => tree.collapseAll()}
   >

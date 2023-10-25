@@ -16,6 +16,8 @@
 
       /* Overrides */
       --trilist-color-primary: rgb(220, 45, 75);
+      --trilist-color-linecolor: rgb(156, 163, 175);
+      --trilist-color-linecolor2: rgb(107, 114, 128);
       --trilist-border-radius: 0;
     }
 
@@ -32,31 +34,15 @@
 <body>
   <p>Examples:</p>
   <div id="app">
-    <trilist-view
-      id="trilist-1"
-      selected='["12"]'
-      expanded='["1"]'
-      selectable
-      multiselect
-      tree-controls
-    ></trilist-view>
+    <trilist-view id="trilist-1" selected='["12"]' expanded='["1"]' selectable multiselect filter
+      tree-controls></trilist-view>
 
-    <trilist-view
-      id="trilist-2"
-    ></trilist-view>
+    <trilist-view id="trilist-2"></trilist-view>
 
-    <trilist-select
-      id="trilist-3"
-      selected='["12"]'
-      expanded='["1"]'
-      placeholder="Выберите..."
-      multiselect
-      tree-controls
-    ></trilist-select>
+    <trilist-select id="trilist-3" selected='["12"]' expanded='["1"]' placeholder="Выберите специальность"
+      filter-placeholder="Поиск..." multiselect filter></trilist-select>
 
-    <trilist-select
-      id="trilist-4"
-    ></trilist-select>
+    <trilist-select id="trilist-4"></trilist-select>
   </div>
 
   <script type="module" src="/src/main.ts"></script>
@@ -68,7 +54,7 @@
         label: "Category 1",
         children: [
           { id: "11", label: "Leaf 11" },
-          { id: "12", label: "Leaf 12" },
+          { id: "12", label: "Leaf xx 12" },
         ],
       },
       {
@@ -77,7 +63,7 @@
         children: [
           { id: "11", label: "Leaf 11" },
           {
-            id: "21", label: "Category 21", children: [
+            id: "21", label: "Category zzz 21", children: [
               { id: "11", label: "Leaf 11" },
               { id: "211", label: "Leaf 211" },
               { id: "212", label: "Leaf 212" },
@@ -94,7 +80,7 @@
         label: "Category 4",
         children: [
           { id: "41", label: "Leaf 41" },
-          { id: "42", label: "Leaf 42" }
+          { id: "42", label: "Leaf xxx 42" }
         ]
       },
     ];
@@ -120,12 +106,36 @@
       tree.push(item)
     } */
 
+    const convertData = (data) => {
+      const result = []
+      for (item of data.data) {
+        if (!item.parents.length) {
+          result.push({ id: item.id, label: item.title })
+        } else {
+          for (parent of item.parents) {
+            const idx = result.findIndex(el => el.id === parent.id)
+            if (!result[idx].children) {
+              result[idx].children = []
+            }
+            result[idx].children.push({ id: item.id, label: item.title })
+          }
+        }
+      }
+
+      return result
+    }
+
     const el1 = document.getElementById('trilist-1')
     el1.addEventListener('connect', (e) => {
+      // fetch('https://rbtu.ru/api/regions')
+      //   .then(res => res.json())
+      //   .then(data => {
+      //     e.detail.el.init({
+      //       items: convertData(data)
+      //     })
+      //   })
       e.detail.el.init({
         items: tree1,
-        selected: ['3', '42'],
-        expanded: ['4']
       })
     })
     el1.addEventListener('select', (e) => console.log({ select: e }))
@@ -140,9 +150,13 @@
 
     const el3 = document.getElementById('trilist-3')
     el3.addEventListener('connect', (e) => {
-      e.detail.el.init({
-        items: tree1
-      })
+      fetch('https://rbtu.ru/api/professions')
+        .then(res => res.json())
+        .then(data => {
+          e.detail.el.init({
+            items: convertData(data)
+          })
+        })
     })
     el3.addEventListener('select', (e) => console.log({ select: e }))
 

@@ -18,7 +18,7 @@
 <div class="mb-4 flex gap-x-2.5">
   <input
     on:input={(e) => handleFilter(e.currentTarget.value)}
-    class="flex-grow rounded border-tri-gray"
+    class="flex-grow rounded border-tri-gray text-gray-600"
     type="search"
     placeholder={filterPlaceholder}
   />

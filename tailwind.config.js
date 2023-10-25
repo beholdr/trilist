@@ -9,6 +9,7 @@ export default {
     extend: {
       colors: {
         'tri-primary': 'var(--trilist-color-primary, ' + colors.blue[600] + ')',
+        'tri-text': 'var(--trilist-color-text, ' + colors.gray[800] + ')',
         'tri-gray': 'var(--trilist-color-lines, ' + colors.gray[400] + ')',
         'tri-gray-darker':
           'var(--trilist-color-lines-darker, ' + colors.gray[500] + ')'

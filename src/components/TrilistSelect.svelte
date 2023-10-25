@@ -6,26 +6,28 @@
       multiselect: { type: 'Boolean' },
       selected: { type: 'Array' },
       expanded: { type: 'Array' },
+      filter: { type: 'Boolean' },
+      filterPlaceholder: { attribute: 'filter-placeholder', type: 'String' },
       treeControls: { attribute: 'tree-controls', type: 'Boolean' }
     }
   }}
 />
 
 <script lang="ts">
-  import { type SvelteComponent } from 'svelte'
-  import { type ComponentOptions, type TreeItemKey } from '../lib/tree'
+  import type { SvelteComponent } from 'svelte'
+  import type { ComponentOptions, TreeItemKey } from '../lib/tree'
   import { extendElement } from '../lib/components'
-
   import TrilistView from './TrilistView.svelte'
   import Modal from './Modal.svelte'
 
-  //////////////////////////////////////////////////////////////////////////////
 
   export let multiselect = false
   export let selected: TreeItemKey[] = []
   export let expanded: TreeItemKey[] = []
-  export let treeControls = false
   export let placeholder = 'Please select...'
+  export let filter = false
+  export let filterPlaceholder = 'Quick search'
+  export let treeControls = false
   // export let groups: boolean = false
   // export let single: boolean = false
 
@@ -51,6 +53,8 @@
       bind:this={treeEl}
       {selected}
       {expanded}
+      {filter}
+      {filterPlaceholder}
       {treeControls}
       {multiselect}
       selectable

@@ -7,32 +7,39 @@
       multiselect: { type: 'Boolean' },
       selected: { type: 'Array' },
       expanded: { type: 'Array' },
+      filter: { type: 'Boolean' },
+      filterPlaceholder: { attribute: 'filter-placeholder', type: 'String' },
       treeControls: { attribute: 'tree-controls', type: 'Boolean' }
     }
   }}
 />
 
 <script lang="ts">
+  import { setContext } from 'svelte'
   import { dispatch, EventName, extendElement } from '../lib/components'
-  import { Tree, type ComponentOptions, type TreeItemKey } from '../lib/tree'
+  import { Tree } from '../lib/tree'
+  import type * as TreeType from '../lib/tree'
 
   import TreeList from './TreeList.svelte'
   import TreeControls from './TreeControls.svelte'
 
   import { getStyles } from '../theme'
 
-  //////////////////////////////////////////////////////////////////////////////
-
   export let selectable = false
   export let multiselect = false
-  export let selected: TreeItemKey[] = []
-  export let expanded: TreeItemKey[] = []
+  export let selected: TreeType.TreeItemKey[] = []
+  export let expanded: TreeType.TreeItemKey[] = []
+  export let filter = false
+  export let filterPlaceholder = 'Quick search'
   export let treeControls = false
 
-  let el: HTMLElement
-  let tree: Tree | undefined
+  const tree = new Tree()
+  setContext('tree', tree)
 
-  export const init = (options: ComponentOptions) => {
+  let items: TreeType.TreeItem[] = []
+  let el: HTMLElement
+
+  export const init = (options: TreeType.ComponentOptions) => {
     if (selected.length) {
       options.selected = selected.concat(options.selected ?? [])
     }
@@ -43,7 +50,7 @@
       options.multiselect = true
     }
 
-    tree = new Tree(options)
+    items = tree.init(options)
   }
 
   const onSelect = (e: CustomEvent) => {
@@ -53,12 +60,10 @@
 
 {@html getStyles()}
 
-{#if tree}
-  <div {...$$restProps} bind:this={el}>
-    {#if treeControls}
-      <TreeControls {tree} />
-    {/if}
+<div {...$$restProps} bind:this={el}>
+  {#if filter}
+    <TreeControls {treeControls} {filterPlaceholder} />
+  {/if}
 
-    <TreeList {tree} {selectable} {multiselect} on:select={onSelect} />
-  </div>
-{/if}
+  <TreeList {items} {selectable} on:select={onSelect} />
+</div>

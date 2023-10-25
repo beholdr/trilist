@@ -23,14 +23,16 @@ export interface TreeItem extends OptionItem {
 }
 
 export class Tree {
-  items: TreeItem[] = []
-  options: ComponentOptions
+  protected items: TreeItem[] = []
+  protected options: ComponentOptions | undefined
+  protected query = ''
 
-  expanded = createDataStore()
-  indeterminate = createDataStore()
-  selected = createDataStore()
+  readonly expanded = createDataStore()
+  readonly hidden = createDataStore()
+  readonly indeterminate = createDataStore()
+  readonly selected = createDataStore()
 
-  constructor(options: ComponentOptions) {
+  init(options: ComponentOptions) {
     this.options = options
     this.items = options.items.map((item) => this.processData(item))
 
@@ -46,10 +48,16 @@ export class Tree {
     }
 
     this.expanded.set(options.expanded)
+
+    return this.items
+  }
+
+  getItemLabel(item: TreeItem) {
+    return this.options?.labelHook ? this.options?.labelHook(item) : item.label
   }
 
   toggleSelected(item: TreeItem, value = true) {
-    if (this.options.multiselect) {
+    if (this.options?.multiselect) {
       this.setSelectedDeep(item, value)
     } else {
       if (value) {
@@ -71,7 +79,40 @@ export class Tree {
   }
 
   collapseAll() {
-    this.items.forEach((item) => this.setExpandDeep(item, false))
+    this.expanded.clear()
+  }
+
+  filter(query: string) {
+    this.query = query.toLowerCase()
+
+    this.hidden.clear()
+
+    if (!query || query.length < 2) {
+      return
+    }
+
+    this.items.forEach((item) => this.filterDeep(item))
+  }
+
+  protected filterDeep(item: TreeItem) {
+    const matchLabel = item.label.toLowerCase().includes(this.query)
+    const matchDeep = this.getChildrenDeep(item, true).some((item) =>
+      item.label.toLowerCase().includes(this.query)
+    )
+
+    if (!matchLabel && !matchDeep) {
+      this.hidden.setValue(item.key)
+    }
+
+    // expand category matched by children
+    if (matchDeep) {
+      this.expanded.setValue(item.key)
+    }
+
+    // don't filter out children if category matched by label
+    if (!matchLabel && item.children?.length) {
+      item.children?.forEach((child) => this.filterDeep(child))
+    }
   }
 
   protected recursiveDeepCopy(obj: any): any {
@@ -114,15 +155,19 @@ export class Tree {
     item.children?.forEach((child) => this.setSelectedDeep(child, value))
   }
 
-  protected getChildrenDeep(item: TreeItem) {
+  protected getChildrenDeep(item: TreeItem, withParents = false) {
     if (!item.children) return []
 
-    let result = item.children
-      .filter((child) => !child.children?.length)
-      .map((child) => child.id)
+    let result = withParents
+      ? item.children.map((item) => ({
+          id: item.id,
+          key: item.key,
+          label: item.label
+        }))
+      : item.children.filter((child) => !child.children?.length)
 
     item.children.forEach((child) => {
-      result = [...result, ...this.getChildrenDeep(child)]
+      result = [...result, ...this.getChildrenDeep(child, withParents)]
     })
 
     return result
@@ -131,9 +176,9 @@ export class Tree {
   protected setIndeterminateDeep(item: TreeItem) {
     if (!item.children) return
 
-    const selectedItems = get(this.selected)
+    const selectedStore = get(this.selected)
     const children = this.getChildrenDeep(item)
-    const selected = children.filter((id) => selectedItems.has(id)).length
+    const selected = children.filter((el) => selectedStore.has(el.id)).length
 
     if (!selected) {
       this.indeterminate.setValue(item.key, false)
@@ -145,6 +190,6 @@ export class Tree {
       this.indeterminate.setValue(item.key, false)
     }
 
-    item.children?.forEach((item) => this.setIndeterminateDeep(item))
+    item.children?.forEach((child) => this.setIndeterminateDeep(child))
   }
 }

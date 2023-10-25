@@ -1,21 +1,19 @@
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte'
-  import { Tree, type TreeItem } from '../lib/tree'
+  import { createEventDispatcher, getContext } from 'svelte'
+  import type { Tree, TreeItem } from '../lib/tree'
   import { EventName } from '../lib/components'
 
-  export let tree: Tree
-  export let items: TreeItem[] = tree.items ?? []
 
+  export let items: TreeItem[]
   export let selectable = false
 
+  const tree = getContext<Tree>('tree')
   const expanded = tree.expanded
-  const selected = tree.selected
+  const hidden = tree.hidden
   const indeterminate = tree.indeterminate
+  const selected = tree.selected
 
   const dispatch = createEventDispatcher()
-
-  const getLabel = (item: TreeItem) =>
-    tree.options.labelHook ? tree.options.labelHook(item) : item.label
 
   const handleExpand = (item: TreeItem, selected: boolean) => {
     tree.toggleExpanded(item, !selected)
@@ -29,7 +27,7 @@
 
 <ul {...$$restProps}>
   {#each items as item}
-    <li class="mb-2">
+    <li class="mb-2" class:hidden={$hidden.has(item.key)}>
       {#if item.children}
         <button
           class="expand-button inline-block h-5 w-5 -rotate-90 mr-0.5 align-middle transition-transform"
@@ -47,17 +45,17 @@
               on:click={() => handleToggle(item, $selected.has(item.id))}
             />
           {/if}
-          {@html getLabel(item)}
+          <span>{@html tree.getItemLabel(item)}</span>
         </label>
-        {#if $expanded.has(item.key)}
+        <div class:hidden={!$expanded.has(item.key)}>
           <svelte:self
             {tree}
-            {selectable}
             items={item.children}
+            {selectable}
             class={selectable ? 'ml-6 pl-0.5 mt-2' : 'ml-4 pl-0.5 mt-2'}
             on:select
           />
-        {/if}
+        </div>
       {:else}
         <span>
           <span class="invisible inline-block h-5 w-5 mr-0.5 align-middle" />
@@ -70,7 +68,7 @@
                 on:click={() => handleToggle(item, $selected.has(item.id))}
               />
             {/if}
-            {@html getLabel(item)}
+            {@html tree.getItemLabel(item)}
           </label>
         </span>
       {/if}

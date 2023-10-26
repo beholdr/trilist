@@ -4,6 +4,7 @@
     extend: extendElement,
     props: {
       multiselect: { type: 'Boolean' },
+      leafs: { type: 'Boolean' },
       filter: { type: 'Boolean' },
       filterPlaceholder: { attribute: 'filter-placeholder', type: 'String' }
     }
@@ -20,6 +21,7 @@
   import TreeIcon from '../assets/tree.svg?raw'
 
   export let multiselect = false
+  export let leafs = false
   export let placeholder = 'Please select...'
   export let filter = false
   export let filterPlaceholder = 'Quick search'
@@ -45,9 +47,10 @@
     <h2 slot="header">{placeholder}</h2>
     <TrilistView
       bind:this={treeEl}
+      {multiselect}
+      {leafs}
       {filter}
       {filterPlaceholder}
-      {multiselect}
       selectable
       on:select
     />

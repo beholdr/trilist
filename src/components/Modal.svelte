@@ -1,4 +1,6 @@
 <script lang="ts">
+  import CloseIcon from '../assets/close.svg?raw'
+
   export let showModal = false
 
   let dialog: HTMLDialogElement
@@ -9,63 +11,40 @@
 <!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions -->
 <dialog
   bind:this={dialog}
+  class="w-[32em] max-w-[94vw] rounded shadow-md animate-in slide-in-from-top-4 backdrop:backdrop-blur backdrop:animate-in backdrop:fade-in-0"
   on:close={() => (showModal = false)}
   on:click|self={() => dialog.close()}
 >
   <!-- svelte-ignore a11y-no-static-element-interactions -->
-  <div on:click|stopPropagation>
-    <slot name="header" />
+  <div class="flex flex-col max-h-full relative" on:click|stopPropagation>
+    <header class="sticky top-0 pt-3 sm:pt-6 px-3 sm:px-8 z-10 bg-white">
+      <button
+        class="text-tri-gray hover:text-tri-gray-darker float-right ml-2 -mr-0.5"
+        on:click={() => dialog.close()}
+      >
+        {@html CloseIcon}
+      </button>
 
-    <div class="content">
+      <slot name="header" />
+    </header>
+
+    <div class="flex-grow px-3 sm:px-8">
       <slot />
     </div>
 
-    <!-- svelte-ignore a11y-autofocus -->
-    <button autofocus on:click={() => dialog.close()}>Close</button>
+    <footer
+      class="sticky bottom-0 pt-4 pb-3 sm:pb-6 px-3 sm:px-8 z-10 bg-white"
+    >
+      <!-- svelte-ignore a11y-autofocus -->
+      <button
+        class="py-1.5 px-6 rounded text-white bg-tri-primary mr-2"
+        autofocus
+        on:click={() => dialog.close()}>Select</button
+      >
+      <button
+        class="py-1.5 px-6 rounded border text-tri-gray hover:text-tri-gray-darker border-tri-gray hover:border-tri-gray-darker"
+        on:click={() => dialog.close()}>Cancel</button
+      >
+    </footer>
   </div>
 </dialog>
-
-<style>
-  dialog {
-    width: 32em;
-    max-width: 94vw;
-    border-radius: 0.4em;
-    border: none;
-    padding: 0;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-  }
-  dialog::backdrop {
-    background: rgba(0, 0, 0, 0.3);
-  }
-  dialog > div {
-    padding: 1em;
-  }
-  dialog .content {
-    margin: 1em 0;
-  }
-  dialog[open] {
-    animation: zoom 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-  @keyframes zoom {
-    from {
-      transform: scale(0.95);
-    }
-    to {
-      transform: scale(1);
-    }
-  }
-  dialog[open]::backdrop {
-    animation: fade 0.2s ease-out;
-  }
-  @keyframes fade {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  button {
-    display: block;
-  }
-</style>

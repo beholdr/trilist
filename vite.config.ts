@@ -20,7 +20,7 @@ export default defineConfig({
     svelte(),
     svgLoader(),
     banner(
-      `/*! ${pkg.name} v${pkg.version} | (c) ${pkg.author} | Released under the ${pkg.license} license */`
+      `/*! ${pkg.name} v${pkg.version} (c) ${pkg.author}. Released under the ${pkg.license} license */`
     )
   ]
 })

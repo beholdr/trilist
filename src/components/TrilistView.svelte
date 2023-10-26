@@ -15,7 +15,7 @@
 
 <script lang="ts">
   import { setContext, onMount } from 'svelte'
-  import { dispatch, EventName, extendElement } from '../lib/components'
+  import { dispatchOut, TrilistEvents, extendElement } from '../lib/components'
   import { Tree, type TreeItem, type ComponentOptions } from '../lib/tree'
 
   import TreeFilter from './TreeFilter.svelte'
@@ -48,8 +48,11 @@
     items = tree.init(options)
   }
 
-  const onSelect = (e: CustomEvent) => {
-    dispatch(el, EventName.select, e.detail)
+  const onSelect = () => {
+    dispatchOut(
+      el,
+      new CustomEvent(TrilistEvents.select, { detail: tree.getValue() })
+    )
   }
 
   // enable animation after pause

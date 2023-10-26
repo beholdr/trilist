@@ -56,7 +56,6 @@
       {leafs}
       {multiselect}
       selectable
-      on:select
     />
   </Modal>
 </div>

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher, getContext } from 'svelte'
   import type { Tree, TreeItem } from '../lib/tree'
-  import { EventName } from '../lib/components'
+  import { TrilistEvents } from '../lib/components'
 
   import BulletIcon from '../assets/bullet.svg?raw'
 
@@ -21,9 +21,9 @@
     tree.toggleExpanded(item, !selected)
   }
 
-  const handleToggle = (item: TreeItem, selected: boolean) => {
+  const handleSelect = (item: TreeItem, selected: boolean) => {
     tree.toggleSelected(item, !selected)
-    dispatch(EventName.select, item)
+    dispatch(TrilistEvents.select)
   }
 </script>
 
@@ -47,7 +47,7 @@
                 class="mt-1 mr-2 flex-none text-tri-primary"
                 checked={$selected.has(item.id)}
                 indeterminate={$indeterminate.has(item.key)}
-                on:click={() => handleToggle(item, $selected.has(item.id))}
+                on:click={() => handleSelect(item, $selected.has(item.id))}
               />
             {/if}
             {@html tree.labelHook ? tree.labelHook(item) : item.label}
@@ -74,7 +74,7 @@
                 type="checkbox"
                 class="mt-1 mr-2 flex-none text-tri-primary"
                 checked={$selected.has(item.id)}
-                on:click={() => handleToggle(item, $selected.has(item.id))}
+                on:click={() => handleSelect(item, $selected.has(item.id))}
               />
             {/if}
             {@html tree.labelHook ? tree.labelHook(item) : item.label}

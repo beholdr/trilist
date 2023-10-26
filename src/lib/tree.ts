@@ -109,6 +109,10 @@ export class Tree {
     return null
   }
 
+  getValue() {
+    return get(this.value)
+  }
+
   protected filterDeep(item: TreeItem, query: string) {
     const matchLabel = item.label.toLowerCase().includes(query)
     const matchDeep = this.getChildrenDeep(item, true).some((item) =>

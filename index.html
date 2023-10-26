@@ -15,11 +15,14 @@
       font-size: 12px;
 
       /* Overrides */
+      /*
       --trilist-color-primary: rgb(220, 45, 75);
       --trilist-color-text: rgb(31, 41, 55);
       --trilist-color-gray: rgb(156, 163, 175);
       --trilist-color-gray-darker: rgb(107, 114, 128);
       --trilist-border-radius: 0;
+      --trilist-font-size: 14px;
+      */
     }
 
     #app {
@@ -35,7 +38,7 @@
 <body>
   <p>Examples:</p>
   <div id="app">
-    <trilist-view id="trilist-1" selectable multiselect filter leafs></trilist-view>
+    <trilist-view id="trilist-1" style="--trilist-color-primary: rgb(220, 45, 75); --trilist-border-radius: 0" selectable multiselect filter leafs></trilist-view>
 
     <trilist-view id="trilist-2"></trilist-view>
 

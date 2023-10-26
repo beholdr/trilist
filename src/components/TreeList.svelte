@@ -6,6 +6,7 @@
   import BulletIcon from '../assets/bullet.svg?raw'
 
   export let items: TreeItem[]
+  export let animated = false
   export let selectable = false
 
   const tree = getContext<Tree>('tree')
@@ -52,8 +53,17 @@
             {@html tree.labelHook ? tree.labelHook(item) : item.label}
           </label>
         </div>
-        <div class:hidden={!$expanded.has(item.key)} class="ml-6 mt-3">
-          <svelte:self items={item.children} {selectable} on:select />
+        <div
+          class="ml-6 mt-3 animate-in fade-in-25 slide-in-from-top-2"
+          class:duration-0={!animated}
+          class:hidden={!$expanded.has(item.key)}
+        >
+          <svelte:self
+            items={item.children}
+            {animated}
+            {selectable}
+            on:select
+          />
         </div>
       {:else}
         <div class="flex">

@@ -3,10 +3,11 @@
     tag: 'trilist-select',
     extend: extendElement,
     props: {
-      multiselect: { type: 'Boolean' },
-      leafs: { type: 'Boolean' },
+      animated: { type: 'Boolean' },
       filter: { type: 'Boolean' },
-      filterPlaceholder: { attribute: 'filter-placeholder', type: 'String' }
+      filterPlaceholder: { attribute: 'filter-placeholder', type: 'String' },
+      leafs: { type: 'Boolean' },
+      multiselect: { type: 'Boolean' }
     }
   }}
 />
@@ -20,11 +21,12 @@
 
   import TreeIcon from '../assets/tree.svg?raw'
 
-  export let multiselect = false
-  export let leafs = false
-  export let placeholder = 'Please select...'
+  export let animated = false
   export let filter = false
   export let filterPlaceholder = 'Quick search'
+  export let leafs = false
+  export let multiselect = false
+  export let placeholder = 'Please select...'
 
   let treeEl: SvelteComponent
   let showModal = false
@@ -47,10 +49,11 @@
     <h2 slot="header">{placeholder}</h2>
     <TrilistView
       bind:this={treeEl}
-      {multiselect}
-      {leafs}
+      {animated}
       {filter}
       {filterPlaceholder}
+      {leafs}
+      {multiselect}
       selectable
       on:select
     />

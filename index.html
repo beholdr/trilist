@@ -40,7 +40,7 @@
   <div id="app">
     <trilist-view id="trilist-1" style="--trilist-color-primary: rgb(220, 45, 75); --trilist-border-radius: 0" selectable multiselect filter leafs></trilist-view>
 
-    <trilist-view id="trilist-2"></trilist-view>
+    <trilist-view id="trilist-2" filter animated></trilist-view>
 
     <trilist-select id="trilist-3" placeholder="Выберите свою специальность тут"
       filter-placeholder="Поиск..." multiselect filter></trilist-select>
@@ -154,6 +154,7 @@
     el2.addEventListener('connect', (e) => {
       e.detail.el.init({
         items: tree2,
+        expanded: ['2', '2-21'],
         labelHook: (item) => item.label + ' → <a style="text-decoration: underline" href="' + item.id + '">edit</a>'
       })
     })

@@ -199,13 +199,22 @@ export class Tree {
     const selected = children.filter((el) => selectedStore.has(el.id)).length
 
     if (!selected) {
+      // to correct cleanup of previous selected parent on single selection mode
+      if (this.multiselect) {
+        this.selected.setValue(item.id, false)
+      }
       this.indeterminate.setValue(item.key, false)
     } else if (children.length > selected) {
       this.selected.setValue(item.id, false)
       this.indeterminate.setValue(item.key, true)
     } else if (children.length === selected) {
-      this.selected.setValue(item.id, true)
-      this.indeterminate.setValue(item.key, false)
+      if (this.multiselect) {
+        this.selected.setValue(item.id, true)
+        this.indeterminate.setValue(item.key, false)
+      } else {
+        this.selected.setValue(item.id, false)
+        this.indeterminate.setValue(item.key, true)
+      }
     }
 
     item.children?.forEach((child) => this.setIndeterminateDeep(child))

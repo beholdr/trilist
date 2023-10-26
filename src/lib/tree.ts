@@ -42,15 +42,12 @@ export class Tree {
     this.items = options.items.map((item) => this.processData(item))
     this.multiselect = options.multiselect ?? false
     this.leafs = options.leafs ?? false
+    this.labelHook = options.labelHook
 
-    if (options.selected?.length) {
-      if (this.multiselect) {
-        this.selected.set(options.selected)
-      } else {
-        // select first option
-        this.selected.set([options.selected[0]])
-      }
-
+    if (options.selected) {
+      this.selected.set(
+        this.multiselect ? options.selected : options.selected.slice(0, 1)
+      )
       this.items.forEach((item) => this.setIndeterminateDeep(item))
     }
 

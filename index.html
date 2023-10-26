@@ -37,7 +37,7 @@
   <div id="app">
     <trilist-view id="trilist-1" selectable multiselect filter leafs></trilist-view>
 
-    <trilist-view id="trilist-2" selectable></trilist-view>
+    <trilist-view id="trilist-2"></trilist-view>
 
     <trilist-select id="trilist-3" placeholder="Выберите свою специальность тут"
       filter-placeholder="Поиск..." multiselect filter></trilist-select>
@@ -78,12 +78,19 @@
         label: "Category 4",
         children: [
           { id: "41", label: "Leaf 41" },
-          { id: "42", label: "Leaf xxx 42" }
+        ]
+      },
+      {
+        id: "5",
+        label: "Category 5",
+        children: [
+          { id: "51", label: "Leaf 51" },
+          { id: "52", label: "Leaf xxx 52" }
         ]
       },
     ];
     const tree2 = JSON.parse(JSON.stringify(tree1))
-    tree2.push({ id: 5, label: "Category 5" })
+    tree2.push({ id: 6, label: "Category 6" })
 
     /* const tree = []
     for (let i = 1; i < 100; i++) {

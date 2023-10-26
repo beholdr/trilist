@@ -6,8 +6,10 @@
   "license": "MIT",
   "type": "module",
   "main": "./dist/trilist.umd.js",
+  "types": "./dist/types/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/types/index.d.ts",
       "require": "./dist/trilist.umd.js"
     }
   },
@@ -36,6 +38,7 @@
     "typescript": "^4.9.3",
     "vite": "^4.0.0",
     "vite-plugin-banner": "^0.7.1",
+    "vite-plugin-dts": "^3.6.1",
     "vite-svg-loader": "^4.0.0"
   }
 }

@@ -7,7 +7,8 @@
       filter: { type: 'Boolean' },
       filterPlaceholder: { attribute: 'filter-placeholder', type: 'String' },
       leafs: { type: 'Boolean' },
-      multiselect: { type: 'Boolean' }
+      multiselect: { type: 'Boolean' },
+      placeholder: { type: 'String' }
     }
   }}
 />

@@ -119,6 +119,10 @@ export class Tree {
     return get(this.selected)
   }
 
+  getIndeterminate() {
+    return get(this.indeterminate)
+  }
+
   protected filterDeep(item: TreeItem, query: string) {
     const matchLabel = item.label.toLowerCase().includes(query)
     const matchDeep = this.getChildrenDeep(item, true).some((item) =>

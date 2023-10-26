@@ -5,7 +5,7 @@
     props: {
       animated: { type: 'Boolean' },
       filter: { type: 'Boolean' },
-      filterPlaceholder: { attribute: 'filter-placeholder', type: 'String' },
+      filterPlaceholder: { type: 'String', attribute: 'filter-placeholder' },
       leafs: { type: 'Boolean' },
       multiselect: { type: 'Boolean' },
       selectable: { type: 'Boolean' }

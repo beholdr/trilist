@@ -1,4 +1,5 @@
 export enum TrilistEvents {
+  cancel = 'cancel',
   connect = 'connect',
   select = 'select'
 }

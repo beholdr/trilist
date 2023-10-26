@@ -14,10 +14,9 @@
 />
 
 <script lang="ts">
-  import { setContext, onMount } from 'svelte'
+  import { getContext, hasContext, setContext, onMount } from 'svelte'
   import { dispatchOut, TrilistEvents, extendElement } from '../lib/components'
-  import { Tree, type TreeItem, type ComponentOptions } from '../lib/tree'
-
+  import { Tree, type ComponentOptions, type TreeItem } from '../lib/tree'
   import TreeFilter from './TreeFilter.svelte'
   import TreeList from './TreeList.svelte'
 
@@ -30,32 +29,31 @@
   export let multiselect = false
   export let selectable = false
 
-  const tree = new Tree()
-  setContext('tree', tree)
-
   let items: TreeItem[] = []
   let el: HTMLElement
   let animatedEnabled = false
 
-  export const init = (options: ComponentOptions) => {
-    if (multiselect) {
-      options.multiselect = true
-    }
-    if (leafs) {
-      options.leafs = true
-    }
+  const isSelectComponent = hasContext('tree')
+  const tree = isSelectComponent ? getContext<Tree>('tree') : new Tree()
 
-    items = tree.init(options)
+  if (!isSelectComponent) {
+    setContext('tree', tree)
+  }
+
+  export const init = (options: ComponentOptions) => {
+    items = tree.init(options, multiselect, leafs)
   }
 
   const onSelect = () => {
+    if (isSelectComponent) return
+
     dispatchOut(
       el,
       new CustomEvent(TrilistEvents.select, { detail: tree.getValue() })
     )
   }
 
-  // enable animation after pause
+  // enable animation after initial rendering
   onMount(async () => setTimeout(() => (animatedEnabled = animated), 300))
 </script>
 

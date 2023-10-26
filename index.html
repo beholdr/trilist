@@ -40,7 +40,7 @@
   <div id="app">
     <trilist-view id="trilist-1" style="--trilist-color-primary: rgb(220, 45, 75); --trilist-border-radius: 0" selectable multiselect filter leafs></trilist-view>
 
-    <trilist-view id="trilist-2" filter animated></trilist-view>
+    <trilist-view id="trilist-2" animated></trilist-view>
 
     <trilist-select id="trilist-3" placeholder="Выберите свою специальность тут"
       filter-placeholder="Поиск..." multiselect filter></trilist-select>
@@ -165,7 +165,8 @@
         .then(res => res.json())
         .then(data => {
           e.detail.el.init({
-            items: convertData(data)
+            items: convertData(data),
+            selected: [1]
           })
         })
     })
@@ -181,5 +182,4 @@
 
   <script type="module" src="/src/main.ts"></script>
 </body>
-
 </html>

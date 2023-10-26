@@ -16,8 +16,6 @@ export interface ComponentOptions {
   items: OptionItem[]
   selected?: TreeItemKey[]
   expanded?: TreeItemKey[]
-  multiselect?: boolean
-  leafs?: boolean
   labelHook?: TreeItemHook
 }
 
@@ -38,10 +36,10 @@ export class Tree {
   readonly selected = createStateStore()
   readonly value = createValueStore(this)
 
-  init(options: ComponentOptions) {
+  init(options: ComponentOptions, multiselect = false, leafs = false) {
     this.items = options.items.map((item) => this.processData(item))
-    this.multiselect = options.multiselect ?? false
-    this.leafs = options.leafs ?? false
+    this.multiselect = multiselect
+    this.leafs = leafs
     this.labelHook = options.labelHook
 
     if (options.selected) {
@@ -115,6 +113,10 @@ export class Tree {
 
   getValue() {
     return get(this.value)
+  }
+
+  getSelected() {
+    return get(this.selected)
   }
 
   protected filterDeep(item: TreeItem, query: string) {
@@ -199,7 +201,7 @@ export class Tree {
   protected setIndeterminateDeep(item: TreeItem) {
     if (!item.children) return
 
-    const selectedStore = get(this.selected)
+    const selectedStore = this.getSelected()
     const children = this.getChildrenDeep(item)
     const selected = children.filter((el) => selectedStore.has(el.id)).length
 

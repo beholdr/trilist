@@ -45,10 +45,14 @@ export class Tree {
     this.labelHook = options.labelHook
 
     if (options.selected) {
-      this.selected.set(
-        this.multiselect ? options.selected : options.selected.slice(0, 1)
-      )
-      this.items.forEach((item) => this.setIndeterminateDeep(item))
+      const selected = this.multiselect
+        ? options.selected
+        : options.selected.slice(0, 1)
+
+      selected.forEach((id) => {
+        const item = this.findItemById(id)
+        this.toggleSelected(item!)
+      })
     }
 
     this.expanded.set(options.expanded)

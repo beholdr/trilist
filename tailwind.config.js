@@ -16,9 +16,7 @@ export default {
       },
       borderRadius: {
         DEFAULT:
-          'var(--trilist-border-radius, ' +
-          defaultTheme.borderRadius.DEFAULT +
-          ')'
+          'var(--trilist-border-radius, ' + defaultTheme.borderRadius.md + ')'
       },
       fontSize: {
         base: 'var(--trilist-font-size, 16px)'

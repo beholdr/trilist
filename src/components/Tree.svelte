@@ -33,7 +33,7 @@
       {#if item.children}
         <div class="flex">
           <button
-            class="flex-none h-5 w-5 text-tri-gray -rotate-90 mr-1 mt-0.5 transition-transform"
+            class="flex-none h-5 w-5 text-trilist-gray -rotate-90 mr-1 mt-0.5 transition-transform"
             class:rotate-0={$expanded.has(item.key)}
             on:click|preventDefault={() =>
               handleExpand(item, $expanded.has(item.key))}
@@ -44,7 +44,7 @@
             {#if selectable}
               <input
                 type="checkbox"
-                class="mt-1 mr-2 flex-none text-tri-primary"
+                class="mt-1 mr-2 flex-none text-trilist-primary"
                 checked={$selected.has(item.id)}
                 indeterminate={$indeterminate.has(item.key)}
                 on:click={() => handleSelect(item, $selected.has(item.id))}
@@ -74,7 +74,7 @@
             {#if selectable}
               <input
                 type="checkbox"
-                class="mt-1 mr-2 flex-none text-tri-primary"
+                class="mt-1 mr-2 flex-none text-trilist-primary"
                 checked={$selected.has(item.id)}
                 on:click={() => handleSelect(item, $selected.has(item.id))}
               />

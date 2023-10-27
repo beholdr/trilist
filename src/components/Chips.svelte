@@ -21,14 +21,14 @@
 <div class="overflow-x-hidden max-h-32 flex gap-1 flex-wrap">
   {#each ids as id}
     <div
-      class="inline-flex pl-2 items-center bg-gray-200 rounded text-sm overflow-hidden"
+      class="inline-flex pl-2 items-center bg-trilist-secondary rounded text-sm overflow-hidden"
       title={tagItem(id)?.label}
     >
       <div class="py-0.5 truncate">
         {tagItem(id)?.label}
       </div>
       <button
-        class="px-1 py-0.5 text-tri-gray hover:text-tri-gray-darker"
+        class="px-1 py-0.5 text-trilist-gray hover:text-trilist-gray-alt"
         on:click|stopPropagation={() => handleRemove(id)}
       >
         {@html CloseIcon}

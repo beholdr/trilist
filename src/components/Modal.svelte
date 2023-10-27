@@ -35,9 +35,9 @@
 >
   <!-- svelte-ignore a11y-no-static-element-interactions -->
   <div class="flex flex-col max-h-full relative" on:click|stopPropagation>
-    <header class="sticky top-0 pt-3 sm:pt-6 px-3 sm:px-8 z-10 bg-white">
+    <header class="sticky top-0 pt-3 sm:pt-6 px-3 sm:px-8 z-10 bg-trilist-fone">
       <button
-        class="text-tri-gray hover:text-tri-gray-darker float-right ml-2 mt-0.5 -mr-1"
+        class="text-trilist-gray hover:text-trilist-gray-alt float-right ml-2 mt-0.5 -mr-1"
         on:click={handleCancel}
       >
         {@html CloseIcon}
@@ -46,23 +46,23 @@
       <slot name="header" />
     </header>
 
-    <div class="flex-grow px-3 sm:px-8">
+    <div class="flex-grow px-3 sm:px-8 bg-trilist-fone">
       <slot />
     </div>
 
     <footer
-      class="sticky bottom-0 pt-4 pb-3 sm:pb-6 px-3 sm:px-8 z-10 bg-white"
+      class="sticky bottom-0 pt-4 pb-3 sm:pb-6 px-3 sm:px-8 z-10 bg-trilist-fone"
     >
       <!-- svelte-ignore a11y-autofocus -->
       <button
-        class="py-2 px-6 rounded text-white bg-tri-primary mr-2"
+        class="py-2 px-6 rounded text-white bg-trilist-primary mr-2"
         autofocus
         on:click={handleSubmit}
       >
         {selectButton}
       </button>
       <button
-        class="py-2 px-6 rounded border text-tri-gray hover:text-tri-gray-darker border-tri-gray hover:border-tri-gray-darker"
+        class="py-2 px-6 rounded border text-curent border-trilist-gray hover:border-trilist-gray-alt"
         on:click={handleCancel}
       >
         {cancelButton}

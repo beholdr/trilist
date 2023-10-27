@@ -71,7 +71,7 @@
 
 <div {...$$restProps} bind:this={el}>
   <button
-    class="flex justify-between w-full px-4 py-2 text-left rounded border border-tri-gray hover:border-tri-gray-darker"
+    class="flex justify-between w-full px-4 py-2 text-left select-none rounded border border-trilist-gray hover:border-trilist-gray-alt bg-trilist-input"
     on:click={openModal}
   >
     {#if $value.length}
@@ -79,7 +79,7 @@
     {:else}
       <div class="text-gray-500 truncate">{placeholder}</div>
     {/if}
-    <span class="text-tri-gray ml-2 -mr-1">{@html TreeIcon}</span>
+    <span class="text-trilist-gray ml-2 -mr-1">{@html TreeIcon}</span>
   </button>
 
   <Modal

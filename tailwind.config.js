@@ -8,18 +8,23 @@ export default {
   theme: {
     extend: {
       colors: {
-        'tri-primary': 'var(--trilist-color-primary, ' + colors.blue[600] + ')',
-        'tri-text': 'var(--trilist-color-text, ' + colors.gray[800] + ')',
-        'tri-gray': 'var(--trilist-color-lines, ' + colors.gray[400] + ')',
-        'tri-gray-darker':
-          'var(--trilist-color-lines-darker, ' + colors.gray[500] + ')'
+        'trilist-primary':
+          'var(--trilist-color-primary, ' + colors.blue[600] + ')',
+        'trilist-secondary':
+          'var(--trilist-color-secondary, ' + colors.gray[200] + ')',
+        'trilist-input': 'var(--trilist-color-input, ' + colors.white + ')',
+        'trilist-fone': 'var(--trilist-color-fone, ' + colors.white + ')',
+        'trilist-gray': 'var(--trilist-color-gray, ' + colors.gray[400] + ')',
+        'trilist-gray-alt':
+          'var(--trilist-color-gray-alt, ' + colors.gray[500] + ')'
       },
       borderRadius: {
         DEFAULT:
           'var(--trilist-border-radius, ' + defaultTheme.borderRadius.md + ')'
       },
       fontSize: {
-        base: 'var(--trilist-font-size, 16px)'
+        base: 'var(--trilist-text-base, 16px)',
+        sm: 'var(--trilist-text-sm, 14px)'
       }
     }
   },

@@ -1,7 +1,6 @@
 <svelte:options
   customElement={{
     tag: 'trilist-view',
-    extend: extendElement,
     props: {
       animated: { type: 'Boolean' },
       filter: { type: 'Boolean' },
@@ -18,7 +17,6 @@
 
   import {
     dispatchOut,
-    extendElement,
     Tree,
     TrilistEvents,
     type ComponentOptions,

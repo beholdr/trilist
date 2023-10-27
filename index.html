@@ -10,6 +10,10 @@
   <link rel="icon"
     href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%220.9em%22 font-size=%22120%22>☘️</text></svg>">
   <style>
+    /*:not(:defined) {
+      visibility: hidden;
+    }*/
+
     html {
       color: #888;
       font-size: 12px;
@@ -49,7 +53,7 @@
     <trilist-select id="trilist-4"></trilist-select>
   </div>
 
-  <script>
+  <script type="module">
     const tree1 = [
       {
         id: 1,
@@ -96,32 +100,13 @@
     const tree2 = JSON.parse(JSON.stringify(tree1))
     tree2.push({ id: 6, label: "Category 6" })
 
-    /* const tree = []
-    for (let i = 1; i < 100; i++) {
-      const item = {
-        id: i,
-        label: 'Category ' + i,
-        children: []
-      }
-
-
-      for (let ii = 1; ii < 50; ii++) {
-        item.children.push({
-          id: `l-${i}-${ii}`,
-          label: 'Label ' + ii
-        })
-      }
-
-      tree.push(item)
-    } */
-
     const convertData = (data) => {
       const result = []
-      for (item of data.data) {
+      for (const item of data.data) {
         if (!item.parents.length) {
           result.push({ id: item.id, label: item.title })
         } else {
-          for (parent of item.parents) {
+          for (const parent of item.parents) {
             const idx = result.findIndex(el => el.id === parent.id)
             if (!result[idx].children) {
               result[idx].children = []
@@ -134,51 +119,39 @@
       return result
     }
 
+    await Promise.allSettled([
+      customElements.whenDefined('trilist-view'),
+      customElements.whenDefined('trilist-select'),
+    ])
+
     const el1 = document.getElementById('trilist-1')
-    el1.addEventListener('connect', (e) => {
-      // fetch('https://rbtu.ru/api/regions')
-      //   .then(res => res.json())
-      //   .then(data => {
-      //     e.detail.el.init({
-      //       items: convertData(data)
-      //     })
-      //   })
-      e.detail.el.init({
-        items: tree1,
-        selected: ['12', '3', '4'],
-        expanded: ['1']
-      })
+    el1.init({
+      items: tree1,
+      selected: ['12', '3', '4'],
+      expanded: ['1']
     })
     el1.addEventListener('select', (e) => console.log(e.detail))
 
     const el2 = document.getElementById('trilist-2')
-    el2.addEventListener('connect', (e) => {
-      e.detail.el.init({
-        items: tree2,
-        expanded: ['2', '2-21'],
-        labelHook: (item) => item.label + ' → <a style="text-decoration: underline" href="' + item.id + '">edit</a>'
-      })
+    el2.init({
+      items: tree2,
+      expanded: ['2', '2-21'],
+      labelHook: (item) => item.label + ' → <a style="text-decoration: underline" href="' + item.id + '">edit</a>'
     })
 
     const el3 = document.getElementById('trilist-3')
-    el3.addEventListener('connect', (e) => {
-      fetch('https://rbtu.ru/api/professions')
-        .then(res => res.json())
-        .then(data => {
-          e.detail.el.init({
-            items: convertData(data),
-            selected: [29, 30, 31, 145]
-          })
+    fetch('https://rbtu.ru/api/professions')
+      .then(res => res.json())
+      .then(data => {
+        el3.init({
+          items: convertData(data),
+          selected: [29, 30, 31, 145]
         })
-    })
+      })
     el3.addEventListener('select', (e) => console.log(e.detail))
 
     const el4 = document.getElementById('trilist-4')
-    el4.addEventListener('connect', (e) => {
-      e.detail.el.init({
-        items: tree2
-      })
-    })
+    el4.init({ items: tree2 })
   </script>
 
   <script type="module" src="/src/main.ts"></script>

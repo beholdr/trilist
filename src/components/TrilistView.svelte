@@ -23,6 +23,7 @@
   import { getStyles } from '../theme'
 
   export let animated = false
+  export let animatedEnabled = false // passed from TrilistSelect as reactive prop
   export let filter = false
   export let filterPlaceholder = 'Quick search'
   export let leafs = false
@@ -31,7 +32,6 @@
 
   let items: TreeItem[] = []
   let el: HTMLElement
-  let animatedEnabled = false
 
   const isChild = hasContext('trilist')
   const trilist = isChild ? getContext<Trilist>('trilist') : new Trilist()

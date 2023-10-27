@@ -39,6 +39,7 @@
   let elTree: SvelteComponent
   let showModal = false
   let previousValue: TreeItemKey[]
+  let animatedEnabled = false
 
   const trilist = new Trilist()
   setContext('trilist', trilist)
@@ -50,7 +51,12 @@
   }
 
   const openModal = () => {
+    // enable animation after modal opening
+    animatedEnabled = false
+    setTimeout(() => (animatedEnabled = animated), 300)
+
     previousValue = trilist.getValue()
+
     showModal = true
   }
 
@@ -92,7 +98,7 @@
 
     <TrilistView
       bind:this={elTree}
-      {animated}
+      {animatedEnabled}
       {leafs}
       {multiselect}
       selectable

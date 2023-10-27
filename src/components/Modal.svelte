@@ -36,7 +36,7 @@
   <div class="flex flex-col max-h-full relative" on:click|stopPropagation>
     <header class="sticky top-0 pt-3 sm:pt-6 px-3 sm:px-8 z-10 bg-white">
       <button
-        class="text-tri-gray hover:text-tri-gray-darker float-right ml-2 -mr-0.5"
+        class="text-tri-gray hover:text-tri-gray-darker float-right ml-2 mt-0.5 -mr-1"
         on:click={handleCancel}
       >
         {@html CloseIcon}

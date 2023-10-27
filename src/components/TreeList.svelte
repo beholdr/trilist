@@ -50,7 +50,9 @@
                 on:click={() => handleSelect(item, $selected.has(item.id))}
               />
             {/if}
-            {@html tree.labelHook ? tree.labelHook(item) : item.label}
+            <span>
+              {@html tree.labelHook ? tree.labelHook(item) : item.label}
+            </span>
           </label>
         </div>
         <div
@@ -77,7 +79,9 @@
                 on:click={() => handleSelect(item, $selected.has(item.id))}
               />
             {/if}
-            {@html tree.labelHook ? tree.labelHook(item) : item.label}
+            <span>
+              {@html tree.labelHook ? tree.labelHook(item) : item.label}
+            </span>
           </label>
         </div>
       {/if}

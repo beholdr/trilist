@@ -17,8 +17,8 @@
 
   import { Trilist, type ComponentOptions, type TreeItem } from '../lib'
 
-  import TreeFilter from './TreeFilter.svelte'
-  import TreeList from './TreeList.svelte'
+  import Filter from './Filter.svelte'
+  import Tree from './Tree.svelte'
 
   import { getStyles } from '../theme'
 
@@ -58,10 +58,10 @@
 
 <div {...$$restProps} bind:this={el}>
   {#if filter}
-    <TreeFilter {filterPlaceholder} />
+    <Filter {filterPlaceholder} />
   {/if}
 
-  <TreeList
+  <Tree
     {items}
     {selectable}
     animated={animatedEnabled}

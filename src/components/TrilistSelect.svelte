@@ -19,10 +19,10 @@
 
   import { Trilist, type ComponentOptions, type TreeItemKey } from '../lib'
 
-  import TreeFilter from './TreeFilter.svelte'
-  import TreeTags from './TreeTags.svelte'
-  import TrilistView from './TrilistView.svelte'
+  import Chips from './Chips.svelte'
+  import Filter from './Filter.svelte'
   import Modal from './Modal.svelte'
+  import TrilistView from './TrilistView.svelte'
 
   import TreeIcon from '../assets/tree.svg?raw'
 
@@ -69,7 +69,7 @@
     on:click={openModal}
   >
     {#if $value.length}
-      <TreeTags ids={$value} on:trilist-change={onChange} />
+      <Chips ids={$value} on:trilist-change={onChange} />
     {:else}
       <div class="text-gray-500 truncate">{placeholder}</div>
     {/if}
@@ -86,7 +86,7 @@
     <span slot="header">
       <h2 class="text-lg font-medium mb-5 leading-tight">{placeholder}</h2>
       {#if filter}
-        <TreeFilter {filterPlaceholder} />
+        <Filter {filterPlaceholder} />
       {/if}
     </span>
 

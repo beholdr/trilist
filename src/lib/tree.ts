@@ -43,14 +43,7 @@ export class Tree {
     this.labelHook = options.labelHook
 
     if (options.selected) {
-      const selected = this.multiselect
-        ? options.selected
-        : options.selected.slice(0, 1)
-
-      selected.forEach((id) => {
-        const item = this.findItemById(id)
-        this.toggleSelected(item!)
-      })
+      this.setValue(options.selected)
     }
 
     this.expanded.set(options.expanded)
@@ -115,12 +108,16 @@ export class Tree {
     return get(this.value)
   }
 
-  getSelected() {
-    return get(this.selected)
-  }
+  setValue(value: TreeItemKey[]) {
+    this.selected.clear()
+    this.indeterminate.clear()
 
-  getIndeterminate() {
-    return get(this.indeterminate)
+    const ids = this.multiselect ? value : value.slice(0, 1)
+
+    ids.forEach((id) => {
+      const item = this.findItemById(id)
+      this.toggleSelected(item!)
+    })
   }
 
   protected filterDeep(item: TreeItem, query: string) {
@@ -205,7 +202,7 @@ export class Tree {
   protected setIndeterminateDeep(item: TreeItem) {
     if (!item.children) return
 
-    const selectedStore = this.getSelected()
+    const selectedStore = get(this.selected)
     const children = this.getChildrenDeep(item)
     const selected = children.filter((el) => selectedStore.has(el.id)).length
 

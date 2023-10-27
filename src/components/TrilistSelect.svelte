@@ -20,6 +20,7 @@
   import { Tree, type ComponentOptions, type TreeItemKey } from '../lib/tree'
   import { dispatchOut, extendElement, TrilistEvents } from '../lib/components'
   import TreeFilter from './TreeFilter.svelte'
+  import TreeTags from './TreeTags.svelte'
   import TrilistView from './TrilistView.svelte'
   import Modal from './Modal.svelte'
 
@@ -36,21 +37,19 @@
 
   let el: HTMLElement
   let elTree: SvelteComponent
+  let showModal = false
+  let previousValue: TreeItemKey[]
 
   const tree = new Tree()
+  const value = tree.value
   setContext('tree', tree)
 
   export const init = (options: ComponentOptions) => {
     elTree.init(options)
   }
 
-  let showModal = false
-  let selectedPrevious: TreeItemKey[]
-  let indeterminatePrevious: TreeItemKey[]
-
   const openModal = () => {
-    selectedPrevious = [...tree.getSelected()]
-    indeterminatePrevious = [...tree.getIndeterminate()]
+    previousValue = tree.getValue()
     showModal = true
   }
 
@@ -62,18 +61,21 @@
   }
 
   const onCancel = () => {
-    tree.selected.set(selectedPrevious)
-    tree.indeterminate.set(indeterminatePrevious)
+    tree.setValue(previousValue)
   }
 </script>
 
 <div {...$$restProps} bind:this={el}>
   <button
-    class="flex justify-between items-center w-full px-3 py-2 text-left rounded border border-tri-gray hover:border-tri-gray-darker"
+    class="flex justify-between w-full px-4 py-2 text-left rounded border border-tri-gray hover:border-tri-gray-darker"
     on:click={openModal}
   >
-    <span class="text-gray-500 truncate">{placeholder}</span>
-    <span class="text-tri-gray ml-2">{@html TreeIcon}</span>
+    {#if $value.length}
+      <TreeTags ids={$value} on:select={onSelect} />
+    {:else}
+      <div class="text-gray-500 truncate">{placeholder}</div>
+    {/if}
+    <span class="text-tri-gray ml-2 -mr-1">{@html TreeIcon}</span>
   </button>
 
   <Modal

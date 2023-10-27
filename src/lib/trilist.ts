@@ -1,5 +1,7 @@
 import { get } from 'svelte/store'
 
+import { TrilistEvents, type TrilistChangeEvent } from './events'
+
 import { createStateStore } from '../stores/state'
 import { createValueStore } from '../stores/value'
 
@@ -25,7 +27,8 @@ export interface TreeItem extends OptionItem {
   children?: TreeItem[]
 }
 
-export class Tree {
+export class Trilist {
+  el: HTMLElement | undefined
   items: TreeItem[] = []
   multiselect = false
   leafs = false
@@ -37,8 +40,15 @@ export class Tree {
   readonly selected = createStateStore()
   readonly value = createValueStore(this)
 
-  init(options: ComponentOptions, multiselect = false, leafs = false) {
+  init(
+    options: ComponentOptions,
+    el: HTMLElement,
+    multiselect = false,
+    leafs = false
+  ) {
     this.items = options.items.map((item) => this.processData(item))
+
+    this.el = el
     this.multiselect = multiselect
     this.leafs = leafs
     this.labelHook = options.labelHook
@@ -105,6 +115,10 @@ export class Tree {
     return null
   }
 
+  getLabel(item: TreeItem) {
+    return this.labelHook ? this.labelHook(item) : item.label
+  }
+
   getValue() {
     return get(this.value)
   }
@@ -119,6 +133,14 @@ export class Tree {
       const item = this.findItemById(id)
       this.toggleSelected(item!)
     })
+  }
+
+  dispatchChangeEvent() {
+    this.findHost(this.el!)?.dispatchEvent(
+      new CustomEvent(TrilistEvents.change, {
+        detail: this.getValue()
+      }) satisfies TrilistChangeEvent
+    )
   }
 
   protected filterDeep(item: TreeItem, query: string) {
@@ -153,6 +175,14 @@ export class Tree {
         }),
       {}
     )
+  }
+
+  protected findHost(el: Element | ShadowRoot): Element | null {
+    if ('host' in el) {
+      return el.host
+    }
+
+    return el.parentNode ? this.findHost(el.parentNode as Element) : null
   }
 
   protected processData(item: OptionItem, key = '') {

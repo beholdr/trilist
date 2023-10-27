@@ -15,13 +15,7 @@
 <script lang="ts">
   import { getContext, hasContext, setContext, onMount } from 'svelte'
 
-  import {
-    dispatchOut,
-    Tree,
-    TrilistEvents,
-    type ComponentOptions,
-    type TreeItem
-  } from '../lib'
+  import { Trilist, type ComponentOptions, type TreeItem } from '../lib'
 
   import TreeFilter from './TreeFilter.svelte'
   import TreeList from './TreeList.svelte'
@@ -39,24 +33,21 @@
   let el: HTMLElement
   let animatedEnabled = false
 
-  const isSelectComponent = hasContext('tree')
-  const tree = isSelectComponent ? getContext<Tree>('tree') : new Tree()
+  const isChild = hasContext('trilist')
+  const trilist = isChild ? getContext<Trilist>('trilist') : new Trilist()
 
-  if (!isSelectComponent) {
-    setContext('tree', tree)
+  if (!isChild) {
+    setContext('trilist', trilist)
   }
 
   export const init = (options: ComponentOptions) => {
-    items = tree.init(options, multiselect, leafs)
+    items = trilist.init(options, el, multiselect, leafs)
   }
 
-  const onSelect = () => {
-    if (isSelectComponent) return
-
-    dispatchOut(
-      el,
-      new CustomEvent(TrilistEvents.select, { detail: tree.getValue() })
-    )
+  const onChange = () => {
+    if (!isChild) {
+      trilist.dispatchChangeEvent()
+    }
   }
 
   // enable animation after initial rendering
@@ -74,6 +65,6 @@
     {items}
     {selectable}
     animated={animatedEnabled}
-    on:select={onSelect}
+    on:trilist-change={onChange}
   />
 </div>

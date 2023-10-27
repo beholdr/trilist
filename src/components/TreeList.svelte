@@ -1,7 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher, getContext } from 'svelte'
 
-  import { TrilistEvents, type Tree, type TreeItem } from '../lib'
+  import { TrilistEvents, type Trilist, type TreeItem } from '../lib'
 
   import BulletIcon from '../assets/bullet.svg?raw'
 
@@ -9,21 +9,21 @@
   export let animated = false
   export let selectable = false
 
-  const tree = getContext<Tree>('tree')
-  const expanded = tree.expanded
-  const hidden = tree.hidden
-  const indeterminate = tree.indeterminate
-  const selected = tree.selected
+  const trilist = getContext<Trilist>('trilist')
+  const expanded = trilist.expanded
+  const hidden = trilist.hidden
+  const indeterminate = trilist.indeterminate
+  const selected = trilist.selected
 
   const dispatch = createEventDispatcher()
 
   const handleExpand = (item: TreeItem, selected: boolean) => {
-    tree.toggleExpanded(item, !selected)
+    trilist.toggleExpanded(item, !selected)
   }
 
   const handleSelect = (item: TreeItem, selected: boolean) => {
-    tree.toggleSelected(item, !selected)
-    dispatch(TrilistEvents.select)
+    trilist.toggleSelected(item, !selected)
+    dispatch(TrilistEvents.change)
   }
 </script>
 
@@ -51,7 +51,7 @@
               />
             {/if}
             <span>
-              {@html tree.labelHook ? tree.labelHook(item) : item.label}
+              {@html trilist.getLabel(item)}
             </span>
           </label>
         </div>
@@ -64,7 +64,7 @@
             items={item.children}
             {animated}
             {selectable}
-            on:select
+            on:trilist-change
           />
         </div>
       {:else}
@@ -80,7 +80,7 @@
               />
             {/if}
             <span>
-              {@html tree.labelHook ? tree.labelHook(item) : item.label}
+              {@html trilist.getLabel(item)}
             </span>
           </label>
         </div>

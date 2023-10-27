@@ -17,13 +17,7 @@
 <script lang="ts">
   import { setContext, type SvelteComponent } from 'svelte'
 
-  import {
-    dispatchOut,
-    Tree,
-    TrilistEvents,
-    type ComponentOptions,
-    type TreeItemKey
-  } from '../lib'
+  import { Trilist, type ComponentOptions, type TreeItemKey } from '../lib'
 
   import TreeFilter from './TreeFilter.svelte'
   import TreeTags from './TreeTags.svelte'
@@ -46,28 +40,26 @@
   let showModal = false
   let previousValue: TreeItemKey[]
 
-  const tree = new Tree()
-  const value = tree.value
-  setContext('tree', tree)
+  const trilist = new Trilist()
+  setContext('trilist', trilist)
+
+  const value = trilist.value
 
   export const init = (options: ComponentOptions) => {
-    elTree.init(options)
+    elTree.init(options, el)
   }
 
   const openModal = () => {
-    previousValue = tree.getValue()
+    previousValue = trilist.getValue()
     showModal = true
   }
 
-  const onSelect = () => {
-    dispatchOut(
-      el,
-      new CustomEvent(TrilistEvents.select, { detail: tree.getValue() })
-    )
+  const onChange = () => {
+    trilist.dispatchChangeEvent()
   }
 
   const onCancel = () => {
-    tree.setValue(previousValue)
+    trilist.setValue(previousValue)
   }
 </script>
 
@@ -77,7 +69,7 @@
     on:click={openModal}
   >
     {#if $value.length}
-      <TreeTags ids={$value} on:select={onSelect} />
+      <TreeTags ids={$value} on:trilist-change={onChange} />
     {:else}
       <div class="text-gray-500 truncate">{placeholder}</div>
     {/if}
@@ -88,8 +80,8 @@
     bind:showModal
     {selectButton}
     {cancelButton}
-    on:select={onSelect}
-    on:cancel={onCancel}
+    on:trilist-change={onChange}
+    on:trilist-cancel={onCancel}
   >
     <span slot="header">
       <h2 class="text-lg font-medium mb-5 leading-tight">{placeholder}</h2>

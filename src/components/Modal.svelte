@@ -15,12 +15,12 @@
   $: if (dialog && showModal) dialog.showModal()
 
   const handleSubmit = () => {
-    dispatch(TrilistEvents.select)
+    dispatch(TrilistEvents.change)
     dialog.close()
   }
 
   const handleCancel = () => {
-    dispatch(TrilistEvents.cancel)
+    dispatch('trilist-cancel')
     dialog.close()
   }
 </script>

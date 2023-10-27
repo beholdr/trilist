@@ -1,20 +1,20 @@
 <script lang="ts">
   import { createEventDispatcher, getContext } from 'svelte'
 
-  import { TrilistEvents, type Tree, type TreeItemKey } from '../lib'
+  import { TrilistEvents, type Trilist, type TreeItemKey } from '../lib'
 
   import CloseIcon from '../assets/close.svg?raw'
 
   export let ids: TreeItemKey[]
 
-  const tree = getContext<Tree>('tree')
+  const trilist = getContext<Trilist>('trilist')
   const dispatch = createEventDispatcher()
 
-  const tagItem = (id: TreeItemKey) => tree.findItemById(id)
+  const tagItem = (id: TreeItemKey) => trilist.findItemById(id)
 
   const handleRemove = (id: TreeItemKey) => {
-    tree.toggleSelected(tagItem(id)!, false)
-    dispatch(TrilistEvents.select)
+    trilist.toggleSelected(tagItem(id)!, false)
+    dispatch(TrilistEvents.change)
   }
 </script>
 

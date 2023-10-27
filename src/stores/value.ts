@@ -1,5 +1,6 @@
 import { derived } from 'svelte/store'
-import type { Tree, TreeItemKey } from '../lib/tree'
+
+import { type Tree, type TreeItemKey } from '../lib'
 
 export const createValueStore = (tree: Tree) =>
   derived(tree.selected, ($store) => {

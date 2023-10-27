@@ -1,9 +1,9 @@
 <script lang="ts">
   import { createEventDispatcher, getContext } from 'svelte'
-  import type { Tree, TreeItemKey } from '../lib/tree'
+
+  import { TrilistEvents, type Tree, type TreeItemKey } from '../lib'
 
   import CloseIcon from '../assets/close.svg?raw'
-  import { TrilistEvents } from '../lib'
 
   export let ids: TreeItemKey[]
 

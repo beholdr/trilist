@@ -1,6 +1,7 @@
 <script lang="ts">
   import { getContext } from 'svelte'
-  import type { Tree } from '../lib/tree'
+
+  import { type Tree } from '../lib'
 
   import ExpandIcon from '../assets/expand.svg?raw'
   import CollapseIcon from '../assets/collapse.svg?raw'

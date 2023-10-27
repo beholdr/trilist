@@ -1,5 +1,6 @@
 import { writable } from 'svelte/store'
-import type { TreeItemKey } from '../lib/tree'
+
+import { type TreeItemKey } from '../lib'
 
 export const createStateStore = () => {
   const { set, subscribe, update } = writable<Set<TreeItemKey>>(new Set([]))

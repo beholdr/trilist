@@ -1,7 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher, getContext } from 'svelte'
-  import type { Tree, TreeItem } from '../lib/tree'
-  import { TrilistEvents } from '../lib/components'
+
+  import { TrilistEvents, type Tree, type TreeItem } from '../lib'
 
   import BulletIcon from '../assets/bullet.svg?raw'
 

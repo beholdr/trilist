@@ -15,8 +15,16 @@
 
 <script lang="ts">
   import { getContext, hasContext, setContext, onMount } from 'svelte'
-  import { dispatchOut, TrilistEvents, extendElement } from '../lib/components'
-  import { Tree, type ComponentOptions, type TreeItem } from '../lib/tree'
+
+  import {
+    dispatchOut,
+    extendElement,
+    Tree,
+    TrilistEvents,
+    type ComponentOptions,
+    type TreeItem
+  } from '../lib'
+
   import TreeFilter from './TreeFilter.svelte'
   import TreeList from './TreeList.svelte'
 

@@ -1,5 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte'
+
   import { TrilistEvents } from '../lib'
 
   import CloseIcon from '../assets/close.svg?raw'

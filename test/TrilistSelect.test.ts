@@ -58,7 +58,7 @@ test('select with custom labels', async () => {
 })
 
 test('with selected items', async () => {
-  const result = render(TrilistSelect, { multiselect: true })
+  const result = render(TrilistSelect, { multiple: true })
   await result.component.init({ items: treeData, selected: ['12', '3', '4'] })
 
   expect(
@@ -92,7 +92,7 @@ test('single selection select', async () => {
 })
 
 test('single selection select', async () => {
-  const result = render(TrilistSelect, { multiselect: true })
+  const result = render(TrilistSelect, { multiple: true })
   await result.component.init({ items: treeData })
 
   await showModal(result)

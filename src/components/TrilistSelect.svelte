@@ -6,7 +6,7 @@
       filter: { type: 'Boolean' },
       filterPlaceholder: { type: 'String', attribute: 'filter-placeholder' },
       leafs: { type: 'Boolean' },
-      multiselect: { type: 'Boolean' },
+      multiple: { type: 'Boolean' },
       placeholder: { type: 'String' },
       selectButton: { type: 'String', attribute: 'select-button' },
       cancelButton: { type: 'String', attribute: 'cancel-button' }
@@ -30,7 +30,7 @@
   export let filter = false
   export let filterPlaceholder = 'Quick search'
   export let leafs = false
-  export let multiselect = false
+  export let multiple = false
   export let placeholder = 'Please select...'
   export let selectButton = 'Select'
   export let cancelButton = 'Cancel'
@@ -108,7 +108,7 @@
       bind:this={elTree}
       {animatedEnabled}
       {leafs}
-      {multiselect}
+      {multiple}
       selectable
     />
   </Modal>

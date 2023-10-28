@@ -30,7 +30,7 @@ export interface TreeItem extends OptionItem {
 export class Trilist {
   el: HTMLElement | undefined
   items: TreeItem[] = []
-  multiselect = false
+  multiple = false
   leafs = false
   labelHook: TreeItemHook | undefined
 
@@ -43,13 +43,13 @@ export class Trilist {
   init(
     options: TrilistOptions,
     el: HTMLElement,
-    multiselect = false,
+    multiple = false,
     leafs = false
   ) {
     this.items = options.items.map((item) => this.processData(item))
 
     this.el = el
-    this.multiselect = multiselect
+    this.multiple = multiple
     this.leafs = leafs
     this.labelHook = options.labelHook
 
@@ -63,7 +63,7 @@ export class Trilist {
   }
 
   toggleSelected(item: TreeItem, value = true) {
-    if (this.multiselect) {
+    if (this.multiple) {
       this.setSelectedDeep(item, value)
     } else {
       if (value) {
@@ -127,7 +127,7 @@ export class Trilist {
     this.selected.clear()
     this.indeterminate.clear()
 
-    const ids = this.multiselect ? value : value.slice(0, 1)
+    const ids = this.multiple ? value : value.slice(0, 1)
 
     ids.forEach((id) => {
       const item = this.findItemById(id)
@@ -239,7 +239,7 @@ export class Trilist {
 
     if (!selected) {
       // to correct cleanup of previous selected parent on single selection mode
-      if (this.multiselect) {
+      if (this.multiple) {
         this.selected.setValue(item.id, false)
       }
       this.indeterminate.setValue(item.key, false)
@@ -247,7 +247,7 @@ export class Trilist {
       this.selected.setValue(item.id, false)
       this.indeterminate.setValue(item.key, true)
     } else if (children.length === selected) {
-      if (this.multiselect) {
+      if (this.multiple) {
         this.selected.setValue(item.id, true)
         this.indeterminate.setValue(item.key, false)
       } else {

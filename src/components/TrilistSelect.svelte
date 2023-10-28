@@ -71,13 +71,14 @@
 
 <div
   {...$$restProps}
-  class="trilist-select"
+  id="trilist-select"
   role="combobox"
   aria-expanded={showModal}
-  aria-controls="trilist-select-dialog"
+  aria-controls="trilist-dialog"
   bind:this={el}
 >
   <button
+    id="trilist-select-button"
     class="flex justify-between w-full px-4 py-2 text-left select-none rounded border border-trilist-gray hover:border-trilist-gray-alt bg-trilist-input"
     on:click={openModal}
   >
@@ -90,7 +91,7 @@
   </button>
 
   <Modal
-    id="trilist-select-dialog"
+    id="trilist-dialog"
     bind:showModal
     {selectButton}
     {cancelButton}

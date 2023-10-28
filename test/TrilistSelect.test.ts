@@ -6,7 +6,7 @@ import { treeData } from './fixtures'
 
 const showModal = async (result: RenderResult<TrilistSelect>) => {
   const user = userEvent.setup()
-  const button = result.container.querySelector('.trilist-select > button')
+  const button = result.container.querySelector('#trilist-select-button')
 
   await user.click(button!)
 }
@@ -20,13 +20,11 @@ test('empty select', async () => {
 test('show dialog', async () => {
   const result = render(TrilistSelect)
 
-  expect(
-    result.container.querySelector('#trilist-select-dialog')
-  ).not.toBeVisible()
+  expect(result.container.querySelector('#trilist-dialog')).not.toBeVisible()
 
   await showModal(result)
 
-  expect(result.container.querySelector('#trilist-select-dialog')).toBeVisible()
+  expect(result.container.querySelector('#trilist-dialog')).toBeVisible()
 })
 
 test('select with custom labels', async () => {
@@ -41,19 +39,19 @@ test('select with custom labels', async () => {
   expect(() => result.getByPlaceholderText('FILTER_PLACEHOLDER')).not.toThrow()
 
   expect(
-    result.container.querySelector('#trilist-select-dialog footer')
+    result.container.querySelector('#trilist-dialog-select')
   ).toHaveTextContent('SELECT_BUTTON')
 
   expect(
-    result.container.querySelector('#trilist-select-dialog footer')
+    result.container.querySelector('#trilist-dialog-cancel')
   ).toHaveTextContent('CANCEL_BUTTON')
 
   expect(
-    result.container.querySelector('.trilist-select > button')
+    result.container.querySelector('#trilist-select-button')
   ).toHaveTextContent('PROP_PLACEHOLDER')
 
   expect(
-    result.container.querySelector('#trilist-select-dialog header h2')
+    result.container.querySelector('#trilist-dialog header')
   ).toHaveTextContent('PROP_PLACEHOLDER')
 })
 
@@ -62,19 +60,19 @@ test('with selected items', async () => {
   await result.component.init({ items: treeData, selected: ['12', '3', '4'] })
 
   expect(
-    result.container.querySelectorAll('.trilist-select .trilist-chip')
+    result.container.querySelectorAll('#trilist-select-chips .trilist-chip')
       .length
   ).toBe(3)
 
   const user = userEvent.setup()
   const button = result.container.querySelector(
-    '.trilist-select .trilist-chip:first > button'
+    '#trilist-select-chips .trilist-chip:first > button'
   )
 
   await user.click(button!)
 
   expect(
-    result.container.querySelectorAll('.trilist-select > button .trilist-chip')
+    result.container.querySelectorAll('#trilist-select-chips .trilist-chip')
       .length
   ).toBe(2)
 })

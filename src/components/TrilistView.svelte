@@ -58,7 +58,7 @@
 
 <div
   {...$$restProps}
-  class="trilist-view"
+  id="trilist-view"
   role="tree"
   aria-multiselectable={multiple}
   bind:this={el}

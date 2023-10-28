@@ -18,7 +18,10 @@
   }
 </script>
 
-<div class="overflow-x-hidden max-h-32 flex gap-1 flex-wrap">
+<div
+  id="trilist-select-chips"
+  class="overflow-x-hidden max-h-36 flex gap-1 flex-wrap"
+>
   {#each ids as id}
     <div
       class="trilist-chip inline-flex pl-2 items-center bg-trilist-secondary rounded text-sm overflow-hidden"

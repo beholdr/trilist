@@ -66,6 +66,7 @@
       >
         <!-- svelte-ignore a11y-autofocus -->
         <button
+          id="trilist-dialog-select"
           class="py-2 px-6 rounded text-white bg-trilist-primary mr-2"
           autofocus
           on:click={handleSubmit}
@@ -73,6 +74,7 @@
           {selectButton}
         </button>
         <button
+          id="trilist-dialog-cancel"
           class="py-2 px-6 rounded border text-curent border-trilist-gray hover:border-trilist-gray-alt"
           on:click={handleCancel}
         >

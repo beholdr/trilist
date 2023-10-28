@@ -60,19 +60,19 @@ test('with selected items', async () => {
   await result.component.init({ items: treeData, selected: ['12', '3', '4'] })
 
   expect(
-    result.container.querySelectorAll('#trilist-select-chips .trilist-chip')
+    result.container.querySelectorAll('#trilist-select-tags .trilist-tag')
       .length
   ).toBe(3)
 
   const user = userEvent.setup()
   const button = result.container.querySelector(
-    '#trilist-select-chips .trilist-chip:first > button'
+    '#trilist-select-tags .trilist-tag:first > button'
   )
 
   await user.click(button!)
 
   expect(
-    result.container.querySelectorAll('#trilist-select-chips .trilist-chip')
+    result.container.querySelectorAll('#trilist-select-tags .trilist-tag')
       .length
   ).toBe(2)
 })

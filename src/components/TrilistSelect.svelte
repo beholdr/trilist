@@ -19,7 +19,7 @@
 
   import { Trilist, type TrilistOptions, type TreeItemKey } from '../lib'
 
-  import Chips from './Chips.svelte'
+  import Tags from './Tags.svelte'
   import Filter from './Filter.svelte'
   import Modal from './Modal.svelte'
   import TrilistView from './TrilistView.svelte'
@@ -83,7 +83,7 @@
     on:click={openModal}
   >
     {#if $value.length}
-      <Chips ids={$value} on:trilist-change={onChange} />
+      <Tags ids={$value} on:trilist-change={onChange} />
     {:else}
       <div class="text-gray-500 truncate">{placeholder}</div>
     {/if}

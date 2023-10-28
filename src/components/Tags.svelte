@@ -19,12 +19,12 @@
 </script>
 
 <div
-  id="trilist-select-chips"
+  id="trilist-select-tags"
   class="overflow-x-hidden max-h-36 flex gap-1 flex-wrap"
 >
   {#each ids as id}
     <div
-      class="trilist-chip inline-flex pl-2 items-center bg-trilist-secondary rounded text-sm overflow-hidden"
+      class="trilist-tag inline-flex pl-2 items-center bg-trilist-secondary rounded text-sm overflow-hidden"
       title={tagItem(id)?.label}
     >
       <div class="truncate">

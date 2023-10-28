@@ -13,7 +13,7 @@ export default {
         'trilist-secondary':
           'var(--trilist-color-secondary, ' + colors.gray[200] + ')',
         'trilist-input': 'var(--trilist-color-input, ' + colors.white + ')',
-        'trilist-fone': 'var(--trilist-color-fone, ' + colors.white + ')',
+        'trilist-modal': 'var(--trilist-color-modal, ' + colors.white + ')',
         'trilist-gray': 'var(--trilist-color-gray, ' + colors.gray[400] + ')',
         'trilist-gray-alt':
           'var(--trilist-color-gray-alt, ' + colors.gray[500] + ')'

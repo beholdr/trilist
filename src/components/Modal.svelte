@@ -35,7 +35,7 @@
 >
   <!-- svelte-ignore a11y-no-static-element-interactions -->
   <div class="flex flex-col max-h-full relative" on:click|stopPropagation>
-    <header class="sticky top-0 pt-3 sm:pt-6 px-3 sm:px-8 z-10 bg-trilist-fone">
+    <header class="sticky top-0 pt-3 sm:pt-6 px-3 sm:px-8 z-10 bg-trilist-modal">
       <button
         class="text-trilist-gray hover:text-trilist-gray-alt float-right ml-2 mt-0.5 -mr-1"
         on:click={handleCancel}
@@ -46,12 +46,12 @@
       <slot name="header" />
     </header>
 
-    <div class="flex-grow px-3 sm:px-8 bg-trilist-fone">
+    <div class="flex-grow px-3 sm:px-8 bg-trilist-modal">
       <slot />
     </div>
 
     <footer
-      class="sticky bottom-0 pt-4 pb-3 sm:pb-6 px-3 sm:px-8 z-10 bg-trilist-fone"
+      class="sticky bottom-0 pt-4 pb-3 sm:pb-6 px-3 sm:px-8 z-10 bg-trilist-modal"
     >
       <!-- svelte-ignore a11y-autofocus -->
       <button

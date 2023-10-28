@@ -70,7 +70,7 @@
     <trilist-view id="trilist-1" style="--trilist-color-primary: rgb(220, 45, 75); --trilist-border-radius: 0"
       selectable multiselect filter leafs></trilist-view>
 
-    <trilist-view id="trilist-2" animated></trilist-view>
+    <trilist-view id="trilist-2" filter animated></trilist-view>
 
     <trilist-select id="trilist-3" placeholder="Выберите свою специальность тут" filter-placeholder="Поиск..."
       select-button="Выбрать" cancel-button="Отменить" multiselect filter animated></trilist-select>
@@ -82,45 +82,45 @@
     const tree1 = [
       {
         id: 1,
-        label: "Category 1",
+        label: 'Category 1',
         children: [
-          { id: "11", label: "Leaf 11" },
-          { id: "12", label: "Leaf xx 12" },
-        ],
+          { id: '11', label: 'Leaf 11' },
+          { id: '12', label: 'Leaf 12 xx' }
+        ]
       },
       {
-        id: "2",
-        label: "Category 2",
+        id: '2',
+        label: 'Category 2',
         children: [
-          { id: "11", label: "Leaf 11" },
+          { id: '11', label: 'Leaf 11 (category 2)' },
           {
-            id: "21", label: "Category with very long name zzz 21", children: [
-              { id: "11", label: "Leaf 11" },
-              { id: "211", label: "Leaf with very long name too 211" },
-              { id: "212", label: "Leaf 212" },
+            id: '21',
+            label: 'Category with very long name 21 zz',
+            children: [
+              { id: '11', label: 'Leaf 11 (category 21)' },
+              { id: '211', label: 'Leaf with very long name too 211 zzz' },
+              { id: '212', label: 'Leaf 212' }
             ]
-          },
-        ],
-      },
-      {
-        id: "3",
-        label: "Category 3"
-      },
-      {
-        id: "4",
-        label: "Category 4",
-        children: [
-          { id: "41", label: "Leaf 41" },
+          }
         ]
       },
       {
-        id: "5",
-        label: "Category 5",
-        children: [
-          { id: "51", label: "Leaf 51" },
-          { id: "52", label: "Leaf xxx 52" }
-        ]
+        id: '3',
+        label: 'Category 3'
       },
+      {
+        id: '4',
+        label: 'Category 4',
+        children: [{ id: '41', label: 'Leaf 41' }]
+      },
+      {
+        id: '5',
+        label: 'Category 5',
+        children: [
+          { id: '51', label: 'Leaf 51' },
+          { id: '52', label: 'Leaf 52 xxx' }
+        ]
+      }
     ];
     const tree2 = JSON.parse(JSON.stringify(tree1))
     tree2.push({ id: 6, label: "Category 6" })
@@ -176,7 +176,7 @@
     el3.addEventListener('trilist-change', (e) => console.log(e.detail))
 
     const el4 = document.getElementById('trilist-4')
-    el4.init({ items: tree2 })
+    el4.init({ items: tree2, selected: ['12', '3', '4'] })
   </script>
 
   <script type="module" src="/src/main.ts"></script>

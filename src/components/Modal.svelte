@@ -35,6 +35,7 @@
 
 <!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions -->
 <dialog
+  {...$$restProps}
   bind:this={dialog}
   class="w-[32em] mt-5 sm:mt-10 sm:max-h-[90dvh] rounded shadow-md animate-in slide-in-from-top-4 backdrop:backdrop-blur backdrop:animate-in backdrop:fade-in-0"
   on:click|self={handleCancel}

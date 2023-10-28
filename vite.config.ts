@@ -1,5 +1,5 @@
 import { resolve } from 'path'
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vitest/config'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
 import svgLoader from 'vite-svg-loader'
 import banner from 'vite-plugin-banner'
@@ -28,5 +28,10 @@ export default defineConfig({
     banner(
       `/*! ${pkg.name} v${pkg.version} (c) ${pkg.author}. Released under the ${pkg.license} license */`
     )
-  ]
+  ],
+  test: {
+    globals: true,
+    setupFiles: 'test/setup.ts',
+    environment: 'happy-dom'
+  }
 })

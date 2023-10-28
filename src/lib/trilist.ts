@@ -15,7 +15,7 @@ interface OptionItem {
   children?: OptionItem[]
 }
 
-export interface ComponentOptions {
+export interface TrilistOptions {
   items: OptionItem[]
   selected?: TreeItemKey[]
   expanded?: TreeItemKey[]
@@ -41,7 +41,7 @@ export class Trilist {
   readonly value = createValueStore(this)
 
   init(
-    options: ComponentOptions,
+    options: TrilistOptions,
     el: HTMLElement,
     multiselect = false,
     leafs = false

@@ -15,7 +15,7 @@
 <script lang="ts">
   import { getContext, hasContext, setContext, onMount } from 'svelte'
 
-  import { Trilist, type ComponentOptions, type TreeItem } from '../lib'
+  import { Trilist, type TrilistOptions, type TreeItem } from '../lib'
 
   import Filter from './Filter.svelte'
   import Tree from './Tree.svelte'
@@ -40,7 +40,7 @@
     setContext('trilist', trilist)
   }
 
-  export const init = (options: ComponentOptions) => {
+  export const init = (options: TrilistOptions) => {
     items = trilist.init(options, el, multiselect, leafs)
   }
 

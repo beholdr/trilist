@@ -17,7 +17,7 @@
 <script lang="ts">
   import { setContext, type SvelteComponent } from 'svelte'
 
-  import { Trilist, type ComponentOptions, type TreeItemKey } from '../lib'
+  import { Trilist, type TrilistOptions, type TreeItemKey } from '../lib'
 
   import Chips from './Chips.svelte'
   import Filter from './Filter.svelte'
@@ -46,7 +46,7 @@
 
   const value = trilist.value
 
-  export const init = (options: ComponentOptions) => {
+  export const init = (options: TrilistOptions) => {
     elTree.init(options, el)
   }
 

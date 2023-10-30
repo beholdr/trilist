@@ -18,6 +18,22 @@ test('simple tree', async () => {
   expect(() => result.getAllByRole('treeitem')).not.toThrow()
 })
 
+test('label hooks', async () => {
+  const result = render(TrilistView)
+  await result.component.init({
+    items: treeData,
+    labelHook: (item) => '<b class="generated-label">' + item.label + '</b>'
+  })
+
+  const label = result.container.querySelector(
+    '#trilist-view [role=treeitem] label:first'
+  )
+
+  expect(label).toContainHTML(
+    '<b class="generated-label">' + treeData[0].label + '</b>'
+  )
+})
+
 test('tree with expanded items', async () => {
   const result = render(TrilistView)
   await result.component.init({ items: treeData, expanded: ['2', '2-21'] })

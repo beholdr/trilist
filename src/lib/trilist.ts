@@ -164,19 +164,6 @@ export class Trilist {
     }
   }
 
-  protected recursiveDeepCopy(obj: any): any {
-    return Object.keys(obj).reduce(
-      (v, d) =>
-        Object.assign(v, {
-          [d]:
-            obj[d].constructor === Object
-              ? this.recursiveDeepCopy(obj[d])
-              : obj[d]
-        }),
-      {}
-    )
-  }
-
   protected findHost(el: Element | ShadowRoot): Element | null {
     if ('host' in el) {
       return el.host
@@ -196,6 +183,19 @@ export class Trilist {
     }
 
     return result
+  }
+
+  protected recursiveDeepCopy(obj: any): any {
+    return Object.keys(obj).reduce(
+      (v, d) =>
+        Object.assign(v, {
+          [d]:
+            obj[d].constructor === Object
+              ? this.recursiveDeepCopy(obj[d])
+              : obj[d]
+        }),
+      {}
+    )
   }
 
   protected setExpandDeep(item: TreeItem, value = true) {

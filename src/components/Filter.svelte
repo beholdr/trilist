@@ -18,19 +18,19 @@
 <div class="mb-4 flex gap-x-2.5">
   <input
     on:input={(e) => handleFilter(e.currentTarget.value)}
-    class="text-base leading-normal w-full flex-grow rounded border-trilist-gray bg-trilist-input"
+    class="form-input text-base leading-normal w-full flex-grow rounded border-trilist-input-border bg-trilist-input-fone"
     type="search"
     placeholder={filterPlaceholder}
   />
   <button
-    class="px-2 rounded border flex items-center justify-center text-trilist-gray hover:text-trilist-gray-alt border-trilist-gray hover:border-trilist-gray-alt active:bg-trilist-secondary"
+    class="form-button rounded px-2 border flex items-center justify-center text-trilist-button hover:text-trilist-button-hover border-trilist-input-border bg-trilist-input-fone active:bg-trilist-secondary"
     title="Expand all"
     on:click={() => trilist.expandAll()}
   >
     {@html ExpandIcon}
   </button>
   <button
-    class="px-2 rounded border flex items-center justify-center text-trilist-gray hover:text-trilist-gray-alt border-trilist-gray hover:border-trilist-gray-alt active:bg-trilist-secondary"
+    class="form-button rounded px-2 border flex items-center justify-center text-trilist-button hover:text-trilist-button-hover border-trilist-input-border bg-trilist-input-fone active:bg-trilist-secondary"
     title="Collapse all"
     on:click={() => trilist.collapseAll()}
   >

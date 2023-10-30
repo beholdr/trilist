@@ -12,11 +12,20 @@ export default {
           'var(--trilist-color-primary, ' + colors.blue[600] + ')',
         'trilist-secondary':
           'var(--trilist-color-secondary, ' + colors.gray[200] + ')',
-        'trilist-input': 'var(--trilist-color-input, ' + colors.white + ')',
-        'trilist-modal': 'var(--trilist-color-modal, ' + colors.white + ')',
-        'trilist-gray': 'var(--trilist-color-gray, ' + colors.gray[400] + ')',
-        'trilist-gray-alt':
-          'var(--trilist-color-gray-alt, ' + colors.gray[500] + ')'
+        'trilist-input-border':
+          'var(--trilist-color-input-border, ' + colors.gray[400] + ')',
+        'trilist-input-focus':
+          'var(--trilist-color-input-focus, ' + colors.blue[600] + ')',
+        'trilist-input-fone':
+          'var(--trilist-color-input-fone, ' + colors.white + ')',
+        'trilist-modal-fone':
+          'var(--trilist-color-modal-fone, ' + colors.white + ')',
+        'trilist-button':
+          'var(--trilist-color-button, ' + colors.gray[400] + ')',
+        'trilist-button-hover':
+          'var(--trilist-color-button-hover, ' + colors.gray[500] + ')',
+        'trilist-button-text':
+          'var(--trilist-color-button-text, ' + colors.white + ')'
       },
       borderRadius: {
         DEFAULT:
@@ -29,5 +38,8 @@ export default {
     }
   },
 
-  plugins: [require('@tailwindcss/forms'), require('tailwindcss-animate')]
+  plugins: [
+    require('@tailwindcss/forms')({ strategy: 'class' }),
+    require('tailwindcss-animate')
+  ]
 }

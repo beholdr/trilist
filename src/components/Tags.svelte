@@ -31,7 +31,7 @@
         {tagItem(id)?.label}
       </div>
       <button
-        class="px-1 py-0.5 text-trilist-gray hover:text-trilist-gray-alt"
+        class="form-button focus-visible:ring-2 my-0.5 mx-1 text-trilist-button hover:text-trilist-button-hover"
         on:click|stopPropagation={() => handleRemove(id)}
       >
         {@html CloseIcon}

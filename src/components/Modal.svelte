@@ -45,10 +45,10 @@
   <div on:click|stopPropagation>
     <div class="flex flex-col max-h-full">
       <header
-        class="sticky top-0 pt-3 sm:pt-6 px-3 sm:px-8 z-10 bg-trilist-modal"
+        class="sticky top-0 pt-3 sm:pt-6 px-3 sm:px-8 z-10 bg-trilist-modal-fone"
       >
         <button
-          class="text-trilist-gray hover:text-trilist-gray-alt float-right ml-2 mt-0.5 -mr-1"
+          class="form-button focus-visible:ring-2 text-trilist-button hover:text-trilist-button-hover float-right ml-2 mt-0.5 -mr-1"
           on:click={handleCancel}
         >
           {@html CloseIcon}
@@ -57,17 +57,17 @@
         <slot name="header" />
       </header>
 
-      <div class="flex-grow px-3 sm:px-8 bg-trilist-modal">
+      <div class="flex-grow px-3 sm:px-8 bg-trilist-modal-fone">
         <slot />
       </div>
 
       <footer
-        class="sticky bottom-0 pt-4 pb-3 sm:pb-6 px-3 sm:px-8 z-10 bg-trilist-modal"
+        class="sticky bottom-0 pt-4 pb-3 sm:pb-6 px-3 sm:px-8 z-10 bg-trilist-modal-fone"
       >
         <!-- svelte-ignore a11y-autofocus -->
         <button
           id="trilist-dialog-select"
-          class="py-2 px-6 rounded text-white bg-trilist-primary mr-2"
+          class="form-button py-2 px-6 rounded text-trilist-button-text border border-trilist-primary bg-trilist-primary mr-2"
           autofocus
           on:click={handleSubmit}
         >
@@ -75,7 +75,7 @@
         </button>
         <button
           id="trilist-dialog-cancel"
-          class="py-2 px-6 rounded border text-curent border-trilist-gray hover:border-trilist-gray-alt"
+          class="form-button py-2 px-6 rounded border text-trilist-button hover:text-trilist-button-hover border-trilist-input-border active:bg-trilist-secondary"
           on:click={handleCancel}
         >
           {cancelButton}

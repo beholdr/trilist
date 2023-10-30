@@ -83,15 +83,15 @@
 >
   <button
     id="trilist-select-button"
-    class="flex justify-between w-full px-4 py-2 text-left select-none rounded border border-trilist-gray hover:border-trilist-gray-alt bg-trilist-input"
+    class="form-button flex justify-between w-full px-4 py-2 text-left select-none rounded border border-trilist-input-border bg-trilist-input-fone"
     on:click={openModal}
   >
     {#if $value.length}
       <Tags ids={$value} on:trilist-change={onChange} />
     {:else}
-      <div class="text-gray-500 truncate">{placeholder}</div>
+      <div class="text-trilist-button truncate">{placeholder}</div>
     {/if}
-    <span class="text-trilist-gray ml-2 -mr-1">{@html TreeIcon}</span>
+    <span class="text-trilist-button hover:text-trilist-button-hover ml-2 -mr-1">{@html TreeIcon}</span>
   </button>
 
   <Modal

@@ -70,12 +70,12 @@
     <trilist-view id="trilist-1" style="--trilist-color-primary: rgb(220, 45, 75); --trilist-border-radius: 0"
       selectable multiple filter leafs></trilist-view>
 
-    <trilist-view id="trilist-2" filter animated></trilist-view>
+    <trilist-view id="trilist-2" field-id="key" field-label="name" field-children="tree" filter animated></trilist-view>
 
     <trilist-select id="trilist-3" placeholder="Выберите свою специальность тут" filter-placeholder="Поиск..."
       select-button="Выбрать" cancel-button="Отменить" multiple filter animated></trilist-select>
 
-    <trilist-select id="trilist-4"></trilist-select>
+    <trilist-select id="trilist-4" field-id="key" field-label="name" field-children="tree"></trilist-select>
   </div>
 
   <script type="module">
@@ -122,8 +122,51 @@
         ]
       }
     ];
-    const tree2 = JSON.parse(JSON.stringify(tree1))
-    tree2.push({ id: 6, label: "Category 6" })
+    const tree2 = [
+      {
+        key: 1,
+        name: 'Category 1',
+        tree: [
+          { key: '11', name: 'Leaf 11' },
+          { key: '12', name: 'Leaf 12 xx' }
+        ]
+      },
+      {
+        key: '2',
+        name: 'Category 2',
+        tree: [
+          { key: '11', name: 'Leaf 11 (category 2)' },
+          {
+            key: '21',
+            name: 'Category with very long name 21 zz',
+            tree: [
+              { key: '11', name: 'Leaf 11 (category 21)' },
+              { key: '211', name: 'Leaf with very long name too 211 zzz' },
+              { key: '212', name: 'Leaf 212' }
+            ]
+          }
+        ]
+      },
+      {
+        key: '3',
+        name: 'Category 3'
+      },
+      {
+        key: '4',
+        name: 'Category 4',
+        tree: [{ key: '41', name: 'Leaf 41' }]
+      },
+      {
+        key: '5',
+        name: 'Category 5',
+        tree: [
+          { key: '51', name: 'Leaf 51' },
+          { key: '52', name: 'Leaf 52 xxx' }
+        ]
+      }
+    ];
+    // const tree2 = JSON.parse(JSON.stringify(tree1))
+    // tree2.push({ id: 6, label: "Category 6" })
 
     const convertData = (data) => {
       const result = []

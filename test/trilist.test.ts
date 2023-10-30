@@ -9,7 +9,7 @@ const createTrilist = (
   leafs = false
 ) => {
   const trilist = new Trilist()
-  trilist.init(options, document.createElement('div'), multiple, leafs)
+  trilist.init(document.createElement('div'), options)
 
   return trilist
 }
@@ -26,14 +26,14 @@ test('init', () => {
 })
 
 test('init with multiple', () => {
-  const trilist = createTrilist({ items: treeData }, true)
+  const trilist = createTrilist({ items: treeData, multiple: true })
 
   expect(trilist.multiple).toBe(true)
   expect(trilist.leafs).toBe(false)
 })
 
 test('init with leafs', () => {
-  const trilist = createTrilist({ items: treeData }, undefined, true)
+  const trilist = createTrilist({ items: treeData, leafs: true })
 
   expect(trilist.multiple).toBe(false)
   expect(trilist.leafs).toBe(true)
@@ -56,7 +56,7 @@ test('expand all', () => {
 
   trilist.expandAll()
 
-  expect([...get(trilist.expanded)]).toEqual(["1", "2", "2-21", "4", "5"])
+  expect([...get(trilist.expanded)]).toEqual(['1', '2', '2-21', '4', '5'])
 })
 
 test('collapse all', () => {

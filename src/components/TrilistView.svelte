@@ -3,6 +3,9 @@
     tag: 'trilist-view',
     props: {
       animated: { type: 'Boolean' },
+      fieldId: { type: 'String', attribute: 'field-id' },
+      fieldLabel: { type: 'String', attribute: 'field-label' },
+      fieldChildren: { type: 'String', attribute: 'field-children' },
       filter: { type: 'Boolean' },
       filterPlaceholder: { type: 'String', attribute: 'filter-placeholder' },
       leafs: { type: 'Boolean' },
@@ -24,6 +27,9 @@
 
   export let animated = false
   export let animatedEnabled = false // passed from TrilistSelect as reactive prop
+  export let fieldId = ''
+  export let fieldLabel = ''
+  export let fieldChildren = ''
   export let filter = false
   export let filterPlaceholder = 'Quick search'
   export let leafs = false
@@ -41,7 +47,10 @@
   }
 
   export const init = (options: TrilistOptions) => {
-    items = trilist.init(options, el, multiple, leafs)
+    items = trilist.init(el, {
+      ...options,
+      ...{ multiple, leafs, fieldId, fieldLabel, fieldChildren }
+    })
   }
 
   const onChange = () => {

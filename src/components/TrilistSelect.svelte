@@ -3,6 +3,9 @@
     tag: 'trilist-select',
     props: {
       animated: { type: 'Boolean' },
+      fieldId: { type: 'String', attribute: 'field-id' },
+      fieldLabel: { type: 'String', attribute: 'field-label' },
+      fieldChildren: { type: 'String', attribute: 'field-children' },
       filter: { type: 'Boolean' },
       filterPlaceholder: { type: 'String', attribute: 'filter-placeholder' },
       leafs: { type: 'Boolean' },
@@ -27,6 +30,9 @@
   import TreeIcon from '../assets/tree.svg?raw'
 
   export let animated = false
+  export let fieldId = ''
+  export let fieldLabel = ''
+  export let fieldChildren = ''
   export let filter = false
   export let filterPlaceholder = 'Quick search'
   export let leafs = false
@@ -35,7 +41,6 @@
   export let selectButton = 'Select'
   export let cancelButton = 'Cancel'
 
-  let el: HTMLElement
   let elTree: SvelteComponent
   let showModal = false
   let previousValue: TreeItemKey[]
@@ -47,7 +52,7 @@
   const value = trilist.value
 
   export const init = (options: TrilistOptions) => {
-    elTree.init(options, el)
+    elTree.init(options)
   }
 
   const openModal = () => {
@@ -75,7 +80,6 @@
   role="combobox"
   aria-expanded={showModal}
   aria-controls="trilist-dialog"
-  bind:this={el}
 >
   <button
     id="trilist-select-button"
@@ -108,6 +112,9 @@
     <TrilistView
       bind:this={elTree}
       {animatedEnabled}
+      {fieldId}
+      {fieldLabel}
+      {fieldChildren}
       {leafs}
       {multiple}
       selectable

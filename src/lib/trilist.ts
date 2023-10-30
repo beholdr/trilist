@@ -1,38 +1,44 @@
 import { get } from 'svelte/store'
 
 import { TrilistEvents, type TrilistChangeEvent } from './events'
-
 import { createStateStore } from '../stores/state'
 import { createValueStore } from '../stores/value'
 
 export type TreeItemKey = string | number
 
-type TreeItemHook = (item: TreeItem) => string
-
-interface OptionItem {
+export interface TreeItem {
   id: TreeItemKey
+  key: string
   label: string
-  children?: OptionItem[]
-}
-
-export interface TrilistOptions {
-  items: OptionItem[]
-  selected?: TreeItemKey[]
-  expanded?: TreeItemKey[]
-  labelHook?: TreeItemHook
-}
-
-export interface TreeItem extends OptionItem {
-  key: TreeItemKey
   children?: TreeItem[]
 }
 
+type TreeItemHook = (item: TreeItem) => string
+
+type InputItem = Record<string, any>
+
+export interface TrilistOptions {
+  items: InputItem[]
+  selected?: TreeItemKey[]
+  expanded?: TreeItemKey[]
+  labelHook?: TreeItemHook
+  multiple?: boolean
+  leafs?: boolean
+  fieldId?: string
+  fieldLabel?: string
+  fieldChildren?: string
+}
+
 export class Trilist {
-  el: HTMLElement | undefined
   items: TreeItem[] = []
+  el: HTMLElement | undefined
+  labelHook: TreeItemHook | undefined
+
   multiple = false
   leafs = false
-  labelHook: TreeItemHook | undefined
+  fieldId = 'id'
+  fieldLabel = 'label'
+  fieldChildren = 'children'
 
   readonly expanded = createStateStore()
   readonly hidden = createStateStore()
@@ -40,18 +46,18 @@ export class Trilist {
   readonly selected = createStateStore()
   readonly value = createValueStore(this)
 
-  init(
-    options: TrilistOptions,
-    el: HTMLElement,
-    multiple = false,
-    leafs = false
-  ) {
-    this.items = options.items.map((item) => this.processData(item))
-
+  init(el: HTMLElement, options: TrilistOptions) {
     this.el = el
-    this.multiple = multiple
-    this.leafs = leafs
+
+    this.multiple = options.multiple === true
+    this.leafs = options.leafs === true
     this.labelHook = options.labelHook
+
+    if (options.fieldId) this.fieldId = options.fieldId
+    if (options.fieldLabel) this.fieldLabel = options.fieldLabel
+    if (options.fieldChildren) this.fieldChildren = options.fieldChildren
+
+    this.items = options.items.map((item) => this.processInputItem(item))
 
     if (options.selected) {
       this.setValue(options.selected)
@@ -172,30 +178,20 @@ export class Trilist {
     return el.parentNode ? this.findHost(el.parentNode as Element) : null
   }
 
-  protected processData(item: OptionItem, key = '') {
-    const result = this.recursiveDeepCopy(item)
-    result.key = key ? key + '-' + result.id : result.id.toString()
+  protected processInputItem(item: InputItem, key = ''): TreeItem {
+    const result: TreeItem = {
+      id: item[this.fieldId],
+      key: key ? key + '-' + item[this.fieldId] : item[this.fieldId].toString(),
+      label: item[this.fieldLabel]
+    }
 
-    if (result.children) {
-      result.children = result.children.map((child: TreeItem) =>
-        this.processData(child, result.key)
+    if (item[this.fieldChildren]) {
+      result.children = (item[this.fieldChildren] as InputItem[]).map((child) =>
+        this.processInputItem(child, result.key)
       )
     }
 
     return result
-  }
-
-  protected recursiveDeepCopy(obj: any): any {
-    return Object.keys(obj).reduce(
-      (v, d) =>
-        Object.assign(v, {
-          [d]:
-            obj[d].constructor === Object
-              ? this.recursiveDeepCopy(obj[d])
-              : obj[d]
-        }),
-      {}
-    )
   }
 
   protected setExpandDeep(item: TreeItem, value = true) {

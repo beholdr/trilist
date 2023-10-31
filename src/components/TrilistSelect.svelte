@@ -128,11 +128,11 @@
     <TrilistView
       bind:this={elTree}
       {animatedEnabled}
+      {leafs}
+      {multiple}
       {fieldId}
       {fieldLabel}
       {fieldChildren}
-      {leafs}
-      {multiple}
       selectable
     />
   </Modal>

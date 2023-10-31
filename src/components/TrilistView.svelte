@@ -49,7 +49,7 @@
   export const init = (options: TrilistOptions) => {
     items = trilist.init(el, {
       ...options,
-      ...{ multiple, leafs, fieldId, fieldLabel, fieldChildren }
+      ...{ leafs, multiple, fieldId, fieldLabel, fieldChildren }
     })
   }
 

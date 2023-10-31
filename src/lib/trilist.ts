@@ -21,12 +21,12 @@ export interface TrilistOptions {
   items: InputItem[]
   value?: TreeItemId[] | TreeItemId
   expanded?: string[]
-  labelHook?: TreeItemHook
-  multiple?: boolean
   leafs?: boolean
+  multiple?: boolean
   fieldId?: string
   fieldLabel?: string
   fieldChildren?: string
+  labelHook?: TreeItemHook
 }
 
 export class Trilist {
@@ -34,8 +34,8 @@ export class Trilist {
   el?: HTMLElement
   labelHook?: TreeItemHook
 
-  multiple = false
   leafs = false
+  multiple = false
   fieldId = 'id'
   fieldLabel = 'label'
   fieldChildren = 'children'

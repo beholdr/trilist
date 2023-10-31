@@ -23,14 +23,14 @@
     placeholder={filterPlaceholder}
   />
   <button
-    class="form-button px-2 border border-l-0 flex items-center justify-center text-trilist-button hover:text-trilist-button-hover border-trilist-input-border bg-trilist-input-fone active:bg-trilist-secondary"
+    class="form-button px-2 border border-l-0 flex items-center justify-center text-trilist-icon hover:text-trilist-icon-hover border-trilist-input-border bg-trilist-input-fone active:bg-trilist-secondary"
     title="Expand all"
     on:click={() => trilist.expandAll()}
   >
     {@html ExpandIcon}
   </button>
   <button
-    class="form-button rounded rounded-l-none px-2 border border-l-0 flex items-center justify-center text-trilist-button hover:text-trilist-button-hover border-trilist-input-border bg-trilist-input-fone active:bg-trilist-secondary"
+    class="form-button rounded rounded-l-none px-2 border border-l-0 flex items-center justify-center text-trilist-icon hover:text-trilist-icon-hover border-trilist-input-border bg-trilist-input-fone active:bg-trilist-secondary"
     title="Collapse all"
     on:click={() => trilist.collapseAll()}
   >

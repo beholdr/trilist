@@ -48,7 +48,7 @@
         class="sticky top-0 pt-3 sm:pt-6 px-3 sm:px-8 z-10 bg-trilist-modal-fone"
       >
         <button
-          class="form-button focus-visible:ring-2 text-trilist-button hover:text-trilist-button-hover float-right ml-2 mt-0.5 -mr-1"
+          class="form-button focus-visible:ring-2 text-trilist-icon hover:text-trilist-icon-hover float-right ml-2 mt-0.5 -mr-1"
           on:click={handleCancel}
         >
           {@html CloseIcon}
@@ -67,7 +67,7 @@
         <!-- svelte-ignore a11y-autofocus -->
         <button
           id="trilist-dialog-select"
-          class="form-button py-1 px-4 rounded text-trilist-button-text border border-trilist-primary bg-trilist-primary mr-2"
+          class="form-button py-1 px-4 rounded text-trilist-primary-text border border-trilist-primary bg-trilist-primary mr-2"
           autofocus
           on:click={handleSubmit}
         >
@@ -75,7 +75,7 @@
         </button>
         <button
           id="trilist-dialog-cancel"
-          class="form-button py-1 px-4 rounded border text-trilist-button hover:text-trilist-button-hover border-trilist-input-border active:bg-trilist-secondary"
+          class="form-button py-1 px-4 rounded border text-trilist-icon hover:text-trilist-icon-hover border-trilist-input-border active:bg-trilist-secondary"
           on:click={handleCancel}
         >
           {cancelButton}

@@ -92,10 +92,10 @@
         on:trilist-change={onChange}
       />
     {:else}
-      <div class="text-trilist-button truncate">{placeholder}</div>
+      <div class="text-trilist-icon truncate">{placeholder}</div>
     {/if}
     <span
-      class="text-trilist-button hover:text-trilist-button-hover ml-2 -mr-1"
+      class="text-trilist-icon hover:text-trilist-icon-hover ml-2 -mr-1"
     >
       {@html TreeIcon}
     </span>

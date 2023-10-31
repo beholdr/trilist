@@ -10,6 +10,8 @@ export default {
       colors: {
         'trilist-primary':
           'var(--trilist-color-primary, ' + colors.blue[600] + ')',
+        'trilist-primary-text':
+          'var(--trilist-color-primary-text, ' + colors.white + ')',
         'trilist-secondary':
           'var(--trilist-color-secondary, ' + colors.gray[200] + ')',
         'trilist-input-border':
@@ -20,12 +22,9 @@ export default {
           'var(--trilist-color-input-fone, ' + colors.white + ')',
         'trilist-modal-fone':
           'var(--trilist-color-modal-fone, ' + colors.white + ')',
-        'trilist-button':
-          'var(--trilist-color-button, ' + colors.gray[400] + ')',
-        'trilist-button-hover':
-          'var(--trilist-color-button-hover, ' + colors.gray[500] + ')',
-        'trilist-button-text':
-          'var(--trilist-color-button-text, ' + colors.white + ')'
+        'trilist-icon': 'var(--trilist-color-icon, ' + colors.gray[400] + ')',
+        'trilist-icon-hover':
+          'var(--trilist-color-icon-hover, ' + colors.gray[500] + ')'
       },
       borderRadius: {
         DEFAULT:

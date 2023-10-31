@@ -153,7 +153,7 @@ export class Trilist {
 
   protected filterDeep(item: TreeItem, query: string) {
     const matchLabel = item.label.toLowerCase().includes(query)
-    const matchDeep = this.getChildrenDeep(item, true).some((item) =>
+    const matchDeep = this.getChildrenDeep(item).some((item) =>
       item.label.toLowerCase().includes(query)
     )
 
@@ -210,19 +210,17 @@ export class Trilist {
     item.children?.forEach((child) => this.setSelectedDeep(child, value))
   }
 
-  protected getChildrenDeep(item: TreeItem, withParents = false) {
+  protected getChildrenDeep(item: TreeItem) {
     if (!item.children) return []
 
-    let result = withParents
-      ? item.children.map((item) => ({
-          id: item.id,
-          key: item.key,
-          label: item.label
-        }))
-      : item.children.filter((child) => !child.children?.length)
+    let result = item.children.map((item) => ({
+      id: item.id,
+      key: item.key,
+      label: item.label
+    }))
 
     item.children.forEach((child) => {
-      result = [...result, ...this.getChildrenDeep(child, withParents)]
+      result = [...result, ...this.getChildrenDeep(child)]
     })
 
     return result

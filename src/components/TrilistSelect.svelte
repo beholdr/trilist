@@ -86,12 +86,19 @@
     class="form-button flex justify-between w-full px-4 py-2 text-left select-none rounded border border-trilist-input-border bg-trilist-input-fone"
     on:click={openModal}
   >
-    {#if $value.length}
-      <Tags ids={$value} on:trilist-change={onChange} />
+    {#if (!showModal && $value.length) || (showModal && previousValue.length)}
+      <Tags
+        ids={showModal ? previousValue : $value}
+        on:trilist-change={onChange}
+      />
     {:else}
       <div class="text-trilist-button truncate">{placeholder}</div>
     {/if}
-    <span class="text-trilist-button hover:text-trilist-button-hover ml-2 -mr-1">{@html TreeIcon}</span>
+    <span
+      class="text-trilist-button hover:text-trilist-button-hover ml-2 -mr-1"
+    >
+      {@html TreeIcon}
+    </span>
   </button>
 
   <Modal

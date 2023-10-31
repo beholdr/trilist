@@ -199,7 +199,7 @@
     const el1 = document.getElementById('trilist-1')
     el1.init({
       items: tree1,
-      selected: ['12', '3', '4'],
+      value: ['12', '3', '4'],
       expanded: ['1']
     })
     el1.addEventListener('trilist-change', (e) => console.log(e.detail))
@@ -217,13 +217,13 @@
       .then(data => {
         el3.init({
           items: convertData(data),
-          selected: [29, 30, 31, 145]
+          value: [29, 30, 31, 145]
         })
       })
     el3.addEventListener('trilist-change', (e) => console.log(e.detail))
 
     const el4 = document.getElementById('trilist-4')
-    el4.init({ items: tree2, selected: '41' })
+    el4.init({ items: tree2, value: '41' })
   </script>
 
   <script type="module" src="/src/main.ts"></script>

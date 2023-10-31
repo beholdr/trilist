@@ -47,7 +47,7 @@ test('tree with expanded items', async () => {
 
 test('tree with selected items', async () => {
   const result = render(TrilistView, { multiple: true })
-  await result.component.init({ items: treeData, selected: ['12', '3', '4'] })
+  await result.component.init({ items: treeData, value: ['12', '3', '4'] })
 
   expect(
     result

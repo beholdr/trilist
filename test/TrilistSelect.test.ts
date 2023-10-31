@@ -57,7 +57,7 @@ test('select with custom labels', async () => {
 
 test('with selected items', async () => {
   const result = render(TrilistSelect, { multiple: true })
-  await result.component.init({ items: treeData, selected: ['12', '3', '4'] })
+  await result.component.init({ items: treeData, value: ['12', '3', '4'] })
 
   expect(
     result.container.querySelectorAll('#trilist-select-tags .trilist-tag')

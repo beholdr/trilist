@@ -19,7 +19,7 @@ type InputItem = Record<string, any>
 
 export interface TrilistOptions {
   items: InputItem[]
-  selected?: TreeItemId[]
+  value?: TreeItemId[] | TreeItemId
   expanded?: string[]
   labelHook?: TreeItemHook
   multiple?: boolean
@@ -59,10 +59,7 @@ export class Trilist {
 
     this.items = options.items.map((item) => this.processInputItem(item))
 
-    if (options.selected) {
-      this.setValue(options.selected)
-    }
-
+    this.setValue(options.value)
     this.expanded.set(options.expanded)
 
     return this.items

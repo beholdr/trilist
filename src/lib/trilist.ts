@@ -57,12 +57,15 @@ export class Trilist {
     if (options.fieldLabel) this.fieldLabel = options.fieldLabel
     if (options.fieldChildren) this.fieldChildren = options.fieldChildren
 
-    this.items = options.items.map((item) => this.processInputItem(item))
-
+    this.setItems(options.items)
     this.setValue(options.value)
     this.expanded.set(options.expanded)
 
     return this.items
+  }
+
+  setItems(items: InputItem[]) {
+    this.items = items.map((item) => this.processInputItem(item))
   }
 
   getValue() {

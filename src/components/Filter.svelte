@@ -15,22 +15,22 @@
   }
 </script>
 
-<div class="mb-4 flex gap-x-2.5">
+<div class="mb-4 flex">
   <input
     on:input={(e) => handleFilter(e.currentTarget.value)}
-    class="form-input text-base leading-normal w-full flex-grow rounded border-trilist-input-border bg-trilist-input-fone"
+    class="form-input text-base leading-normal w-full flex-grow rounded rounded-r-none border-trilist-input-border bg-trilist-input-fone"
     type="search"
     placeholder={filterPlaceholder}
   />
   <button
-    class="form-button rounded px-2 border flex items-center justify-center text-trilist-button hover:text-trilist-button-hover border-trilist-input-border bg-trilist-input-fone active:bg-trilist-secondary"
+    class="form-button px-2 border border-l-0 flex items-center justify-center text-trilist-button hover:text-trilist-button-hover border-trilist-input-border bg-trilist-input-fone active:bg-trilist-secondary"
     title="Expand all"
     on:click={() => trilist.expandAll()}
   >
     {@html ExpandIcon}
   </button>
   <button
-    class="form-button rounded px-2 border flex items-center justify-center text-trilist-button hover:text-trilist-button-hover border-trilist-input-border bg-trilist-input-fone active:bg-trilist-secondary"
+    class="form-button rounded rounded-l-none px-2 border border-l-0 flex items-center justify-center text-trilist-button hover:text-trilist-button-hover border-trilist-input-border bg-trilist-input-fone active:bg-trilist-secondary"
     title="Collapse all"
     on:click={() => trilist.collapseAll()}
   >

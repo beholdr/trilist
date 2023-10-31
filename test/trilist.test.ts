@@ -3,11 +3,7 @@ import { get } from 'svelte/store'
 import { Trilist, type TreeItem, type TrilistOptions } from '../src/lib/trilist'
 import { treeData } from './fixtures'
 
-const createTrilist = (
-  options: TrilistOptions,
-  multiple = false,
-  leafs = false
-) => {
+const createTrilist = (options: TrilistOptions) => {
   const trilist = new Trilist()
   trilist.init(document.createElement('div'), options)
 

@@ -31,8 +31,8 @@ export interface TrilistOptions {
 
 export class Trilist {
   items: TreeItem[] = []
-  el: HTMLElement | undefined
-  labelHook: TreeItemHook | undefined
+  el?: HTMLElement
+  labelHook?: TreeItemHook
 
   multiple = false
   leafs = false
@@ -129,8 +129,8 @@ export class Trilist {
     return get(this.value)
   }
 
-  setValue(value: TreeItemId[] | TreeItemId | undefined) {
-    if (!value) return
+  setValue(value?: TreeItemId[] | TreeItemId) {
+    if (typeof value === 'undefined') return
 
     this.selected.clear()
     this.indeterminate.clear()

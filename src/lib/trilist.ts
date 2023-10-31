@@ -65,6 +65,24 @@ export class Trilist {
     return this.items
   }
 
+  getValue() {
+    return get(this.value)
+  }
+
+  setValue(value: TreeItemId[] | TreeItemId | null = null) {
+    if (value === null) return
+
+    this.selected.clear()
+    this.indeterminate.clear()
+
+    const ids = typeof value === 'object' ? value : [value]
+
+    ids.forEach((id) => {
+      const item = this.findItemById(id)
+      this.toggleSelected(item!)
+    })
+  }
+
   toggleSelected(item: TreeItem, value = true) {
     if (this.multiple) {
       this.setSelectedDeep(item, value)
@@ -120,24 +138,6 @@ export class Trilist {
 
   getLabel(item: TreeItem) {
     return this.labelHook ? this.labelHook(item) : item.label
-  }
-
-  getValue() {
-    return get(this.value)
-  }
-
-  setValue(value: TreeItemId[] | TreeItemId | null = null) {
-    if (value === null) return
-
-    this.selected.clear()
-    this.indeterminate.clear()
-
-    const ids = typeof value === 'object' ? value : [value]
-
-    ids.forEach((id) => {
-      const item = this.findItemById(id)
-      this.toggleSelected(item!)
-    })
   }
 
   dispatchChangeEvent() {

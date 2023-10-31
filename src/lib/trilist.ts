@@ -148,7 +148,7 @@ export class Trilist {
 
     this.findHost(this.el!)?.dispatchEvent(
       new CustomEvent(TrilistEvents.change, {
-        detail: this.multiple ? value : value.shift() ?? null
+        detail: this.multiple ? value : value.slice(0, 1).shift() ?? null
       }) satisfies TrilistChangeEvent
     )
   }

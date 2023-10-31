@@ -5,7 +5,7 @@ export enum TrilistEvents {
 }
 
 export interface TrilistChangeEvent
-  extends CustomEvent<TreeItemId[] | TreeItemId | undefined> {}
+  extends CustomEvent<TreeItemId[] | TreeItemId | null> {}
 
 declare global {
   interface HTMLElementEventMap {

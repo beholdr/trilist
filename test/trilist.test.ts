@@ -73,5 +73,5 @@ test('find item', () => {
   trilist.collapseAll()
 
   expect(trilist.findItemById(1)?.id).toEqual(treeData[0].id)
-  expect(trilist.findItemById('1')?.id).toBeUndefined()
+  expect(trilist.findItemById('1')).toBe(null)
 })

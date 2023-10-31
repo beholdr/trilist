@@ -129,11 +129,13 @@ export class Trilist {
     return get(this.value)
   }
 
-  setValue(value: TreeItemId[]) {
+  setValue(value: TreeItemId[] | TreeItemId | undefined) {
+    if (!value) return
+
     this.selected.clear()
     this.indeterminate.clear()
 
-    const ids = this.multiple ? value : value.slice(0, 1)
+    const ids = typeof value === 'object' ? value : [value]
 
     ids.forEach((id) => {
       const item = this.findItemById(id)
@@ -144,7 +146,7 @@ export class Trilist {
   dispatchChangeEvent() {
     this.findHost(this.el!)?.dispatchEvent(
       new CustomEvent(TrilistEvents.change, {
-        detail: this.getValue()
+        detail: this.multiple ? this.getValue() : this.getValue().shift()
       }) satisfies TrilistChangeEvent
     )
   }

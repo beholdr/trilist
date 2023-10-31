@@ -4,10 +4,10 @@ import { TrilistEvents, type TrilistChangeEvent } from './events'
 import { createStateStore } from '../stores/state'
 import { createValueStore } from '../stores/value'
 
-export type TreeItemKey = string | number
+export type TreeItemId = string | number
 
 export interface TreeItem {
-  id: TreeItemKey
+  id: TreeItemId
   key: string
   label: string
   children?: TreeItem[]
@@ -19,8 +19,8 @@ type InputItem = Record<string, any>
 
 export interface TrilistOptions {
   items: InputItem[]
-  selected?: TreeItemKey[]
-  expanded?: TreeItemKey[]
+  selected?: TreeItemId[]
+  expanded?: string[]
   labelHook?: TreeItemHook
   multiple?: boolean
   leafs?: boolean
@@ -40,10 +40,10 @@ export class Trilist {
   fieldLabel = 'label'
   fieldChildren = 'children'
 
-  readonly expanded = createStateStore()
-  readonly hidden = createStateStore()
-  readonly indeterminate = createStateStore()
-  readonly selected = createStateStore()
+  readonly expanded = createStateStore<string>()
+  readonly hidden = createStateStore<string>()
+  readonly indeterminate = createStateStore<string>()
+  readonly selected = createStateStore<TreeItemId>()
   readonly value = createValueStore(this)
 
   init(el: HTMLElement, options: TrilistOptions) {
@@ -104,7 +104,7 @@ export class Trilist {
     this.items.forEach((item) => this.filterDeep(item, query.toLowerCase()))
   }
 
-  findItemById(id: TreeItemKey, item?: TreeItem): TreeItem | null {
+  findItemById(id: TreeItemId, item?: TreeItem): TreeItem | null {
     if (item && item.id === id) {
       return item
     }
@@ -129,7 +129,7 @@ export class Trilist {
     return get(this.value)
   }
 
-  setValue(value: TreeItemKey[]) {
+  setValue(value: TreeItemId[]) {
     this.selected.clear()
     this.indeterminate.clear()
 

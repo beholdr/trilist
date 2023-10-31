@@ -20,7 +20,7 @@
 <script lang="ts">
   import { setContext, type SvelteComponent } from 'svelte'
 
-  import { Trilist, type TrilistOptions, type TreeItemKey } from '../lib'
+  import { Trilist, type TrilistOptions, type TreeItemId } from '../lib'
 
   import Tags from './Tags.svelte'
   import Filter from './Filter.svelte'
@@ -43,7 +43,7 @@
 
   let elTree: SvelteComponent
   let showModal = false
-  let previousValue: TreeItemKey[]
+  let previousValue: TreeItemId[]
   let animatedEnabled = false
 
   const trilist = new Trilist()
@@ -65,7 +65,7 @@
     showModal = true
   }
 
-  const tagItem = (id: TreeItemKey) => trilist.findItemById(id)
+  const tagItem = (id: TreeItemId) => trilist.findItemById(id)
 
   const onChange = () => {
     trilist.dispatchChangeEvent()

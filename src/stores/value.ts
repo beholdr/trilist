@@ -1,11 +1,11 @@
 import { derived } from 'svelte/store'
 
-import { type Trilist, type TreeItemKey } from '../lib'
+import { type Trilist, type TreeItemId } from '../lib'
 
 export const createValueStore = (trilist: Trilist) =>
   derived(trilist.selected, ($store) => {
     const ids = [...$store]
-    const idsWithFullSections: TreeItemKey[] = []
+    const idsWithFullSections: TreeItemId[] = []
 
     const result = ids.filter((id) => {
       const item = trilist.findItemById(id)

@@ -22,27 +22,27 @@
 
       /* Overrides */
       /*
-      --trilist-color-text: rgb(220, 45, 75);
-      --trilist-color-primary: rgb(220, 45, 75);
-      --trilist-color-primary-text: rgb(255, 255, 255);
-      --trilist-color-secondary: rgb(229, 231, 235);
-      --trilist-color-input-border: rgb(255, 255, 255);
-      --trilist-color-input-focus: rgb(255, 255, 255);
-      --trilist-color-input-fone: rgb(255, 255, 255);
-      --trilist-color-modal-fone: rgb(255, 255, 255);
-      --trilist-color-icon: rgb(156, 163, 175);
-      --trilist-color-icon-hover: rgb(107, 114, 128);
+      --trilist-colors-text: rgb(220, 45, 75);
+      --trilist-colors-primary: rgb(220, 45, 75);
+      --trilist-colors-primary-text: rgb(255, 255, 255);
+      --trilist-colors-secondary: rgb(229, 231, 235);
+      --trilist-colors-input-border: rgb(255, 255, 255);
+      --trilist-colors-input-focus: rgb(255, 255, 255);
+      --trilist-colors-input-fone: rgb(255, 255, 255);
+      --trilist-colors-modal-fone: rgb(255, 255, 255);
+      --trilist-colors-icon: rgb(156, 163, 175);
+      --trilist-colors-icon-hover: rgb(107, 114, 128);
       --trilist-border-radius: 0;
       --trilist-text-base: 16px;
       --trilist-text-sm: 14px;
       */
 
       /*
-      --trilist-color-secondary: rgb(76, 76, 76);
-      --trilist-color-input: rgb(46, 46, 46);
-      --trilist-color-modal: rgb(28, 28, 28);
-      --trilist-color-gray: rgb(96, 103, 114);
-      --trilist-color-gray-alt: rgb(128, 136, 153);
+      --trilist-colors-secondary: rgb(76, 76, 76);
+      --trilist-colors-input: rgb(46, 46, 46);
+      --trilist-colors-modal: rgb(28, 28, 28);
+      --trilist-colors-gray: rgb(96, 103, 114);
+      --trilist-colors-gray-alt: rgb(128, 136, 153);
       */
     }
 
@@ -71,13 +71,13 @@
 <body>
   <p>Examples:</p>
   <div id="app">
-    <trilist-view id="trilist-1" style="--trilist-color-primary: rgb(220, 45, 75); --trilist-border-radius: 0; --trilist-color-input-border: rgb(202, 202, 202); --trilist-color-input-focus: rgb(34, 190, 94);"
-      selectable multiple filter leafs></trilist-view>
+    <trilist-view id="trilist-1" style="--trilist-colors-primary: rgb(220, 45, 75); --trilist-border-radius: 0; --trilist-colors-input-border: rgb(202, 202, 202); --trilist-colors-input-focus: rgb(34, 190, 94);"
+      selectable multiselect filter leafs></trilist-view>
 
     <trilist-view id="trilist-2" field-id="key" field-label="name" field-children="tree" filter animated></trilist-view>
 
-    <trilist-select id="trilist-3" style="--trilist-color-primary: rgb(220, 45, 75); --trilist-border-radius: 0; --trilist-color-input-border: rgb(202, 202, 202); --trilist-color-input-focus: rgb(34, 190, 94);" placeholder="Выберите свою специальность тут" filter-placeholder="Поиск..."
-      select-button="Выбрать" cancel-button="Отменить" multiple filter animated></trilist-select>
+    <trilist-select id="trilist-3" style="--trilist-colors-primary: rgb(220, 45, 75); --trilist-border-radius: 0; --trilist-colors-input-border: rgb(202, 202, 202); --trilist-colors-input-focus: rgb(34, 190, 94);" placeholder="Выберите свою специальность тут" filter-placeholder="Поиск..."
+      select-button="Выбрать" cancel-button="Отменить" multiselect filter animated></trilist-select>
 
     <trilist-select id="trilist-4" field-id="key" field-label="name" field-children="tree"></trilist-select>
   </div>

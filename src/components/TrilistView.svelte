@@ -9,7 +9,7 @@
       filter: { type: 'Boolean' },
       filterPlaceholder: { type: 'String', attribute: 'filter-placeholder' },
       leafs: { type: 'Boolean' },
-      multiple: { type: 'Boolean' },
+      multiselect: { type: 'Boolean' },
       selectable: { type: 'Boolean' }
     }
   }}
@@ -33,8 +33,8 @@
   export let filter = false
   export let filterPlaceholder = 'Quick search'
   export let leafs = false
-  export let multiple = false
-  export let selectable = multiple ? true : false
+  export let multiselect = false
+  export let selectable = multiselect ? true : false
 
   let items: TreeItem[] = []
   let el: HTMLElement
@@ -49,7 +49,7 @@
   export const init = (options: TrilistOptions) => {
     items = trilist.init(el, {
       ...options,
-      ...{ leafs, multiple, fieldId, fieldLabel, fieldChildren }
+      ...{ leafs, multiselect, fieldId, fieldLabel, fieldChildren }
     })
   }
 
@@ -69,7 +69,7 @@
   {...$$restProps}
   id="trilist-view"
   role="tree"
-  aria-multiselectable={multiple}
+  aria-multiselectable={multiselect}
   bind:this={el}
 >
   {#if filter && items.length}

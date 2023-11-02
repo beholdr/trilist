@@ -46,7 +46,7 @@ test('tree with expanded items', async () => {
 })
 
 test('tree with selected items', async () => {
-  const result = render(TrilistView, { multiple: true })
+  const result = render(TrilistView, { multiselect: true })
   await result.component.init({ items: treeData, value: ['12', '3', '4'] })
 
   expect(
@@ -84,7 +84,7 @@ test('single selection tree', async () => {
 })
 
 test('multi selection tree', async () => {
-  const result = render(TrilistView, { multiple: true })
+  const result = render(TrilistView, { multiselect: true })
   await result.component.init({ items: treeData })
 
   expect(() => result.getAllByRole('checkbox')).not.toThrow()

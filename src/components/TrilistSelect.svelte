@@ -9,7 +9,7 @@
       filter: { type: 'Boolean' },
       filterPlaceholder: { type: 'String', attribute: 'filter-placeholder' },
       leafs: { type: 'Boolean' },
-      multiple: { type: 'Boolean' },
+      multiselect: { type: 'Boolean' },
       placeholder: { type: 'String' },
       selectButton: { type: 'String', attribute: 'select-button' },
       cancelButton: { type: 'String', attribute: 'cancel-button' }
@@ -36,7 +36,7 @@
   export let filter = false
   export let filterPlaceholder = 'Quick search'
   export let leafs = false
-  export let multiple = false
+  export let multiselect = false
   export let placeholder = 'Please select...'
   export let selectButton = 'Select'
   export let cancelButton = 'Cancel'
@@ -89,7 +89,7 @@
     on:click={openModal}
   >
     {#if (!showModal && $value.length) || (showModal && previousValue.length)}
-      {#if multiple}
+      {#if multiselect}
         <Tags
           ids={showModal ? previousValue : $value}
           on:trilist-change={onChange}
@@ -129,7 +129,7 @@
       bind:this={elTree}
       {animatedEnabled}
       {leafs}
-      {multiple}
+      {multiselect}
       {fieldId}
       {fieldLabel}
       {fieldChildren}

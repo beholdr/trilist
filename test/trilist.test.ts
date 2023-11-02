@@ -16,22 +16,22 @@ test('init', () => {
   expectTypeOf(trilist.items).toMatchTypeOf<TreeItem[]>()
   expect(trilist.items.length).toBe(5)
 
-  expect(trilist.multiple).toBe(false)
+  expect(trilist.multiselect).toBe(false)
   expect(trilist.leafs).toBe(false)
   expect(trilist.labelHook).toBeUndefined()
 })
 
-test('init with multiple', () => {
-  const trilist = createTrilist({ items: treeData, multiple: true })
+test('init with multiselect', () => {
+  const trilist = createTrilist({ items: treeData, multiselect: true })
 
-  expect(trilist.multiple).toBe(true)
+  expect(trilist.multiselect).toBe(true)
   expect(trilist.leafs).toBe(false)
 })
 
 test('init with leafs', () => {
   const trilist = createTrilist({ items: treeData, leafs: true })
 
-  expect(trilist.multiple).toBe(false)
+  expect(trilist.multiselect).toBe(false)
   expect(trilist.leafs).toBe(true)
 })
 

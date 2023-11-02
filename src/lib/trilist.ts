@@ -22,7 +22,7 @@ export interface TrilistOptions {
   value?: TreeItemId[] | TreeItemId
   expanded?: string[]
   leafs?: boolean
-  multiple?: boolean
+  multiselect?: boolean
   fieldId?: string
   fieldLabel?: string
   fieldChildren?: string
@@ -35,7 +35,7 @@ export class Trilist {
   labelHook?: TreeItemHook
 
   leafs = false
-  multiple = false
+  multiselect = false
   fieldId = 'id'
   fieldLabel = 'label'
   fieldChildren = 'children'
@@ -49,7 +49,7 @@ export class Trilist {
   init(el: HTMLElement, options: TrilistOptions) {
     this.el = el
 
-    this.multiple = options.multiple === true
+    this.multiselect = options.multiselect === true
     this.leafs = options.leafs === true
     this.labelHook = options.labelHook
 
@@ -73,12 +73,14 @@ export class Trilist {
   }
 
   setValue(value: TreeItemId[] | TreeItemId | null = null) {
+    console.log({value})
     if (value === null) return
 
     this.selected.clear()
     this.indeterminate.clear()
 
     const ids = typeof value === 'object' ? value : [value]
+    console.log({ids})
 
     ids.forEach((id) => {
       const item = this.findItemById(id)
@@ -87,7 +89,7 @@ export class Trilist {
   }
 
   toggleSelected(item: TreeItem, value = true) {
-    if (this.multiple) {
+    if (this.multiselect) {
       this.setSelectedDeep(item, value)
     } else {
       if (value) {
@@ -148,7 +150,7 @@ export class Trilist {
 
     this.findHost(this.el!)?.dispatchEvent(
       new CustomEvent(TrilistEvents.change, {
-        detail: this.multiple ? value : value.slice(0, 1).shift() ?? null
+        detail: this.multiselect ? value : value.slice(0, 1).shift() ?? null
       }) satisfies TrilistChangeEvent
     )
   }
@@ -237,7 +239,7 @@ export class Trilist {
 
     if (!selected) {
       // to correct cleanup of previous selected parent on single selection mode
-      if (this.multiple) {
+      if (this.multiselect) {
         this.selected.setValue(item.id, false)
       }
       this.indeterminate.setValue(item.key, false)
@@ -245,7 +247,7 @@ export class Trilist {
       this.selected.setValue(item.id, false)
       this.indeterminate.setValue(item.key, true)
     } else if (children.length === selected) {
-      if (this.multiple) {
+      if (this.multiselect) {
         this.selected.setValue(item.id, true)
         this.indeterminate.setValue(item.key, false)
       } else {

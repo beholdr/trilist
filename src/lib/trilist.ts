@@ -18,7 +18,7 @@ type TreeItemHook = (item: TreeItem) => string
 type InputItem = Record<string, any>
 
 export interface TrilistOptions {
-  items: InputItem[]
+  items?: InputItem[]
   value?: TreeItemId[] | TreeItemId
   expanded?: string[]
   leafs?: boolean
@@ -64,7 +64,9 @@ export class Trilist {
     return this.items
   }
 
-  setItems(items: InputItem[]) {
+  setItems(items?: InputItem[]) {
+    if (!items?.length) return
+
     this.items = items.map((item) => this.processInputItem(item))
   }
 

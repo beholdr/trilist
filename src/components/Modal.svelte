@@ -14,6 +14,9 @@
 
   $: if (dialog && showModal) dialog.showModal()
 
+  // prevent body scrolling
+  $: document.querySelector('html')!.style.overflow = showModal ? 'hidden' : ''
+
   const handleSubmit = () => {
     dialog.close('submit')
   }
@@ -41,46 +44,43 @@
   on:click|self={handleCancel}
   on:close={handleClose}
 >
-  <!-- svelte-ignore a11y-no-static-element-interactions -->
-  <div on:click|stopPropagation>
-    <div class="flex flex-col max-h-full">
-      <header
-        class="sticky top-0 pt-3 sm:pt-6 px-3 sm:px-8 z-10 bg-trilist-modal-fone"
+  <div class="flex flex-col max-h-full">
+    <header
+      class="sticky top-0 pt-3 sm:pt-6 px-3 sm:px-8 z-10 bg-trilist-modal-fone"
+    >
+      <button
+        class="form-button focus-visible:ring-2 text-trilist-icon hover:text-trilist-icon-hover float-right ml-2 mt-0.5 -mr-1"
+        on:click={handleCancel}
       >
-        <button
-          class="form-button focus-visible:ring-2 text-trilist-icon hover:text-trilist-icon-hover float-right ml-2 mt-0.5 -mr-1"
-          on:click={handleCancel}
-        >
-          {@html CloseIcon}
-        </button>
+        {@html CloseIcon}
+      </button>
 
-        <slot name="header" />
-      </header>
+      <slot name="header" />
+    </header>
 
-      <div class="flex-grow px-3 sm:px-8 bg-trilist-modal-fone">
-        <slot />
-      </div>
-
-      <footer
-        class="sticky bottom-0 pt-4 pb-3 sm:pb-6 px-3 sm:px-8 z-10 bg-trilist-modal-fone"
-      >
-        <!-- svelte-ignore a11y-autofocus -->
-        <button
-          id="trilist-dialog-select"
-          class="form-button py-1 px-4 rounded text-trilist-primary-text border border-trilist-primary bg-trilist-primary mr-2"
-          autofocus
-          on:click={handleSubmit}
-        >
-          {selectButton}
-        </button>
-        <button
-          id="trilist-dialog-cancel"
-          class="form-button py-1 px-4 rounded border text-trilist-icon hover:text-trilist-icon-hover border-trilist-input-border active:bg-trilist-secondary"
-          on:click={handleCancel}
-        >
-          {cancelButton}
-        </button>
-      </footer>
+    <div class="flex-grow px-3 sm:px-8 bg-trilist-modal-fone">
+      <slot />
     </div>
+
+    <footer
+      class="sticky bottom-0 pt-4 pb-3 sm:pb-6 px-3 sm:px-8 z-10 bg-trilist-modal-fone"
+    >
+      <!-- svelte-ignore a11y-autofocus -->
+      <button
+        id="trilist-dialog-select"
+        class="form-button py-1 px-4 rounded text-trilist-primary-text border border-trilist-primary bg-trilist-primary mr-2"
+        autofocus
+        on:click={handleSubmit}
+      >
+        {selectButton}
+      </button>
+      <button
+        id="trilist-dialog-cancel"
+        class="form-button py-1 px-4 rounded border text-trilist-icon hover:text-trilist-icon-hover border-trilist-input-border active:bg-trilist-secondary"
+        on:click={handleCancel}
+      >
+        {cancelButton}
+      </button>
+    </footer>
   </div>
 </dialog>

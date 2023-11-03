@@ -25,7 +25,8 @@ export const treeData = [
   },
   {
     id: '3',
-    label: 'Category 3'
+    label: 'Category 3',
+    children: []
   },
   {
     id: '4',

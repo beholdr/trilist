@@ -73,14 +73,12 @@ export class Trilist {
   }
 
   setValue(value: TreeItemId[] | TreeItemId | null = null) {
-    console.log({value})
     if (value === null) return
 
     this.selected.clear()
     this.indeterminate.clear()
 
-    const ids = typeof value === 'object' ? value : [value]
-    console.log({ids})
+    const ids = Array.isArray(value) ? value : [value]
 
     ids.forEach((id) => {
       const item = this.findItemById(id)
@@ -191,7 +189,7 @@ export class Trilist {
       label: item[this.fieldLabel]
     }
 
-    if (item[this.fieldChildren]) {
+    if (item[this.fieldChildren] && item[this.fieldChildren].length) {
       result.children = (item[this.fieldChildren] as InputItem[]).map((child) =>
         this.processInputItem(child, result.key)
       )
@@ -201,7 +199,7 @@ export class Trilist {
   }
 
   protected setExpandDeep(item: TreeItem, value = true) {
-    if (item.children) {
+    if (item.children?.length) {
       this.expanded.setValue(item.key, value)
     }
 
@@ -215,7 +213,7 @@ export class Trilist {
   }
 
   protected getChildrenDeep(item: TreeItem) {
-    if (!item.children) return []
+    if (!item.children?.length) return []
 
     let result = item.children.map((item) => ({
       id: item.id,
@@ -231,7 +229,7 @@ export class Trilist {
   }
 
   protected setIndeterminateDeep(item: TreeItem) {
-    if (!item.children) return
+    if (!item.children?.length) return
 
     const selectedStore = get(this.selected)
     const children = this.getChildrenDeep(item)

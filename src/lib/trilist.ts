@@ -80,7 +80,11 @@ export class Trilist {
     this.selected.clear()
     this.indeterminate.clear()
 
-    const ids = Array.isArray(value) ? value : [value]
+    let ids = Array.isArray(value) ? value : [value]
+
+    if (!this.multiselect) {
+      ids = ids.slice(0, 1)
+    }
 
     ids.forEach((id) => {
       const item = this.findItemById(id)

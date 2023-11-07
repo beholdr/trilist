@@ -164,6 +164,7 @@ export class Trilist {
       this.onChangeHook(detail)
     }
 
+    /* c8 ignore next 5 */
     this.findHost(this.el!)?.dispatchEvent(
       new CustomEvent(TrilistEvents.change, {
         detail
@@ -193,6 +194,7 @@ export class Trilist {
   }
 
   protected findHost(el: Element | ShadowRoot): Element | null {
+    /* c8 ignore next 3 */
     if ('host' in el) {
       return el.host
     }

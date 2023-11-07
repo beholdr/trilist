@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event'
 
 import { treeData } from './fixtures'
 import TrilistSelect from '../src/components/TrilistSelect.svelte'
+import { Trilist } from '../src/lib'
 
 const showModal = async (result: RenderResult<TrilistSelect>) => {
   const user = userEvent.setup()
@@ -15,6 +16,8 @@ test('empty select', async () => {
   const result = render(TrilistSelect)
 
   expect(result.getByRole('combobox')).toBeInTheDocument()
+
+  expect(result.component.trilist).toBeInstanceOf(Trilist)
 })
 
 test('show dialog', async () => {

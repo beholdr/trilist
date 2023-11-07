@@ -48,7 +48,7 @@
   let previousValue: TreeItemId[]
   let animatedEnabled = false
 
-  const trilist = new Trilist()
+  export const trilist = new Trilist()
   setContext('trilist', trilist)
 
   const value = trilist.value

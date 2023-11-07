@@ -51,7 +51,7 @@ export class Trilist {
   readonly selected = createStateStore<TreeItemId>()
   readonly value = createValueStore(this)
 
-  init(el: HTMLElement, options: TrilistOptions) {
+  init(el: HTMLElement, options: TrilistOptions): TreeItem[] {
     this.el = el
 
     this.multiselect = options.multiselect === true
@@ -63,7 +63,10 @@ export class Trilist {
     if (options.fieldLabel) this.fieldLabel = options.fieldLabel
     if (options.fieldChildren) this.fieldChildren = options.fieldChildren
 
-    this.setItems(options.items)
+    if (options.items?.length) {
+      this.items = options.items.map((item) => this.processInputItem(item))
+    }
+
     this.setValue(options.value)
 
     if (options.expandSelected) {
@@ -74,17 +77,11 @@ export class Trilist {
     return this.items
   }
 
-  setItems(items?: InputItem[]) {
-    if (!items?.length) return
-
-    this.items = items.map((item) => this.processInputItem(item))
-  }
-
-  getValue() {
+  getValue(): TreeItemId[] {
     return get(this.value)
   }
 
-  setValue(value: TrilistValue = null) {
+  setValue(value: TrilistValue = null): void {
     if (value === null) return
 
     this.selected.clear()
@@ -102,7 +99,7 @@ export class Trilist {
     })
   }
 
-  toggleSelected(item: TreeItem, value = true) {
+  toggleSelected(item: TreeItem, value = true): void {
     if (this.multiselect) {
       this.setSelectedDeep(item, value)
     } else {
@@ -116,19 +113,19 @@ export class Trilist {
     this.items.forEach((item) => this.setIndeterminateDeep(item))
   }
 
-  toggleExpanded(item: TreeItem, value = true) {
+  toggleExpanded(item: TreeItem, value = true): void {
     this.expanded.setValue(item.key, value)
   }
 
-  expandAll() {
+  expandAll(): void {
     this.items.forEach((item) => this.setExpandDeep(item, true))
   }
 
-  collapseAll() {
+  collapseAll(): void {
     this.expanded.clear()
   }
 
-  filter(query: string) {
+  filter(query: string): void {
     this.hidden.clear()
 
     if (!query || query.length < 2) {
@@ -155,11 +152,11 @@ export class Trilist {
     return null
   }
 
-  getItemLabel(item: TreeItem) {
+  getItemLabel(item: TreeItem): string {
     return this.labelHook ? this.labelHook(item) : item.label
   }
 
-  dispatchChangeEvent() {
+  dispatchChangeEvent(): void {
     const value = this.getValue()
     const detail = this.multiselect ? value : value.slice(0, 1).shift() ?? null
 

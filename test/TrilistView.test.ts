@@ -3,12 +3,14 @@ import userEvent from '@testing-library/user-event'
 
 import { treeData } from './fixtures'
 import TrilistView from '../src/components/TrilistView.svelte'
-import type { TreeItem } from '../src/lib'
+import { Trilist, type TreeItem } from '../src/lib'
 
 test('empty tree', async () => {
   const result = render(TrilistView)
   expect(() => result.getByRole('tree')).not.toThrow()
   expect(() => result.getByRole('treeitem')).toThrow()
+
+  expect(result.component.trilist).toBeInstanceOf(Trilist)
 })
 
 test('simple tree', async () => {

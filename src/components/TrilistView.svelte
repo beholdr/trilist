@@ -19,7 +19,7 @@
 <script lang="ts">
   import { getContext, hasContext, setContext, onMount } from 'svelte'
 
-  import { Trilist, type TrilistOptions, type TreeItem } from '../lib'
+  import { Trilist, type TrilistOptions } from '../lib'
 
   import Filter from './Filter.svelte'
   import Tree from './Tree.svelte'
@@ -38,15 +38,18 @@
   export let multiselect = false
   export let selectable = multiselect ? true : false
 
-  let items: TreeItem[] = []
-  let el: HTMLElement
-
   const isChild = hasContext('trilist')
-  const trilist = isChild ? getContext<Trilist>('trilist') : new Trilist()
+
+  export const trilist = isChild
+    ? getContext<Trilist>('trilist')
+    : new Trilist()
 
   if (!isChild) {
     setContext('trilist', trilist)
   }
+
+  let items = trilist.items
+  let el: HTMLElement
 
   export const init = (options: TrilistOptions) => {
     items = trilist.init(el, {

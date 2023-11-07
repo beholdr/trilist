@@ -201,9 +201,10 @@
     el1.init({
       items: tree1,
       value: ['12', '3', '4'],
-      expanded: ['1']
+      expanded: ['1'],
+      onChangeHook: (value) => console.log(value)
     })
-    el1.addEventListener('trilist-change', (e) => console.log(e.detail))
+    // el1.addEventListener('trilist-change', (e) => console.log(e.detail))
 
     const el2 = document.getElementById('trilist-2')
     el2.init({

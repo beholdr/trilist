@@ -6,6 +6,8 @@ import { createValueStore } from '../stores/value'
 
 export type TreeItemId = string | number
 
+export type TrilistValue = TreeItemId[] | TreeItemId | null
+
 export interface TreeItem {
   id: TreeItemId
   key: string
@@ -14,12 +16,13 @@ export interface TreeItem {
 }
 
 type TreeItemHook = (item: TreeItem) => string
+type TrilistValueHook = (value: TrilistValue) => string
 
 type InputItem = Record<string, any>
 
 export interface TrilistOptions {
   items?: InputItem[]
-  value?: TreeItemId[] | TreeItemId
+  value?: TrilistValue
   expanded?: string[]
   leafs?: boolean
   multiselect?: boolean
@@ -27,12 +30,14 @@ export interface TrilistOptions {
   fieldLabel?: string
   fieldChildren?: string
   labelHook?: TreeItemHook
+  onChangeHook?: TrilistValueHook
 }
 
 export class Trilist {
   items: TreeItem[] = []
   el?: HTMLElement
   labelHook?: TreeItemHook
+  onChangeHook?: TrilistValueHook
 
   leafs = false
   multiselect = false
@@ -52,6 +57,7 @@ export class Trilist {
     this.multiselect = options.multiselect === true
     this.leafs = options.leafs === true
     this.labelHook = options.labelHook
+    this.onChangeHook = options.onChangeHook
 
     if (options.fieldId) this.fieldId = options.fieldId
     if (options.fieldLabel) this.fieldLabel = options.fieldLabel
@@ -74,7 +80,7 @@ export class Trilist {
     return get(this.value)
   }
 
-  setValue(value: TreeItemId[] | TreeItemId | null = null) {
+  setValue(value: TrilistValue = null) {
     if (value === null) return
 
     this.selected.clear()
@@ -151,10 +157,15 @@ export class Trilist {
 
   dispatchChangeEvent() {
     const value = this.getValue()
+    const detail = this.multiselect ? value : value.slice(0, 1).shift() ?? null
+
+    if (this.onChangeHook) {
+      this.onChangeHook(detail)
+    }
 
     this.findHost(this.el!)?.dispatchEvent(
       new CustomEvent(TrilistEvents.change, {
-        detail: this.multiselect ? value : value.slice(0, 1).shift() ?? null
+        detail
       }) satisfies TrilistChangeEvent
     )
   }

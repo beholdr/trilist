@@ -3,6 +3,7 @@
     tag: 'trilist-view',
     props: {
       animated: { type: 'Boolean' },
+      expandSelected: { type: 'Boolean', attribute: 'expand-selected' },
       fieldId: { type: 'String', attribute: 'field-id' },
       fieldLabel: { type: 'String', attribute: 'field-label' },
       fieldChildren: { type: 'String', attribute: 'field-children' },
@@ -27,6 +28,7 @@
 
   export let animated = false
   export let animatedEnabled = false // passed from TrilistSelect as reactive prop
+  export let expandSelected = false
   export let fieldId = ''
   export let fieldLabel = ''
   export let fieldChildren = ''
@@ -49,7 +51,14 @@
   export const init = (options: TrilistOptions) => {
     items = trilist.init(el, {
       ...options,
-      ...{ leafs, multiselect, fieldId, fieldLabel, fieldChildren }
+      ...{
+        expandSelected,
+        leafs,
+        multiselect,
+        fieldId,
+        fieldLabel,
+        fieldChildren
+      }
     })
   }
 

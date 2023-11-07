@@ -3,6 +3,7 @@
     tag: 'trilist-select',
     props: {
       animated: { type: 'Boolean' },
+      expandSelected: { type: 'Boolean', attribute: 'expand-selected' },
       fieldId: { type: 'String', attribute: 'field-id' },
       fieldLabel: { type: 'String', attribute: 'field-label' },
       fieldChildren: { type: 'String', attribute: 'field-children' },
@@ -30,6 +31,7 @@
   import TreeIcon from '../assets/tree.svg?raw'
 
   export let animated = false
+  export let expandSelected = false
   export let fieldId = ''
   export let fieldLabel = ''
   export let fieldChildren = ''
@@ -128,6 +130,7 @@
     <TrilistView
       bind:this={elTree}
       {animatedEnabled}
+      {expandSelected}
       {leafs}
       {multiselect}
       {fieldId}

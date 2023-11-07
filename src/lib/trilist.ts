@@ -24,6 +24,7 @@ export interface TrilistOptions {
   items?: InputItem[]
   value?: TrilistValue
   expanded?: string[]
+  expandSelected?: boolean
   leafs?: boolean
   multiselect?: boolean
   fieldId?: string
@@ -65,7 +66,15 @@ export class Trilist {
 
     this.setItems(options.items)
     this.setValue(options.value)
-    this.expanded.set(options.expanded)
+
+    if (options.expandSelected) {
+      const value = this.getValue()
+      this.items.forEach((item) => this.setExpandSelectedDeep(item, value))
+    }
+
+    if (options.expanded) {
+      this.expanded.set(options.expanded)
+    }
 
     return this.items
   }
@@ -221,6 +230,14 @@ export class Trilist {
     }
 
     item.children?.forEach((child) => this.setExpandDeep(child, value))
+  }
+
+  protected setExpandSelectedDeep(item: TreeItem, value: TreeItemId[]) {
+    if (this.getChildrenDeep(item).some((item) => value.includes(item.id))) {
+      this.toggleExpanded(item)
+    }
+
+    item.children?.forEach((child) => this.setExpandSelectedDeep(child, value))
   }
 
   protected setSelectedDeep(item: TreeItem, value = true) {

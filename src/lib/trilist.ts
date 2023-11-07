@@ -182,7 +182,7 @@ export class Trilist {
 
     // expand category matched by children
     if (matchDeep) {
-      this.expanded.setValue(item.key)
+      this.toggleExpanded(item)
     }
 
     // don't filter out children if category matched by label
@@ -217,7 +217,7 @@ export class Trilist {
 
   protected setExpandDeep(item: TreeItem, value = true) {
     if (item.children?.length) {
-      this.expanded.setValue(item.key, value)
+      this.toggleExpanded(item, value)
     }
 
     item.children?.forEach((child) => this.setExpandDeep(child, value))

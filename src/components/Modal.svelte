@@ -68,7 +68,7 @@
       <!-- svelte-ignore a11y-autofocus -->
       <button
         id="trilist-dialog-select"
-        class="form-button py-1 px-4 rounded text-trilist-primary-text border border-trilist-primary bg-trilist-primary mr-2"
+        class="form-button py-1 px-4 rounded border border-trilist-primary bg-trilist-primary text-white mr-2"
         autofocus
         on:click={handleSubmit}
       >

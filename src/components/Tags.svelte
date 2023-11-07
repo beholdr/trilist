@@ -21,11 +21,11 @@
 
 <div
   id="trilist-select-tags"
-  class="overflow-x-hidden max-h-36 flex gap-1 flex-wrap"
+  class="w-full max-h-36 flex gap-1.5 flex-wrap"
 >
   {#each ids as id}
     <div
-      class="trilist-tag inline-flex pl-2 items-center bg-trilist-secondary rounded text-sm overflow-hidden"
+      class="trilist-tag inline-flex pl-2 items-center bg-trilist-secondary ring-1 ring-trilist-tag rounded-sm text-trilist-primary text-sm overflow-hidden"
       title={tagItem(id)?.label}
     >
       <div class="truncate">

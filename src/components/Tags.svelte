@@ -6,6 +6,7 @@
   import CloseIcon from '../assets/close.svg?raw'
 
   export let ids: TreeItemId[]
+  export let disabled = false
 
   const trilist = getContext<Trilist>('trilist')
   const dispatch = createEventDispatcher()
@@ -32,6 +33,7 @@
       </div>
       <button
         class="form-button focus-visible:ring-2 my-0.5 mx-1 text-trilist-input hover:text-trilist-hover"
+        {disabled}
         on:click|stopPropagation={() => handleRemove(id)}
       >
         {@html CloseIcon}

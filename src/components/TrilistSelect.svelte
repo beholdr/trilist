@@ -3,6 +3,7 @@
     tag: 'trilist-select',
     props: {
       animated: { type: 'Boolean' },
+      disabled: { type: 'Boolean' },
       expandSelected: { type: 'Boolean', attribute: 'expand-selected' },
       fieldId: { type: 'String', attribute: 'field-id' },
       fieldLabel: { type: 'String', attribute: 'field-label' },
@@ -31,6 +32,7 @@
   import TreeIcon from '../assets/tree.svg?raw'
 
   export let animated = false
+  export let disabled = false
   export let expandSelected = false
   export let fieldId = ''
   export let fieldLabel = ''
@@ -87,13 +89,15 @@
 >
   <button
     id="trilist-select-button"
-    class="form-button flex justify-between w-full p-2 text-left select-none rounded border border-trilist-input bg-trilist-fone"
+    class="form-button flex justify-between w-full p-2 text-left select-none rounded border border-trilist-input bg-trilist-fone disabled:opacity-50 disabled:pointer-events-none"
+    {disabled}
     on:click={openModal}
   >
     {#if (!showModal && $value.length) || (showModal && previousValue.length)}
       {#if multiselect}
         <Tags
           ids={showModal ? previousValue : $value}
+          {disabled}
           on:trilist-change={onChange}
         />
       {:else}

@@ -151,3 +151,21 @@ test('change event', async () => {
 
   expect(onChangeHook).toHaveBeenCalledWith(1)
 })
+
+test('disabled', async () => {
+  const result = render(TrilistSelect, { disabled: true })
+
+  expect(
+    result.container.querySelector('#trilist-select-button')
+  ).toBeDisabled()
+
+  expect(
+    result.container.querySelectorAll(
+      '#trilist-select-tags .trilist-tag:not:disabled'
+    ).length
+  ).toBe(0)
+
+  await showModal(result)
+
+  expect(result.container.querySelector('#trilist-dialog')).not.toBeVisible()
+})

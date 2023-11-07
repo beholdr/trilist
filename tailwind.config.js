@@ -11,6 +11,7 @@ export default {
         'trilist-primary': `var(--trilist-colors-primary, ${colors.blue[600]})`,
         'trilist-secondary': `var(--trilist-colors-secondary, ${colors.gray[200]})`,
         'trilist-input': `var(--trilist-colors-input, ${colors.gray[400]})`,
+        'trilist-icon': `var(--trilist-colors-icon, ${colors.gray[400]})`,
         'trilist-hover': `var(--trilist-colors-hover, ${colors.gray[500]})`,
         'trilist-focus': `var(--trilist-colors-focus, ${colors.blue[600]})`,
         'trilist-fone': `var(--trilist-colors-fone, ${colors.white})`

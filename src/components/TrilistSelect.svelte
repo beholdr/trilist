@@ -109,9 +109,9 @@
         </div>
       {/if}
     {:else}
-      <div class="text-trilist-input mx-1 truncate">{placeholder}</div>
+      <div class="text-trilist-icon mx-1 truncate">{placeholder}</div>
     {/if}
-    <span class="text-trilist-input hover:text-trilist-hover ml-1">
+    <span class="text-trilist-icon hover:text-trilist-hover ml-1">
       {@html TreeIcon}
     </span>
   </button>

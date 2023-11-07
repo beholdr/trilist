@@ -32,7 +32,7 @@
         {tagItem(id)?.label}
       </div>
       <button
-        class="form-button focus-visible:ring-2 my-0.5 mx-1 text-trilist-input hover:text-trilist-hover"
+        class="form-button focus-visible:ring-2 my-0.5 mx-1 text-trilist-icon hover:text-trilist-hover"
         {disabled}
         on:click|stopPropagation={() => handleRemove(id)}
       >

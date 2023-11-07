@@ -40,7 +40,7 @@
         {#if item.children?.length}
           <div class="flex">
             <button
-              class="form-button focus-visible:ring-2 flex-none h-5 w-5 text-trilist-input -rotate-90 mr-1 mt-0.5 transition-transform"
+              class="form-button focus-visible:ring-2 flex-none h-5 w-5 text-trilist-icon -rotate-90 mr-1 mt-0.5 transition-transform"
               class:rotate-0={$expanded.has(item.key)}
               on:click|preventDefault={() =>
                 handleExpand(item, $expanded.has(item.key))}

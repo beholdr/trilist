@@ -46,10 +46,10 @@
 >
   <div class="flex flex-col max-h-full">
     <header
-      class="sticky top-0 pt-3 sm:pt-6 px-3 sm:px-8 z-10 bg-trilist-modal-fone"
+      class="sticky top-0 pt-3 sm:pt-6 px-3 sm:px-8 z-10 bg-trilist-fone"
     >
       <button
-        class="form-button focus-visible:ring-2 text-trilist-icon hover:text-trilist-icon-hover float-right ml-2 mt-0.5 -mr-1"
+        class="form-button focus-visible:ring-2 text-trilist-input hover:text-trilist-hover float-right ml-2 mt-0.5 -mr-1"
         on:click={handleCancel}
       >
         {@html CloseIcon}
@@ -58,12 +58,12 @@
       <slot name="header" />
     </header>
 
-    <div class="flex-grow px-3 sm:px-8 bg-trilist-modal-fone">
+    <div class="flex-grow px-3 sm:px-8 bg-trilist-fone">
       <slot />
     </div>
 
     <footer
-      class="sticky bottom-0 pt-4 pb-3 sm:pb-6 px-3 sm:px-8 z-10 bg-trilist-modal-fone"
+      class="sticky bottom-0 pt-4 pb-3 sm:pb-6 px-3 sm:px-8 z-10 bg-trilist-fone"
     >
       <!-- svelte-ignore a11y-autofocus -->
       <button
@@ -76,7 +76,7 @@
       </button>
       <button
         id="trilist-dialog-cancel"
-        class="form-button py-1 px-4 rounded border text-trilist-icon hover:text-trilist-icon-hover border-trilist-input-border active:bg-trilist-secondary"
+        class="form-button py-1 px-4 rounded border text-trilist-input hover:text-trilist-hover border-trilist-input active:bg-trilist-secondary"
         on:click={handleCancel}
       >
         {cancelButton}

@@ -87,7 +87,7 @@
 >
   <button
     id="trilist-select-button"
-    class="form-button flex justify-between w-full p-2 text-left select-none rounded border border-trilist-input-border bg-trilist-input-fone"
+    class="form-button flex justify-between w-full p-2 text-left select-none rounded border border-trilist-input bg-trilist-fone"
     on:click={openModal}
   >
     {#if (!showModal && $value.length) || (showModal && previousValue.length)}
@@ -105,9 +105,9 @@
         </div>
       {/if}
     {:else}
-      <div class="text-trilist-icon mx-1 truncate">{placeholder}</div>
+      <div class="text-trilist-input mx-1 truncate">{placeholder}</div>
     {/if}
-    <span class="text-trilist-icon hover:text-trilist-icon-hover ml-1">
+    <span class="text-trilist-input hover:text-trilist-hover ml-1">
       {@html TreeIcon}
     </span>
   </button>

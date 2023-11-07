@@ -1,8 +1,9 @@
 import { render } from '@testing-library/svelte'
 import userEvent from '@testing-library/user-event'
 
-import TrilistView from '../src/components/TrilistView.svelte'
 import { treeData } from './fixtures'
+import TrilistView from '../src/components/TrilistView.svelte'
+import type { TreeItem } from '../src/lib'
 
 test('empty tree', async () => {
   const result = render(TrilistView)
@@ -22,7 +23,7 @@ test('label hooks', async () => {
   const result = render(TrilistView)
   await result.component.init({
     items: treeData,
-    labelHook: (item) => '<b class="generated-label">' + item.label + '</b>'
+    labelHook: (item: TreeItem) => '<b class="tl-label">' + item.label + '</b>'
   })
 
   const label = result.container.querySelector(
@@ -30,19 +31,8 @@ test('label hooks', async () => {
   )
 
   expect(label).toContainHTML(
-    '<b class="generated-label">' + treeData[0].label + '</b>'
+    '<b class="tl-label">' + treeData[0].label + '</b>'
   )
-})
-
-test('tree with expanded items', async () => {
-  const result = render(TrilistView)
-  await result.component.init({ items: treeData, expanded: ['2', '2-21'] })
-
-  expect(
-    result
-      .getAllByRole('treeitem')
-      .filter((el) => el.getAttribute('aria-expanded') === 'true').length
-  ).toBe(2)
 })
 
 test('tree with selected items', async () => {
@@ -54,6 +44,17 @@ test('tree with selected items', async () => {
       .getAllByRole('treeitem')
       .filter((el) => el.getAttribute('aria-selected') === 'true').length
   ).toBe(4)
+})
+
+test('tree with expand selected items', async () => {
+  const result = render(TrilistView, { expandSelected: true })
+  await result.component.init({ items: treeData, value: ['222'] })
+
+  expect(
+    result
+      .getAllByRole('treeitem')
+      .filter((el) => el.getAttribute('aria-expanded') === 'true').length
+  ).toBe(2)
 })
 
 test('empty tree with filter', async () => {
@@ -144,7 +145,7 @@ test('filtering tree', async () => {
     result
       .getAllByRole('treeitem')
       .filter((el) => !el.className.includes('hidden')).length
-  ).toBe(15)
+  ).toBe(18)
 })
 
 test('expand/collapse all', async () => {
@@ -167,7 +168,7 @@ test('expand/collapse all', async () => {
     result
       .getAllByRole('treeitem')
       .filter((el) => el.getAttribute('aria-expanded') === 'true').length
-  ).toBe(5)
+  ).toBe(6)
 
   await user.click(collapseBtn)
 
@@ -176,4 +177,24 @@ test('expand/collapse all', async () => {
       .getAllByRole('treeitem')
       .filter((el) => el.getAttribute('aria-expanded') === 'true').length
   ).toBe(0)
+})
+
+test('change event', async () => {
+  const result = render(TrilistView, {
+    selectable: true,
+    multiselect: true,
+    leafs: true
+  })
+  const onChangeHook = vi.fn()
+
+  await result.component.init({ items: treeData, onChangeHook })
+
+  const user = userEvent.setup()
+  const checkbox = result.container.querySelector(
+    '#trilist-view [type=checkbox]:first'
+  )
+
+  await user.click(checkbox!)
+
+  expect(onChangeHook).toHaveBeenCalledWith(['11', '12'])
 })

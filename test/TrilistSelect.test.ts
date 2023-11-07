@@ -1,8 +1,8 @@
-import { render, screen, type RenderResult } from '@testing-library/svelte'
+import { render, type RenderResult } from '@testing-library/svelte'
 import userEvent from '@testing-library/user-event'
 
-import TrilistSelect from '../src/components/TrilistSelect.svelte'
 import { treeData } from './fixtures'
+import TrilistSelect from '../src/components/TrilistSelect.svelte'
 
 const showModal = async (result: RenderResult<TrilistSelect>) => {
   const user = userEvent.setup()
@@ -27,7 +27,7 @@ test('show dialog', async () => {
   expect(result.container.querySelector('#trilist-dialog')).toBeVisible()
 })
 
-test('select with custom labels', async () => {
+test('custom labels', async () => {
   const result = render(TrilistSelect, {
     filter: true,
     filterPlaceholder: 'FILTER_PLACEHOLDER',
@@ -55,7 +55,45 @@ test('select with custom labels', async () => {
   ).toHaveTextContent('PROP_PLACEHOLDER')
 })
 
-test('with selected items', async () => {
+test('single selection select', async () => {
+  const result = render(TrilistSelect)
+  await result.component.init({ items: treeData })
+
+  await showModal(result)
+
+  expect(() => result.getAllByRole('checkbox')).not.toThrow()
+  expect(result.getByRole('tree').getAttribute('aria-multiselectable')).toBe(
+    'false'
+  )
+})
+
+test('multi selection select', async () => {
+  const result = render(TrilistSelect, { multiselect: true })
+  await result.component.init({ items: treeData })
+
+  await showModal(result)
+
+  expect(() => result.getAllByRole('checkbox')).not.toThrow()
+  expect(result.getByRole('tree').getAttribute('aria-multiselectable')).toBe(
+    'true'
+  )
+})
+
+test('single selection with selected item', async () => {
+  const result = render(TrilistSelect)
+  await result.component.init({ items: treeData, value: ['12', '3', '4'] })
+
+  expect(
+    result.container.querySelectorAll('#trilist-select-tags .trilist-tag')
+      .length
+  ).toBe(0)
+
+  expect(
+    result.container.querySelector('#trilist-select-button > div')
+  ).toHaveTextContent('Leaf 12')
+})
+
+test('multi selection with selected items', async () => {
   const result = render(TrilistSelect, { multiselect: true })
   await result.component.init({ items: treeData, value: ['12', '3', '4'] })
 
@@ -77,26 +115,36 @@ test('with selected items', async () => {
   ).toBe(2)
 })
 
-test('single selection select', async () => {
+test('change event', async () => {
   const result = render(TrilistSelect)
-  await result.component.init({ items: treeData })
+  const onChangeHook = vi.fn()
+
+  await result.component.init({ items: treeData, onChangeHook })
+
+  const user = userEvent.setup()
+  const checkbox = result.container.querySelector(
+    '#trilist-view [type=checkbox]:first'
+  )
+  const selectBtn = result.container.querySelector('#trilist-dialog-select')
+  const cancelBtn = result.container.querySelector('#trilist-dialog-cancel')
 
   await showModal(result)
+  await user.click(checkbox!)
+  await user.click(cancelBtn!)
 
-  expect(() => result.getAllByRole('checkbox')).not.toThrow()
-  expect(result.getByRole('tree').getAttribute('aria-multiselectable')).toBe(
-    'false'
-  )
-})
+  expect(
+    result.container.querySelector('#trilist-select-button > div')
+  ).not.toHaveTextContent('Category 1')
 
-test('single selection select', async () => {
-  const result = render(TrilistSelect, { multiselect: true })
-  await result.component.init({ items: treeData })
+  expect(onChangeHook).not.toHaveBeenCalled()
 
   await showModal(result)
+  await user.click(checkbox!)
+  await user.click(selectBtn!)
 
-  expect(() => result.getAllByRole('checkbox')).not.toThrow()
-  expect(result.getByRole('tree').getAttribute('aria-multiselectable')).toBe(
-    'true'
-  )
+  expect(
+    result.container.querySelector('#trilist-select-button > div')
+  ).toHaveTextContent('Category 1')
+
+  expect(onChangeHook).toHaveBeenCalledWith(1)
 })

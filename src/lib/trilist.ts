@@ -23,7 +23,6 @@ type InputItem = Record<string, any>
 export interface TrilistOptions {
   items?: InputItem[]
   value?: TrilistValue
-  expanded?: string[]
   expandSelected?: boolean
   leafs?: boolean
   multiselect?: boolean
@@ -70,10 +69,6 @@ export class Trilist {
     if (options.expandSelected) {
       const value = this.getValue()
       this.items.forEach((item) => this.setExpandSelectedDeep(item, value))
-    }
-
-    if (options.expanded) {
-      this.expanded.set(options.expanded)
     }
 
     return this.items

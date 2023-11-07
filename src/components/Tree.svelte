@@ -58,7 +58,7 @@
                 />
               {/if}
               <span>
-                {@html trilist.getLabel(item)}
+                {@html trilist.getItemLabel(item)}
               </span>
             </label>
           </div>
@@ -87,7 +87,7 @@
                 />
               {/if}
               <span>
-                {@html trilist.getLabel(item)}
+                {@html trilist.getItemLabel(item)}
               </span>
             </label>
           </div>

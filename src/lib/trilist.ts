@@ -155,7 +155,7 @@ export class Trilist {
     return null
   }
 
-  getLabel(item: TreeItem) {
+  getItemLabel(item: TreeItem) {
     return this.labelHook ? this.labelHook(item) : item.label
   }
 

@@ -113,7 +113,7 @@ test('label hook', () => {
   expectTypeOf(trilist.labelHook!).toBeFunction()
 
   const item = trilist.findItemById(1)
-  const label = trilist.getLabel(item!)
+  const label = trilist.getItemLabel(item!)
 
   expect(labelHook).toHaveBeenCalledOnce()
   expect(label).toBe('NEW_LABEL')

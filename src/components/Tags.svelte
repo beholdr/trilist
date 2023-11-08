@@ -21,7 +21,7 @@
 
 <div
   id="trilist-select-tags"
-  class="w-full max-h-36 flex gap-1.5 flex-wrap"
+  class="w-[calc(100%-28px)] max-h-36 flex gap-1.5 flex-wrap"
 >
   {#each ids as id}
     <div

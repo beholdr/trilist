@@ -16,8 +16,9 @@ test('init', () => {
   expectTypeOf(trilist.items).toMatchTypeOf<TreeItem[]>()
   expect(trilist.items.length).toBe(5)
 
-  expect(trilist.multiselect).toBe(false)
+  expect(trilist.independent).toBe(false)
   expect(trilist.leafs).toBe(false)
+  expect(trilist.multiselect).toBe(false)
   expect(trilist.labelHook).toBeUndefined()
   expect(trilist.onChangeHook).toBeUndefined()
 })
@@ -116,6 +117,30 @@ test('no leafs', () => {
 
   expect(trilist.leafs).toBe(false)
   expect(trilist.getValue()).toEqual([1])
+})
+
+test('independent', () => {
+  const trilist = createTrilist({
+    items: treeData,
+    multiselect: true,
+    independent: true
+  })
+
+  trilist.toggleSelected(trilist.findItemById(1)!)
+
+  expect(trilist.independent).toBe(true)
+  expect(trilist.getValue()).toEqual([1])
+
+  trilist.toggleSelected(trilist.findItemById('5')!)
+  expect(trilist.getValue()).toEqual([1, '5'])
+
+  trilist.toggleSelected(trilist.findItemById('51')!)
+  expect(trilist.getValue()).toEqual([1, '5', '51'])
+
+  trilist.toggleSelected(trilist.findItemById('5')!, false)
+  expect(trilist.getValue()).toEqual([1, '51'])
+
+  expect(get(trilist.indeterminate).size).toBe(0)
 })
 
 test('leafs', () => {

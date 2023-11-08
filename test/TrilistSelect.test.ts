@@ -18,6 +18,23 @@ test('empty select', async () => {
   expect(result.getByRole('combobox')).toBeInTheDocument()
 
   expect(result.component.trilist).toBeInstanceOf(Trilist)
+  expect(result.component.trilist.independent).toBe(false)
+  expect(result.component.trilist.leafs).toBe(false)
+  expect(result.component.trilist.multiselect).toBe(false)
+})
+
+test('simple select', async () => {
+  const result = render(TrilistSelect, {
+    independent: true,
+    leafs: true,
+    multiselect: true
+  })
+
+  await result.component.init({ items: treeData })
+
+  expect(result.component.trilist.independent).toBe(true)
+  expect(result.component.trilist.leafs).toBe(true)
+  expect(result.component.trilist.multiselect).toBe(true)
 })
 
 test('show dialog', async () => {

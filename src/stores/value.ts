@@ -27,7 +27,7 @@ export const createValueStore = (trilist: Trilist) =>
       return true
     })
 
-    return !trilist.leafs && idsWithFullSections.length
+    return !trilist.independent && !trilist.leafs && idsWithFullSections.length
       ? result.filter((id) => !idsWithFullSections.includes(id))
       : result
   })

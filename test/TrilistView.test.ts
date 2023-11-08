@@ -11,14 +11,26 @@ test('empty tree', async () => {
   expect(() => result.getByRole('treeitem')).toThrow()
 
   expect(result.component.trilist).toBeInstanceOf(Trilist)
+  expect(result.component.trilist.independent).toBe(false)
+  expect(result.component.trilist.leafs).toBe(false)
+  expect(result.component.trilist.multiselect).toBe(false)
 })
 
 test('simple tree', async () => {
-  const result = render(TrilistView)
+  const result = render(TrilistView, {
+    independent: true,
+    leafs: true,
+    multiselect: true
+  })
+
   await result.component.init({ items: treeData })
 
   expect(() => result.getByRole('tree')).not.toThrow()
   expect(() => result.getAllByRole('treeitem')).not.toThrow()
+
+  expect(result.component.trilist.independent).toBe(true)
+  expect(result.component.trilist.leafs).toBe(true)
+  expect(result.component.trilist.multiselect).toBe(true)
 })
 
 test('label hooks', async () => {

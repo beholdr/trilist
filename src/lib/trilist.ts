@@ -24,6 +24,7 @@ export interface TrilistOptions {
   items?: InputItem[]
   value?: TrilistValue
   expandSelected?: boolean
+  independent?: boolean
   leafs?: boolean
   multiselect?: boolean
   fieldId?: string
@@ -39,6 +40,7 @@ export class Trilist {
   labelHook?: TreeItemHook
   onChangeHook?: TrilistValueHook
 
+  independent = false
   leafs = false
   multiselect = false
   fieldId = 'id'
@@ -54,8 +56,10 @@ export class Trilist {
   init(el: HTMLElement, options: TrilistOptions): TreeItem[] {
     this.el = el
 
-    this.multiselect = options.multiselect === true
+    this.independent = options.independent === true
     this.leafs = options.leafs === true
+    this.multiselect = options.multiselect === true
+
     this.labelHook = options.labelHook
     this.onChangeHook = options.onChangeHook
 
@@ -101,6 +105,12 @@ export class Trilist {
 
   toggleSelected(item: TreeItem, value = true): void {
     if (this.multiselect) {
+      if (this.independent) {
+        this.selected.setValue(item.id, value)
+
+        return
+      }
+
       this.setSelectedDeep(item, value)
     } else {
       if (value) {

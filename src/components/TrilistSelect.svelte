@@ -10,6 +10,7 @@
       fieldChildren: { type: 'String', attribute: 'field-children' },
       filter: { type: 'Boolean' },
       filterPlaceholder: { type: 'String', attribute: 'filter-placeholder' },
+      independent: { type: 'Boolean' },
       leafs: { type: 'Boolean' },
       multiselect: { type: 'Boolean' },
       placeholder: { type: 'String' },
@@ -39,6 +40,7 @@
   export let fieldChildren = ''
   export let filter = false
   export let filterPlaceholder = 'Quick search'
+  export let independent = false
   export let leafs = false
   export let multiselect = false
   export let placeholder = 'Please select...'
@@ -135,6 +137,7 @@
       bind:this={elTree}
       {animatedEnabled}
       {expandSelected}
+      {independent}
       {leafs}
       {multiselect}
       {fieldId}

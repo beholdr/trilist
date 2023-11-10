@@ -56,8 +56,8 @@ export const treeDataAlt = [
     key: 1,
     name: 'Category 1',
     items: [
-      { key: '11', label: 'Leaf 11' },
-      { key: '12', label: 'Leaf 12 xx' }
+      { key: '11', name: 'Leaf 11' },
+      { key: '12', name: 'Leaf 12 xx' }
     ]
   },
   {

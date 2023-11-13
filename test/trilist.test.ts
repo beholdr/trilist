@@ -295,7 +295,7 @@ test('filtering', () => {
 
   trilist.filter('xx')
 
-  expect(get(trilist.hidden).size).toBe(14)
+  expect(get(trilist.hidden).size).toBe(10)
 
   trilist.filter('xxx')
 

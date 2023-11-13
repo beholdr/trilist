@@ -135,7 +135,7 @@ test('filtering tree', async () => {
     result
       .getAllByRole('treeitem')
       .filter((el) => !el.className.includes('hidden')).length
-  ).toBe(4)
+  ).toBe(8)
 
   await user.type(input, 'x')
 

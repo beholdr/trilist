@@ -14,16 +14,16 @@ export const treeData = [
       { id: '11', label: 'Leaf 11 (category 2)' },
       {
         id: '21',
-        label: 'Category with very long name 21 zz',
+        label: 'Category with very long name 21',
         children: [
           { id: '11', label: 'Leaf 11 (category 21)' },
-          { id: '211', label: 'Leaf with very long name too 211 zzz' },
+          { id: '211', label: 'Leaf with very long name too 211' },
           { id: '212', label: 'Leaf 212' }
         ]
       },
       {
         id: '22',
-        label: 'Category 22',
+        label: 'Category 22 xx',
         children: [
           { id: '221', label: 'Leaf 221' },
           { id: '222', label: 'Leaf 222' }
@@ -67,10 +67,10 @@ export const treeDataAlt = [
       { key: '11', name: 'Leaf 11 (category 2)' },
       {
         key: '21',
-        name: 'Category with very long name 21 zz',
+        name: 'Category with very long name 21',
         items: [
           { key: '11', name: 'Leaf 11 (category 21)' },
-          { key: '211', name: 'Leaf with very long name too 211 zzz' },
+          { key: '211', name: 'Leaf with very long name too 211' },
           { key: '212', name: 'Leaf 212' }
         ]
       }

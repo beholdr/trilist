@@ -272,6 +272,31 @@ test('expand selected', () => {
   expect([...get(trilist.expanded)]).toEqual(['4'])
 })
 
+test('expand selected category', () => {
+  const trilist = createTrilist({
+    items: treeData,
+    value: '22',
+    multiselect: true,
+    expandSelected: true
+  })
+
+  expect(trilist.getValue()).toEqual(['22'])
+  expect([...get(trilist.expanded)]).toEqual(['2'])
+})
+
+test('expand selected category with leafs', () => {
+  const trilist = createTrilist({
+    items: treeData,
+    value: '22',
+    multiselect: true,
+    leafs: true,
+    expandSelected: true
+  })
+
+  expect(trilist.getValue()).toEqual(['221', '222'])
+  expect([...get(trilist.expanded)]).toEqual(['2', '2-22'])
+})
+
 test('indeterminate state', () => {
   const trilist = createTrilist({
     items: treeData,
@@ -286,6 +311,30 @@ test('indeterminate state', () => {
 
   expect(trilist.getValue()).toEqual([])
   expect(get(trilist.indeterminate).size).toBe(0)
+})
+
+test('indeterminate child check / uncheck', () => {
+  const trilist = createTrilist({
+    items: treeData,
+    value: '2',
+    multiselect: true,
+    expandSelected: true
+  })
+
+  expect(trilist.getValue()).toEqual(['2'])
+  expect([...get(trilist.indeterminate)]).toEqual(['1'])
+
+  const item = trilist.findItemById('221')
+
+  trilist.toggleSelected(item!, false)
+
+  expect(trilist.getValue()).toEqual(['21', '222'])
+  expect([...get(trilist.indeterminate)]).toEqual(['1', '2', '2-22'])
+
+  trilist.toggleSelected(item!, true)
+
+  expect(trilist.getValue()).toEqual(['2'])
+  expect([...get(trilist.indeterminate)]).toEqual(['1'])
 })
 
 test('filtering', () => {

@@ -250,17 +250,19 @@ export class Trilist {
     item.children?.forEach((child) => this.setSelectedDeep(child, value))
   }
 
-  protected getChildrenDeep(item: TreeItem) {
+  protected getChildrenDeep(item: TreeItem, onlyChildren = false) {
     if (!item.children?.length) return []
 
-    let result = item.children.map((item) => ({
-      id: item.id,
-      key: item.key,
-      label: item.label
-    }))
+    let result = item.children
+      .filter((item) => (onlyChildren ? !item.children?.length : true))
+      .map((item) => ({
+        id: item.id,
+        key: item.key,
+        label: item.label
+      }))
 
     item.children.forEach((child) => {
-      result = [...result, ...this.getChildrenDeep(child)]
+      result = [...result, ...this.getChildrenDeep(child, onlyChildren)]
     })
 
     return result
@@ -270,7 +272,7 @@ export class Trilist {
     if (!item.children?.length) return
 
     const selectedStore = get(this.selected)
-    const children = this.getChildrenDeep(item)
+    const children = this.getChildrenDeep(item, true)
     const selected = children.filter((el) => selectedStore.has(el.id)).length
 
     if (!selected) {

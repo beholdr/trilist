@@ -23,6 +23,7 @@ type InputItem = Record<string, any>
 export interface TrilistOptions {
   items?: InputItem[]
   value?: TrilistValue
+  disabled?: TrilistValue
   expandSelected?: boolean
   independent?: boolean
   leafs?: boolean
@@ -47,6 +48,7 @@ export class Trilist {
   fieldLabel = 'label'
   fieldChildren = 'children'
 
+  readonly disabled = createStateStore<TreeItemId>()
   readonly expanded = createStateStore<string>()
   readonly hidden = createStateStore<string>()
   readonly indeterminate = createStateStore<string>()
@@ -71,6 +73,7 @@ export class Trilist {
       this.items = options.items.map((item) => this.processInputItem(item))
     }
 
+    this.setDisabled(options.disabled)
     this.setValue(options.value)
 
     if (options.expandSelected) {
@@ -103,7 +106,21 @@ export class Trilist {
     })
   }
 
+  setDisabled(value: TrilistValue = null): void {
+    if (value === null) return
+
+    let ids = Array.isArray(value) ? value : [value]
+
+    ids.forEach((id) => {
+      const item = this.findItemById(id)
+      this.disabled.setValue(item!.id)
+      item?.children?.forEach((child) => this.disabled.setValue(child.id))
+    })
+  }
+
   toggleSelected(item: TreeItem, value = true): void {
+    if (get(this.disabled).has(item.id)) return
+
     if (this.multiselect) {
       if (this.independent) {
         this.selected.setValue(item.id, value)
@@ -245,7 +262,9 @@ export class Trilist {
   }
 
   protected setSelectedDeep(item: TreeItem, value = true) {
-    this.selected.setValue(item.id, value)
+    if (!get(this.disabled).has(item.id)) {
+      this.selected.setValue(item.id, value)
+    }
 
     item.children?.forEach((child) => this.setSelectedDeep(child, value))
   }
@@ -253,8 +272,11 @@ export class Trilist {
   protected getChildrenDeep(item: TreeItem, onlyChildren = false) {
     if (!item.children?.length) return []
 
+    const disabled = get(this.disabled)
+
     let result = item.children
       .filter((item) => (onlyChildren ? !item.children?.length : true))
+      .filter((item) => !disabled.has(item.id))
       .map((item) => ({
         id: item.id,
         key: item.key,

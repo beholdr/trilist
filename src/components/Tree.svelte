@@ -10,6 +10,7 @@
   export let selectable = false
 
   const trilist = getContext<Trilist>('trilist')
+  const disabled = trilist.disabled
   const expanded = trilist.expanded
   const hidden = trilist.hidden
   const indeterminate = trilist.indeterminate
@@ -47,12 +48,17 @@
             >
               {@html BulletIcon}
             </button>
-            <label class="inline-flex">
+            <label
+              class={$disabled.has(item.id)
+                ? 'opacity-50 cursor-not-allowed inline-flex'
+                : 'inline-flex'}
+            >
               {#if selectable}
                 <input
                   type="checkbox"
-                  class="form-checkbox mt-1 mr-2 flex-none text-trilist-primary border-trilist-input"
+                  class="form-checkbox mt-1 mr-2 flex-none text-trilist-primary border-trilist-input disabled:cursor-not-allowed"
                   checked={$selected.has(item.id)}
+                  disabled={$disabled.has(item.id)}
                   indeterminate={$indeterminate.has(item.key)}
                   on:click={() => handleSelect(item, $selected.has(item.id))}
                 />
@@ -77,12 +83,17 @@
         {:else}
           <div class="flex">
             <div class="invisible flex-none h-5 w-5 mr-1 mt-0.5" />
-            <label class="inline-flex">
+            <label
+              class={$disabled.has(item.id)
+                ? 'opacity-50 cursor-not-allowed inline-flex'
+                : 'inline-flex'}
+            >
               {#if selectable}
                 <input
                   type="checkbox"
-                  class="form-checkbox mt-1 mr-2 flex-none text-trilist-primary border-trilist-input"
+                  class="form-checkbox mt-1 mr-2 flex-none text-trilist-primary border-trilist-input disabled:cursor-not-allowed"
                   checked={$selected.has(item.id)}
+                  disabled={$disabled.has(item.id)}
                   on:click={() => handleSelect(item, $selected.has(item.id))}
                 />
               {/if}

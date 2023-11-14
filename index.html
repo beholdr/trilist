@@ -72,17 +72,16 @@
   <div id="app">
     <trilist-view id="trilist-1"
       style="--trilist-colors-primary: rgb(220, 45, 75); --trilist-border-radius: 0; --trilist-colors-input-border: rgb(202, 202, 202); --trilist-colors-input-focus: rgb(34, 190, 94);"
-      selectable filter multiselect leafs expand-selected></trilist-view>
+      selectable filter multiselect expand-selected></trilist-view>
 
-    <trilist-view id="trilist-2" field-id="key" field-label="name" field-children="items" filter
-      animated></trilist-view>
+    <trilist-view id="trilist-2" selectable filter animated></trilist-view>
 
-    <trilist-select id="trilist-3"
+    <!--trilist-select id="trilist-3"
       style="--trilist-colors-primary: rgb(220, 45, 75); --trilist-border-radius: 0; --trilist-colors-input-border: rgb(202, 202, 202); --trilist-colors-input-focus: rgb(34, 190, 94);"
       placeholder="Выберите свою специальность тут" filter-placeholder="Поиск..." select-button="Выбрать"
       cancel-button="Отменить" multiselect expand-selected filter animated></trilist-select>
 
-    <trilist-select id="trilist-4" field-id="key" field-label="name" field-children="items"></trilist-select>
+    <trilist-select id="trilist-4" field-id="key" field-label="name" field-children="items"></trilist-select-->
   </div>
 
   <script type="module">
@@ -115,30 +114,32 @@
     const el1 = document.getElementById('trilist-1')
     el1.init({
       items: treeData,
-      value: '2',
-      disabled: ['21', '51'],
+      // value: '2',
+      disabled: ['21'],
       onChangeHook: (value) => console.log(value)
     })
 
     const el2 = document.getElementById('trilist-2')
     el2.init({
-      items: treeDataAlt,
-      labelHook: (item) => item.label + ' → <a style="text-decoration: underline" href="' + item.id + '">edit</a>'
+      items: treeData,
+      disabled: ['21'],
+      onChangeHook: (value) => console.log(value)
+      // labelHook: (item) => item.label + ' → <a style="text-decoration: underline" href="' + item.id + '">edit</a>'
     })
 
-    const el3 = document.getElementById('trilist-3')
-    fetch('https://rbtu.ru/api/professions')
-      .then(res => res.json())
-      .then(data => {
-        el3.init({
-          items: convertData(data),
-          value: [29, 30, 31, 145]
-        })
-      })
-    el3.addEventListener('trilist-change', (e) => console.log(e.detail))
+    // const el3 = document.getElementById('trilist-3')
+    // fetch('https://rbtu.ru/api/professions')
+    //   .then(res => res.json())
+    //   .then(data => {
+    //     el3.init({
+    //       items: convertData(data),
+    //       value: [29, 30, 31, 145]
+    //     })
+    //   })
+    // el3.addEventListener('trilist-change', (e) => console.log(e.detail))
 
-    const el4 = document.getElementById('trilist-4')
-    el4.init({ items: treeDataAlt, value: '21' })
+    // const el4 = document.getElementById('trilist-4')
+    // el4.init({ items: treeDataAlt, value: '21' })
   </script>
 
   <script type="module" src="/src/main.ts"></script>

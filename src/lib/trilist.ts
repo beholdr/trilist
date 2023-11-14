@@ -262,21 +262,21 @@ export class Trilist {
   }
 
   protected setSelectedDeep(item: TreeItem, value = true) {
-    if (!get(this.disabled).has(item.id)) {
-      this.selected.setValue(item.id, value)
-    }
+    if (get(this.disabled).has(item.id)) return
+
+    this.selected.setValue(item.id, value)
 
     item.children?.forEach((child) => this.setSelectedDeep(child, value))
   }
 
-  protected getChildrenDeep(item: TreeItem, onlyChildren = false) {
+  protected getChildrenDeep(item: TreeItem, leafs = false, enabled = false) {
     if (!item.children?.length) return []
 
     const disabled = get(this.disabled)
 
     let result = item.children
-      .filter((item) => (onlyChildren ? !item.children?.length : true))
-      .filter((item) => !disabled.has(item.id))
+      .filter((item) => (leafs ? !item.children?.length : true))
+      .filter((item) => (enabled ? !disabled.has(item.id) : true))
       .map((item) => ({
         id: item.id,
         key: item.key,
@@ -284,7 +284,7 @@ export class Trilist {
       }))
 
     item.children.forEach((child) => {
-      result = [...result, ...this.getChildrenDeep(child, onlyChildren)]
+      result = [...result, ...this.getChildrenDeep(child, leafs, enabled)]
     })
 
     return result

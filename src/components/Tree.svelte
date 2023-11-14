@@ -10,6 +10,7 @@
   export let selectable = false
 
   const trilist = getContext<Trilist>('trilist')
+
   const disabled = trilist.disabled
   const expanded = trilist.expanded
   const hidden = trilist.hidden
@@ -22,8 +23,8 @@
     trilist.toggleExpanded(item, !selected)
   }
 
-  const handleSelect = (item: TreeItem, selected: boolean) => {
-    trilist.toggleSelected(item, !selected)
+  const handleSelect = (item: TreeItem, isChecked: boolean) => {
+    trilist.toggleSelected(item, !isChecked)
     dispatch(TrilistEvents.change)
   }
 </script>
@@ -60,7 +61,7 @@
                   checked={$selected.has(item.id)}
                   disabled={$disabled.has(item.id)}
                   indeterminate={$indeterminate.has(item.key)}
-                  on:click={() => handleSelect(item, $selected.has(item.id))}
+                  on:change={() => handleSelect(item, $selected.has(item.id))}
                 />
               {/if}
               <span>
@@ -94,7 +95,7 @@
                   class="form-checkbox mt-1 mr-2 flex-none text-trilist-primary border-trilist-input disabled:cursor-not-allowed"
                   checked={$selected.has(item.id)}
                   disabled={$disabled.has(item.id)}
-                  on:click={() => handleSelect(item, $selected.has(item.id))}
+                  on:change={() => handleSelect(item, $selected.has(item.id))}
                 />
               {/if}
               <span>

@@ -4,7 +4,8 @@ export const treeData = [
     label: 'Category 1',
     children: [
       { id: '11', label: 'Leaf 11' },
-      { id: '12', label: 'Leaf 12 xx' }
+      { id: '12', label: 'Leaf 12 xx' },
+      { id: '13', label: 'Leaf 13' }
     ]
   },
   {

@@ -82,7 +82,7 @@
 
 <div
   {...$$restProps}
-  id="trilist-view"
+  class="trilist-view"
   role="tree"
   aria-multiselectable={multiselect}
   bind:this={el}
@@ -92,6 +92,7 @@
   {/if}
 
   <Tree
+    class="trilist-tree"
     {items}
     {selectable}
     animated={animatedEnabled}

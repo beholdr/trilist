@@ -84,14 +84,13 @@
 
 <div
   {...$$restProps}
-  id="trilist-select"
+  class="trilist-select"
   role="combobox"
   aria-expanded={showModal}
   aria-controls="trilist-dialog"
 >
   <button
-    id="trilist-select-button"
-    class="form-button flex justify-between w-full p-2 text-left select-none rounded border border-trilist-input bg-trilist-fone disabled:opacity-50 disabled:pointer-events-none"
+    class="trilist-select-button form-button flex justify-between w-full p-2 text-left select-none rounded border border-trilist-input bg-trilist-fone disabled:opacity-50 disabled:pointer-events-none"
     {disabled}
     on:click={openModal}
   >

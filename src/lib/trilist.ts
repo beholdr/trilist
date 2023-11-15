@@ -102,7 +102,9 @@ export class Trilist {
 
     ids.forEach((id) => {
       const item = this.findItemById(id)
-      this.toggleSelected(item!)
+      if (item) {
+        this.toggleSelected(item)
+      }
     })
   }
 
@@ -113,8 +115,10 @@ export class Trilist {
 
     ids.forEach((id) => {
       const item = this.findItemById(id)
-      this.disabled.setValue(item!.id)
-      item?.children?.forEach((child) => this.disabled.setValue(child.id))
+      if (item) {
+        this.disabled.setValue(item.id)
+        item?.children?.forEach((child) => this.disabled.setValue(child.id))
+      }
     })
   }
 

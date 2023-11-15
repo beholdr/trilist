@@ -74,6 +74,12 @@ test('set value single', () => {
   expect(trilist.getValue()).toEqual(['4'])
 })
 
+test('non existent value', () => {
+  const trilist = createTrilist({ items: treeData, value: 999 })
+
+  expect(trilist.getValue()).toEqual([])
+})
+
 test('single select', () => {
   const onChangeHook = vi.fn()
   const trilist = createTrilist({ items: treeData, onChangeHook })
@@ -525,4 +531,10 @@ test('set disabled as array', () => {
   const trilist = createTrilist({ items: treeData, disabled: ['41'] })
 
   expect([...get(trilist.disabled)]).toEqual(['41'])
+})
+
+test('non existent disabled', () => {
+  const trilist = createTrilist({ items: treeData, disabled: 999 })
+
+  expect(get(trilist.disabled).size).toBe(0)
 })

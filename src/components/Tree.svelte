@@ -1,7 +1,8 @@
 <script lang="ts">
   import { createEventDispatcher, getContext } from 'svelte'
 
-  import { TrilistEvents, type Trilist, type TreeItem } from '../lib'
+  import { TrilistEvents } from '../lib'
+  import type { Trilist, TreeItem, TreeItemId } from '../lib'
 
   import BulletIcon from '../assets/bullet.svg?raw'
 
@@ -14,17 +15,24 @@
   const disabled = trilist.disabled
   const expanded = trilist.expanded
   const hidden = trilist.hidden
-  const indeterminate = trilist.indeterminate
-  const selected = trilist.selected
 
-  const dispatch = createEventDispatcher()
+  let selected: TreeItemId[] = []
+  trilist.selected.subscribe((value) => (selected = [...value]))
+
+  let indeterminate: Record<string, boolean> = {}
+  trilist.indeterminate.subscribe(
+    (value) =>
+      (indeterminate = Object.fromEntries([...value].map((el) => [el, true])))
+  )
 
   const handleExpand = (item: TreeItem, selected: boolean) => {
     trilist.toggleExpanded(item, !selected)
   }
 
-  const handleSelect = (item: TreeItem, isChecked: boolean) => {
-    trilist.toggleSelected(item, !isChecked)
+  const dispatch = createEventDispatcher()
+
+  const handleSelect = async (item: TreeItem) => {
+    trilist.toggleSelected(item, selected.includes(item.id))
     dispatch(TrilistEvents.change)
   }
 </script>
@@ -36,7 +44,7 @@
         class="mb-3"
         class:hidden={$hidden.has(item.key)}
         role="treeitem"
-        aria-selected={$selected.has(item.id)}
+        aria-selected={selected.includes(item.id)}
         aria-expanded={$expanded.has(item.key)}
       >
         {#if item.children?.length}
@@ -58,10 +66,11 @@
                 <input
                   type="checkbox"
                   class="form-checkbox mt-1 mr-2 flex-none text-trilist-primary border-trilist-input disabled:cursor-not-allowed"
-                  checked={$selected.has(item.id)}
+                  value={item.id}
+                  bind:group={selected}
                   disabled={$disabled.has(item.id)}
-                  indeterminate={$indeterminate.has(item.key)}
-                  on:change={() => handleSelect(item, $selected.has(item.id))}
+                  bind:indeterminate={indeterminate[item.key]}
+                  on:change={() => handleSelect(item)}
                 />
               {/if}
               <span>
@@ -93,9 +102,10 @@
                 <input
                   type="checkbox"
                   class="form-checkbox mt-1 mr-2 flex-none text-trilist-primary border-trilist-input disabled:cursor-not-allowed"
-                  checked={$selected.has(item.id)}
+                  value={item.id}
+                  bind:group={selected}
                   disabled={$disabled.has(item.id)}
-                  on:change={() => handleSelect(item, $selected.has(item.id))}
+                  on:change={() => handleSelect(item)}
                 />
               {/if}
               <span>

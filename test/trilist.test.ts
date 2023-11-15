@@ -53,7 +53,7 @@ test('set value multiselect', () => {
 
   trilist.setValue(1)
 
-  expect(trilist.getValue()).toEqual(['11', '12'])
+  expect(trilist.getValue()).toEqual(['11', '12', '13'])
 
   trilist.setValue(['4'])
 
@@ -153,7 +153,7 @@ test('leafs', () => {
   trilist.toggleSelected(trilist.findItemById(1)!)
 
   expect(trilist.leafs).toBe(true)
-  expect(trilist.getValue()).toEqual(['11', '12'])
+  expect(trilist.getValue()).toEqual(['11', '12', '13'])
 })
 
 test('leafs with single select', () => {
@@ -254,6 +254,18 @@ test('parent selection and clear for single', () => {
   expect(trilist.getValue()).toEqual([])
 })
 
+test('set value as single', () => {
+  const trilist = createTrilist({ items: treeData, value: '41' })
+
+  expect(trilist.getValue()).toEqual(['41'])
+})
+
+test('set value as array', () => {
+  const trilist = createTrilist({ items: treeData, value: ['41'] })
+
+  expect(trilist.getValue()).toEqual(['41'])
+})
+
 test('no expand selected', () => {
   const trilist = createTrilist({ items: treeData, value: '41' })
 
@@ -337,6 +349,72 @@ test('indeterminate child check / uncheck', () => {
   expect([...get(trilist.indeterminate)]).toEqual(['1'])
 })
 
+test('single children select', () => {
+  const trilist = createTrilist({ items: treeData })
+
+  expect(trilist.getValue()).toEqual([])
+  expect(get(trilist.indeterminate).size).toBe(0)
+
+  const item5 = trilist.findItemById('5')
+  const item51 = trilist.findItemById('51')
+  const item52 = trilist.findItemById('52')
+
+  trilist.toggleSelected(item5!, true)
+
+  expect(trilist.getValue()).toEqual(['5'])
+  expect(get(trilist.indeterminate).size).toBe(0)
+
+  trilist.toggleSelected(item51!, true)
+
+  expect(trilist.getValue()).toEqual(['51'])
+  expect([...get(trilist.indeterminate)]).toEqual(['5'])
+
+  trilist.toggleSelected(item52!, true)
+
+  expect(trilist.getValue()).toEqual(['52'])
+  expect([...get(trilist.indeterminate)]).toEqual(['5'])
+
+  trilist.toggleSelected(item52!, false)
+
+  expect(trilist.getValue()).toEqual([])
+  expect(get(trilist.indeterminate).size).toBe(0)
+})
+
+test('indeterminate child single', () => {
+  const trilist = createTrilist({
+    items: treeData,
+    value: '221',
+    expandSelected: true
+  })
+
+  expect(trilist.getValue()).toEqual(['221'])
+  expect([...get(trilist.indeterminate)]).toEqual(['2', '2-22'])
+
+  const item2 = trilist.findItemById('2')
+  const item22 = trilist.findItemById('22')
+  const item221 = trilist.findItemById('221')
+
+  trilist.toggleSelected(item221!, false)
+
+  expect(trilist.getValue()).toEqual([])
+  expect(get(trilist.indeterminate).size).toBe(0)
+
+  trilist.toggleSelected(item2!, true)
+
+  expect(trilist.getValue()).toEqual(['2'])
+  expect(get(trilist.indeterminate).size).toBe(0)
+
+  trilist.toggleSelected(item22!, true)
+
+  expect(trilist.getValue()).toEqual(['22'])
+  expect([...get(trilist.indeterminate)]).toEqual(['2'])
+
+  trilist.toggleSelected(item221!, true)
+
+  expect(trilist.getValue()).toEqual(['221'])
+  expect([...get(trilist.indeterminate)]).toEqual(['2', '2-22'])
+})
+
 test('filtering', () => {
   const trilist = createTrilist({ items: treeData })
 
@@ -344,13 +422,107 @@ test('filtering', () => {
 
   trilist.filter('xx')
 
-  expect(get(trilist.hidden).size).toBe(10)
+  expect(get(trilist.hidden).size).toBe(11)
 
   trilist.filter('xxx')
 
-  expect(get(trilist.hidden).size).toBe(16)
+  expect(get(trilist.hidden).size).toBe(17)
 
   trilist.filter('xxxx')
 
-  expect(get(trilist.hidden).size).toBe(18)
+  expect(get(trilist.hidden).size).toBe(19)
+})
+
+test('disabled multi select', () => {
+  const trilist = createTrilist({
+    items: treeData,
+    disabled: '21',
+    multiselect: true
+  })
+
+  expect(trilist.getValue()).toEqual([])
+  expect(get(trilist.indeterminate).size).toBe(0)
+
+  trilist.toggleSelected(trilist.findItemById(1)!)
+
+  expect(trilist.getValue()).toEqual(['12', '13'])
+  expect([...get(trilist.indeterminate)]).toEqual(['1'])
+
+  trilist.toggleSelected(trilist.findItemById(1)!)
+
+  expect(trilist.getValue()).toEqual(['12', '13'])
+  expect([...get(trilist.indeterminate)]).toEqual(['1'])
+
+  trilist.toggleSelected(trilist.findItemById('12')!, false)
+
+  expect(trilist.getValue()).toEqual(['13'])
+  expect([...get(trilist.indeterminate)]).toEqual(['1'])
+
+  trilist.toggleSelected(trilist.findItemById(1)!)
+
+  expect(trilist.getValue()).toEqual(['13', '12'])
+  expect([...get(trilist.indeterminate)]).toEqual(['1'])
+
+  trilist.toggleSelected(trilist.findItemById('12')!, false)
+
+  expect(trilist.getValue()).toEqual(['13'])
+  expect([...get(trilist.indeterminate)]).toEqual(['1'])
+
+  trilist.toggleSelected(trilist.findItemById('13')!, false)
+
+  expect(trilist.getValue()).toEqual([])
+  expect(get(trilist.indeterminate).size).toBe(0)
+})
+
+test('disabled multi select deep', () => {
+  const trilist = createTrilist({
+    items: treeData,
+    disabled: '21',
+    multiselect: true
+  })
+
+  expect(trilist.getValue()).toEqual([])
+  expect(get(trilist.indeterminate).size).toBe(0)
+
+  trilist.toggleSelected(trilist.findItemById('21')!)
+
+  expect(trilist.getValue()).toEqual([])
+  expect(get(trilist.indeterminate).size).toBe(0)
+
+  trilist.toggleSelected(trilist.findItemById('11')!)
+
+  expect(trilist.getValue()).toEqual([])
+  expect(get(trilist.indeterminate).size).toBe(0)
+
+  trilist.toggleSelected(trilist.findItemById('221')!)
+
+  expect(trilist.getValue()).toEqual(['221'])
+  expect([...get(trilist.indeterminate)]).toEqual(['2', '2-22'])
+
+  trilist.toggleSelected(trilist.findItemById('222')!)
+
+  expect(trilist.getValue()).toEqual(['22'])
+  expect([...get(trilist.indeterminate)]).toEqual(['2'])
+
+  trilist.toggleSelected(trilist.findItemById('2')!)
+
+  expect(trilist.getValue()).toEqual(['22'])
+  expect([...get(trilist.indeterminate)]).toEqual(['2'])
+
+  trilist.toggleSelected(trilist.findItemById('22')!, false)
+
+  expect(trilist.getValue()).toEqual([])
+  expect(get(trilist.indeterminate).size).toBe(0)
+})
+
+test('set disabled as single', () => {
+  const trilist = createTrilist({ items: treeData, disabled: '41' })
+
+  expect([...get(trilist.disabled)]).toEqual(['41'])
+})
+
+test('set disabled as array', () => {
+  const trilist = createTrilist({ items: treeData, disabled: ['41'] })
+
+  expect([...get(trilist.disabled)]).toEqual(['41'])
 })

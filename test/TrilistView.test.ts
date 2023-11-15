@@ -159,7 +159,7 @@ test('filtering tree', async () => {
     result
       .getAllByRole('treeitem')
       .filter((el) => !el.className.includes('hidden')).length
-  ).toBe(18)
+  ).toBe(19)
 })
 
 test('expand/collapse all', async () => {
@@ -210,5 +210,5 @@ test('change event', async () => {
 
   await user.click(checkbox!)
 
-  expect(onChangeHook).toHaveBeenCalledWith(['11', '12'])
+  expect(onChangeHook).toHaveBeenCalledWith(['11', '12', '13'])
 })

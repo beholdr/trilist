@@ -137,7 +137,7 @@ export class Trilist {
       }
     }
 
-    this.items.forEach((item) => this.setIndeterminateDeep(item))
+    this.items.forEach((item) => this.processStateDeep(item))
   }
 
   toggleExpanded(item: TreeItem, value = true): void {
@@ -269,14 +269,11 @@ export class Trilist {
     item.children?.forEach((child) => this.setSelectedDeep(child, value))
   }
 
-  protected getChildrenDeep(item: TreeItem, leafs = false, enabled = false) {
+  protected getChildrenDeep(item: TreeItem, leafs = false) {
     if (!item.children?.length) return []
-
-    const disabled = get(this.disabled)
 
     let result = item.children
       .filter((item) => (leafs ? !item.children?.length : true))
-      .filter((item) => (enabled ? !disabled.has(item.id) : true))
       .map((item) => ({
         id: item.id,
         key: item.key,
@@ -284,28 +281,24 @@ export class Trilist {
       }))
 
     item.children.forEach((child) => {
-      result = [...result, ...this.getChildrenDeep(child, leafs, enabled)]
+      result = [...result, ...this.getChildrenDeep(child, leafs)]
     })
 
     return result
   }
 
-  protected setIndeterminateDeep(item: TreeItem) {
+  protected processStateDeep(item: TreeItem) {
     if (!item.children?.length) return
 
     const selectedStore = get(this.selected)
-    const children = this.getChildrenDeep(item, true)
+    const children = this.getChildrenDeep(item, this.multiselect)
     const selected = children.filter((el) => selectedStore.has(el.id)).length
 
     if (!selected) {
-      // to correct cleanup of previous selected parent on single selection mode
       if (this.multiselect) {
         this.selected.setValue(item.id, false)
       }
       this.indeterminate.setValue(item.key, false)
-    } else if (children.length > selected) {
-      this.selected.setValue(item.id, false)
-      this.indeterminate.setValue(item.key, true)
     } else if (children.length === selected) {
       if (this.multiselect) {
         this.selected.setValue(item.id, true)
@@ -314,8 +307,11 @@ export class Trilist {
         this.selected.setValue(item.id, false)
         this.indeterminate.setValue(item.key, true)
       }
+    } else {
+      this.selected.setValue(item.id, false)
+      this.indeterminate.setValue(item.key, true)
     }
 
-    item.children?.forEach((child) => this.setIndeterminateDeep(child))
+    item.children?.forEach((child) => this.processStateDeep(child))
   }
 }

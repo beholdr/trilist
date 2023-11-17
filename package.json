@@ -1,15 +1,26 @@
 {
   "name": "trilist",
-  "description": "A simple library for working with tree data",
+  "version": "0.1.0",
+  "description": "Web components for working with tree data: treeselect and treeview",
+  "keywords": [
+    "tree",
+    "treeselect",
+    "treeview",
+    "svelte"
+  ],
   "author": "Alexander Shabunevich",
-  "version": "0.0.0",
+  "repository": {
+    "url": "https://github.com/beholdr/trilist",
+    "type": "git"
+  },
   "license": "MIT",
   "type": "module",
+  "module": "./dist/trilist.js",
   "main": "./dist/trilist.umd.js",
-  "types": "./dist/types/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
+      "import": "./dist/trilist.js",
       "require": "./dist/trilist.umd.js"
     }
   },
@@ -21,7 +32,6 @@
     "build": "vite build",
     "test": "vitest run",
     "coverage": "vitest run --coverage",
-    "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "devDependencies": {

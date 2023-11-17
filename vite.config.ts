@@ -31,16 +31,19 @@ const minifyEs = () => {
 export default defineConfig({
   build: {
     lib: {
+      name: 'Trilist',
       formats: [
         'es',
         // @ts-expect-error
-        'esm'
+        'esm',
+        'umd'
       ],
       entry: resolve(__dirname, 'src/main.ts'),
       fileName: (format) =>
         ({
           es: `${pkg.name}.js`,
-          esm: `${pkg.name}.min.js`
+          esm: `${pkg.name}.min.js`,
+          umd: `${pkg.name}.umd.js`
         }[format])
     }
   },

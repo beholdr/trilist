@@ -32,7 +32,8 @@
     "build": "vite build",
     "test": "vitest run",
     "coverage": "vitest run --coverage",
-    "check": "svelte-check --tsconfig ./tsconfig.json"
+    "check": "svelte-check --tsconfig ./tsconfig.json",
+    "version": "npm run build && npm test"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^2.0.0",

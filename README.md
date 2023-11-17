@@ -1,3 +1,3 @@
-# Trilist
+# Trilist ☘️
 
-A simple library for working with tree data: tree-view and tree-select input.
+Web components for working with tree data: treeselect and treeview.

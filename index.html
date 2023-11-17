@@ -5,61 +5,51 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Trilist</title>
+  <title>Trilist Demo</title>
 
   <link rel="icon"
     href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%220.9em%22 font-size=%22120%22>☘️</text></svg>">
-  <style>
-    /*:not(:defined) {
-      visibility: hidden;
-    }*/
 
+  <style>
     html {
       color: #888;
-      font-size: 12px;
+      background: #fff;
+      font-size: 24px;
+      text-align: center;
+    }
 
-      /* color-scheme: dark; */
+    @media (prefers-color-scheme: dark) {
+      html {
+        color: #eee;
+        background: #333;
 
-      /* Overrides */
-      /*
-      --trilist-colors-text: rgb(220, 45, 75);
-      --trilist-colors-primary: rgb(220, 45, 75);
-      --trilist-colors-secondary: rgb(229, 231, 235);
-      --trilist-colors-input-border: rgb(255, 255, 255);
-      --trilist-colors-input-focus: rgb(255, 255, 255);
-      --trilist-colors-input-fone: rgb(255, 255, 255);
-      --trilist-colors-modal-fone: rgb(255, 255, 255);
-      --trilist-colors-icon: rgb(156, 163, 175);
-      --trilist-colors-icon-hover: rgb(107, 114, 128);
-      --trilist-border-radius: 0;
-      --trilist-text-base: 16px;
-      --trilist-text-sm: 14px;
-      */
-
-      /*
-      --trilist-colors-secondary: rgb(76, 76, 76);
-      --trilist-colors-input: rgb(46, 46, 46);
-      --trilist-colors-modal: rgb(28, 28, 28);
-      --trilist-colors-gray: rgb(96, 103, 114);
-      --trilist-colors-gray-alt: rgb(128, 136, 153);
-      */
+        --trilist-colors-accent: #427cf9;
+        --trilist-colors-tag: #444;
+        --trilist-colors-tag-border: #555;
+        --trilist-colors-tag-text: #84abff;
+        --trilist-colors-input: #6f747d;
+        --trilist-colors-icon: #84868c;
+        --trilist-colors-hover: #9ea3ae;
+        --trilist-colors-text: #eee;
+        --trilist-colors-fone: #333;
+      }
     }
 
     #app {
-      color: #333;
-      margin: 1.5em auto;
+      margin: 1em auto;
       max-width: 1200px;
     }
 
-    @media screen and (min-width: 400px) {
+    @media screen and (min-width: 640px) {
       #app {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
         column-gap: 16px;
+        row-gap: 16px;
       }
     }
 
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: 1024px) {
       #app {
         grid-template-columns: repeat(4, minmax(0, 1fr));
       }
@@ -68,43 +58,21 @@
 </head>
 
 <body>
-  <p>Examples:</p>
+  <p>Usage examples:</p>
   <div id="app">
-    <trilist-view id="trilist-1"
-      style="--trilist-colors-primary: rgb(220, 45, 75); --trilist-border-radius: 0; --trilist-colors-input-border: rgb(202, 202, 202); --trilist-colors-input-focus: rgb(34, 190, 94);"
+    <trilist-view id="trilist-1" style="--trilist-colors-accent: rgb(220, 45, 75); --trilist-border-radius: 0;"
       selectable filter multiselect expand-selected></trilist-view>
 
-    <trilist-view id="trilist-2" selectable filter animated></trilist-view>
+    <trilist-view id="trilist-2" filter animated></trilist-view>
 
-    <trilist-select id="trilist-3"
-      style="--trilist-colors-primary: rgb(220, 45, 75); --trilist-border-radius: 0; --trilist-colors-input-border: rgb(202, 202, 202); --trilist-colors-input-focus: rgb(34, 190, 94);"
-      placeholder="Выберите свою специальность тут" filter-placeholder="Поиск..." select-button="Выбрать"
-      cancel-button="Отменить" multiselect expand-selected filter animated></trilist-select>
+    <trilist-select id="trilist-3" placeholder="Choose your options" filter-placeholder="Search..."
+      select-button="Choose" cancel-button="Nevermind" multiselect expand-selected filter animated></trilist-select>
 
     <trilist-select id="trilist-4" field-id="key" field-label="name" field-children="items"></trilist-select>
   </div>
 
   <script type="module">
     import { treeData, treeDataAlt } from './test/fixtures.ts'
-
-    const convertData = (data) => {
-      const result = []
-      for (const item of data.data) {
-        if (!item.parents.length) {
-          result.push({ id: item.id, label: item.title })
-        } else {
-          for (const parent of item.parents) {
-            const idx = result.findIndex(el => el.id === parent.id)
-            if (!result[idx].children) {
-              result[idx].children = []
-            }
-            result[idx].children.push({ id: item.id, label: item.title })
-          }
-        }
-      }
-
-      return result
-    }
 
     await Promise.allSettled([
       customElements.whenDefined('trilist-view'),
@@ -114,7 +82,7 @@
     const el1 = document.getElementById('trilist-1')
     el1.init({
       items: treeData,
-      // value: '2',
+      value: '2',
       disabled: ['21'],
       onChangeHook: (value) => console.log(value)
     })
@@ -122,20 +90,12 @@
     const el2 = document.getElementById('trilist-2')
     el2.init({
       items: treeData,
-      disabled: ['21'],
+      labelHook: (item) => `<a style="text-decoration: underline" href="#/edit/${item.id}">${item.label}</a>`,
       onChangeHook: (value) => console.log(value)
-      // labelHook: (item) => item.label + ' → <a style="text-decoration: underline" href="' + item.id + '">edit</a>'
     })
 
     const el3 = document.getElementById('trilist-3')
-    fetch('https://rbtu.ru/api/professions')
-      .then(res => res.json())
-      .then(data => {
-        el3.init({
-          items: convertData(data),
-          value: [29, 30, 31, 145]
-        })
-      })
+    el3.init({ items: treeData, value: '21' })
     el3.addEventListener('trilist-change', (e) => console.log(e.detail))
 
     const el4 = document.getElementById('trilist-4')

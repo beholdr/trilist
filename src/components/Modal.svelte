@@ -44,7 +44,7 @@
   on:click|self={handleCancel}
   on:close={handleClose}
 >
-  <div class="flex flex-col max-h-full">
+  <div class="flex flex-col max-h-full text-trilist-text">
     <header class="sticky top-0 pt-3 sm:pt-6 px-3 sm:px-8 z-10 bg-trilist-fone">
       <button
         class="trilist-dialog-close form-button focus-visible:ring-2 text-trilist-icon hover:text-trilist-hover float-right ml-2 mt-0.5 -mr-1"
@@ -65,7 +65,7 @@
     >
       <!-- svelte-ignore a11y-autofocus -->
       <button
-        class="trilist-dialog-select form-button py-1 px-4 rounded border border-trilist-primary bg-trilist-primary text-white select-none mr-2"
+        class="trilist-dialog-select form-button py-1 px-4 rounded border border-trilist-accent bg-trilist-accent text-white select-none mr-2"
         autofocus
         on:click={handleSubmit}
       >

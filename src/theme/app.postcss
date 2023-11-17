@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :host {
-  @apply text-base;
+  @apply text-left text-base text-trilist-text;
 }
 
 @layer components {
@@ -13,6 +13,6 @@
   .form-button,
   .form-checkbox,
   .form-input {
-    @apply focus-visible:border-trilist-focus focus-visible:ring-trilist-focus focus:ring-trilist-focus;
+    @apply focus-visible:border-trilist-accent focus-visible:ring-trilist-accent focus:ring-trilist-accent;
   }
 }

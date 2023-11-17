@@ -90,7 +90,7 @@
   aria-controls="trilist-dialog"
 >
   <button
-    class="trilist-select-button form-button flex justify-between w-full p-2 text-left select-none rounded border border-trilist-input bg-trilist-fone disabled:opacity-50 disabled:pointer-events-none"
+    class="trilist-select-button form-button flex justify-between w-full p-2 select-none rounded border border-trilist-input bg-trilist-fone disabled:opacity-50 disabled:pointer-events-none"
     {disabled}
     on:click={openModal}
   >

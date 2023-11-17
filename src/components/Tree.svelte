@@ -65,7 +65,7 @@
               {#if selectable}
                 <input
                   type="checkbox"
-                  class="form-checkbox mt-1 mr-2 flex-none text-trilist-primary border-trilist-input disabled:cursor-not-allowed"
+                  class="form-checkbox mt-1 mr-2 flex-none text-trilist-accent border-trilist-input disabled:cursor-not-allowed"
                   value={item.id}
                   bind:group={selected}
                   disabled={$disabled.has(item.id)}
@@ -101,7 +101,7 @@
               {#if selectable}
                 <input
                   type="checkbox"
-                  class="form-checkbox mt-1 mr-2 flex-none text-trilist-primary border-trilist-input disabled:cursor-not-allowed"
+                  class="form-checkbox mt-1 mr-2 flex-none text-trilist-accent border-trilist-input disabled:cursor-not-allowed"
                   value={item.id}
                   bind:group={selected}
                   disabled={$disabled.has(item.id)}

@@ -24,7 +24,7 @@
 >
   {#each ids as id}
     <div
-      class="trilist-tag inline-flex pl-2 items-center bg-trilist-secondary ring-1 ring-trilist-tag rounded-sm text-trilist-primary text-sm overflow-hidden"
+      class="trilist-tag inline-flex pl-2 items-center bg-trilist-tag ring-1 ring-trilist-tag-border rounded-sm text-trilist-tag-text text-sm overflow-hidden"
       title={tagItem(id)?.label}
     >
       <div class="truncate">

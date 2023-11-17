@@ -10,7 +10,7 @@
   ],
   "author": "Alexander Shabunevich",
   "repository": {
-    "url": "https://github.com/beholdr/trilist",
+    "url": "git+https://github.com/beholdr/trilist.git",
     "type": "git"
   },
   "license": "MIT",

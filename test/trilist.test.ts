@@ -196,8 +196,8 @@ test('expand all', () => {
   expect([...get(trilist.expanded)]).toEqual([
     '1',
     '2',
-    '2-21',
-    '2-22',
+    '2.21',
+    '2.22',
     '4',
     '5'
   ])
@@ -312,7 +312,7 @@ test('expand selected category with leafs', () => {
   })
 
   expect(trilist.getValue()).toEqual(['221', '222'])
-  expect([...get(trilist.expanded)]).toEqual(['2', '2-22'])
+  expect([...get(trilist.expanded)]).toEqual(['2', '2.22'])
 })
 
 test('indeterminate state', () => {
@@ -323,7 +323,7 @@ test('indeterminate state', () => {
   })
 
   expect(trilist.getValue()).toEqual(['222'])
-  expect([...get(trilist.indeterminate)]).toEqual(['2', '2-22'])
+  expect([...get(trilist.indeterminate)]).toEqual(['2', '2.22'])
 
   trilist.toggleSelected(trilist.findItemById('222')!, false)
 
@@ -347,7 +347,7 @@ test('indeterminate child check / uncheck', () => {
   trilist.toggleSelected(item!, false)
 
   expect(trilist.getValue()).toEqual(['21', '222'])
-  expect([...get(trilist.indeterminate)]).toEqual(['1', '2', '2-22'])
+  expect([...get(trilist.indeterminate)]).toEqual(['1', '2', '2.22'])
 
   trilist.toggleSelected(item!, true)
 
@@ -394,7 +394,7 @@ test('indeterminate child single', () => {
   })
 
   expect(trilist.getValue()).toEqual(['221'])
-  expect([...get(trilist.indeterminate)]).toEqual(['2', '2-22'])
+  expect([...get(trilist.indeterminate)]).toEqual(['2', '2.22'])
 
   const item2 = trilist.findItemById('2')
   const item22 = trilist.findItemById('22')
@@ -418,7 +418,7 @@ test('indeterminate child single', () => {
   trilist.toggleSelected(item221!, true)
 
   expect(trilist.getValue()).toEqual(['221'])
-  expect([...get(trilist.indeterminate)]).toEqual(['2', '2-22'])
+  expect([...get(trilist.indeterminate)]).toEqual(['2', '2.22'])
 })
 
 test('filtering', () => {
@@ -503,7 +503,7 @@ test('disabled multi select deep', () => {
   trilist.toggleSelected(trilist.findItemById('221')!)
 
   expect(trilist.getValue()).toEqual(['221'])
-  expect([...get(trilist.indeterminate)]).toEqual(['2', '2-22'])
+  expect([...get(trilist.indeterminate)]).toEqual(['2', '2.22'])
 
   trilist.toggleSelected(trilist.findItemById('222')!)
 

@@ -3,7 +3,7 @@ export const treeData = [
     id: 1,
     label: 'Category 1',
     children: [
-      { id: '11', label: 'Leaf 11' },
+      { id: '11', label: 'Leaf 11 (category 1)' },
       { id: '12', label: 'Leaf 12 xx' },
       { id: '13', label: 'Leaf 13' }
     ]

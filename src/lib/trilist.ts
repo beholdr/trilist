@@ -236,7 +236,7 @@ export class Trilist {
   protected processInputItem(item: InputItem, key = ''): TreeItem {
     const result: TreeItem = {
       id: item[this.fieldId],
-      key: key ? key + '-' + item[this.fieldId] : item[this.fieldId].toString(),
+      key: key ? key + '.' + item[this.fieldId] : item[this.fieldId].toString(),
       label: item[this.fieldLabel]
     }
 

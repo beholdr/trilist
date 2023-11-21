@@ -67,11 +67,21 @@ test('set value single', () => {
 
   trilist.setValue(1)
 
-  expect(trilist.getValue()).toEqual([1])
+  expect(trilist.getValue()).toEqual(['1'])
 
   trilist.setValue(['4'])
 
   expect(trilist.getValue()).toEqual(['4'])
+})
+
+test('set value as string', () => {
+  const trilist = createTrilist({ items: treeData })
+
+  expect(trilist.getValue()).toEqual([])
+
+  trilist.setValue('1')
+
+  expect(trilist.getValue()).toEqual(['1'])
 })
 
 test('non existent value', () => {
@@ -87,10 +97,10 @@ test('single select', () => {
   trilist.toggleSelected(trilist.findItemById(1)!)
 
   expect(trilist.multiselect).toBe(false)
-  expect(trilist.getValue()).toEqual([1])
+  expect(trilist.getValue()).toEqual(['1'])
 
   trilist.dispatchChangeEvent()
-  expect(onChangeHook).toHaveBeenCalledWith(1)
+  expect(onChangeHook).toHaveBeenCalledWith('1')
 
   trilist.toggleSelected(trilist.findItemById(1)!, false)
   expect(trilist.getValue()).toEqual([])
@@ -110,10 +120,10 @@ test('multi select', () => {
   trilist.toggleSelected(trilist.findItemById(1)!)
 
   expect(trilist.multiselect).toBe(true)
-  expect(trilist.getValue()).toEqual([1])
+  expect(trilist.getValue()).toEqual(['1'])
 
   trilist.dispatchChangeEvent()
-  expect(onChangeHook).toHaveBeenCalledWith([1])
+  expect(onChangeHook).toHaveBeenCalledWith(['1'])
 })
 
 test('no leafs', () => {
@@ -122,7 +132,7 @@ test('no leafs', () => {
   trilist.toggleSelected(trilist.findItemById(1)!)
 
   expect(trilist.leafs).toBe(false)
-  expect(trilist.getValue()).toEqual([1])
+  expect(trilist.getValue()).toEqual(['1'])
 })
 
 test('independent', () => {
@@ -135,16 +145,16 @@ test('independent', () => {
   trilist.toggleSelected(trilist.findItemById(1)!)
 
   expect(trilist.independent).toBe(true)
-  expect(trilist.getValue()).toEqual([1])
+  expect(trilist.getValue()).toEqual(['1'])
 
   trilist.toggleSelected(trilist.findItemById('5')!)
-  expect(trilist.getValue()).toEqual([1, '5'])
+  expect(trilist.getValue()).toEqual(['1', '5'])
 
   trilist.toggleSelected(trilist.findItemById('51')!)
-  expect(trilist.getValue()).toEqual([1, '5', '51'])
+  expect(trilist.getValue()).toEqual(['1', '5', '51'])
 
   trilist.toggleSelected(trilist.findItemById('5')!, false)
-  expect(trilist.getValue()).toEqual([1, '51'])
+  expect(trilist.getValue()).toEqual(['1', '51'])
 
   expect(get(trilist.indeterminate).size).toBe(0)
 })
@@ -216,8 +226,8 @@ test('find item', () => {
 
   trilist.collapseAll()
 
-  expect(trilist.findItemById(1)?.id).toEqual(treeData[0].id)
-  expect(trilist.findItemById('1')).toBe(null)
+  expect(trilist.findItemById(1)?.id).toEqual(treeData[0].id.toString())
+  expect(trilist.findItemById('1')?.id).toEqual(treeData[0].id.toString())
 })
 
 test('parent selection and clear for multiselect', () => {

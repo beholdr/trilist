@@ -4,26 +4,29 @@ import { TrilistEvents, type TrilistChangeEvent } from './events'
 import { createStateStore } from '../stores/state'
 import { createValueStore } from '../stores/value'
 
-export type TreeItemId = string | number
+export type TreeItemId = string
+export type TreeItemIdInput = string | number
+export type TreeItemKey = string
 
 export type TrilistValue = TreeItemId[] | TreeItemId | null
+export type TrilistValueInput = TreeItemIdInput[] | TreeItemIdInput | null
 
 export interface TreeItem {
   id: TreeItemId
-  key: string
+  key: TreeItemKey
   label: string
   children?: TreeItem[]
 }
 
 type TreeItemHook = (item: TreeItem) => string
-type TrilistValueHook = (value: TrilistValue) => string
+type TrilistValueHook = (value: TrilistValue) => void
 
 type InputItem = Record<string, any>
 
 export interface TrilistOptions {
   items?: InputItem[]
-  value?: TrilistValue
-  disabled?: TrilistValue
+  value?: TrilistValueInput
+  disabled?: TrilistValueInput
   expandSelected?: boolean
   independent?: boolean
   leafs?: boolean
@@ -49,9 +52,9 @@ export class Trilist {
   fieldChildren = 'children'
 
   readonly disabled = createStateStore<TreeItemId>()
-  readonly expanded = createStateStore<string>()
-  readonly hidden = createStateStore<string>()
-  readonly indeterminate = createStateStore<string>()
+  readonly expanded = createStateStore<TreeItemKey>()
+  readonly hidden = createStateStore<TreeItemKey>()
+  readonly indeterminate = createStateStore<TreeItemKey>()
   readonly selected = createStateStore<TreeItemId>()
   readonly value = createValueStore(this)
 
@@ -88,7 +91,7 @@ export class Trilist {
     return get(this.value)
   }
 
-  setValue(value: TrilistValue = null): void {
+  setValue(value: TrilistValueInput = null): void {
     if (value === null) return
 
     this.selected.clear()
@@ -108,7 +111,7 @@ export class Trilist {
     })
   }
 
-  setDisabled(value: TrilistValue = null): void {
+  setDisabled(value: TrilistValueInput = null): void {
     if (value === null) return
 
     let ids = Array.isArray(value) ? value : [value]
@@ -166,15 +169,17 @@ export class Trilist {
     this.items.forEach((item) => this.filterDeep(item, query.toLowerCase()))
   }
 
-  findItemById(id: TreeItemId, item?: TreeItem): TreeItem | null {
-    if (item && item.id === id) {
+  findItemById(id: TreeItemId | number, item?: TreeItem): TreeItem | null {
+    const sid = id.toString()
+
+    if (item && item.id === sid) {
       return item
     }
 
     const elements = !item ? this.items : item.children ?? []
 
     for (const el of elements) {
-      const result = this.findItemById(id, el)
+      const result = this.findItemById(sid, el)
       if (result) {
         return result
       }
@@ -235,7 +240,7 @@ export class Trilist {
 
   protected processInputItem(item: InputItem, key = ''): TreeItem {
     const result: TreeItem = {
-      id: item[this.fieldId],
+      id: item[this.fieldId].toString(),
       key: key ? key + '.' + item[this.fieldId] : item[this.fieldId].toString(),
       label: item[this.fieldLabel]
     }

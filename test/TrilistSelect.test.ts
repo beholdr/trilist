@@ -166,7 +166,7 @@ test('change event', async () => {
     result.container.querySelector('.trilist-select-button > div')
   ).toHaveTextContent('Category 1')
 
-  expect(onChangeHook).toHaveBeenCalledWith(1)
+  expect(onChangeHook).toHaveBeenCalledWith('1')
 })
 
 test('disabled', async () => {

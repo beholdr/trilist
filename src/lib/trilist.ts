@@ -16,6 +16,7 @@ export interface TreeItem {
   key: TreeItemKey
   label: string
   children?: TreeItem[]
+  data: any
 }
 
 type TreeItemHook = (item: TreeItem) => string
@@ -239,10 +240,13 @@ export class Trilist {
   }
 
   protected processInputItem(item: InputItem, key = ''): TreeItem {
+    const { [this.fieldChildren]: _, ...data } = item // get data without children
+
     const result: TreeItem = {
       id: item[this.fieldId].toString(),
       key: key ? key + '.' + item[this.fieldId] : item[this.fieldId].toString(),
-      label: item[this.fieldLabel]
+      label: item[this.fieldLabel],
+      data
     }
 
     if (item[this.fieldChildren] && item[this.fieldChildren].length) {

@@ -1,6 +1,6 @@
 {
   "name": "trilist",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Web components for working with tree data: treeselect and treeview",
   "keywords": [
     "tree",

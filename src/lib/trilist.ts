@@ -93,10 +93,10 @@ export class Trilist {
   }
 
   setValue(value: TrilistValueInput = null): void {
-    if (value === null) return
-
     this.selected.clear()
     this.indeterminate.clear()
+
+    if (value === null) return
 
     let ids = Array.isArray(value) ? value : [value]
 

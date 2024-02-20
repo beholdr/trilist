@@ -74,6 +74,20 @@ test('set value single', () => {
   expect(trilist.getValue()).toEqual(['4'])
 })
 
+test('set null value', () => {
+  const trilist = createTrilist({ items: treeData })
+
+  expect(trilist.getValue()).toEqual([])
+
+  trilist.setValue(1)
+
+  expect(trilist.getValue()).toEqual(['1'])
+
+  trilist.setValue(null)
+
+  expect(trilist.getValue()).toEqual([])
+})
+
 test('set value as string', () => {
   const trilist = createTrilist({ items: treeData })
 

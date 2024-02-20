@@ -2,6 +2,7 @@ export const treeData = [
   {
     id: 1,
     label: 'Category 1',
+    description: 'Category description here...',
     children: [
       { id: '11', label: 'Leaf 11 (category 1)' },
       { id: '12', label: 'Leaf 12 xx' },
@@ -16,6 +17,7 @@ export const treeData = [
       {
         id: '21',
         label: 'Category with very long name 21',
+        description: 'Subcategory description here...',
         children: [
           { id: '11', label: 'Leaf 11 (category 21)' },
           { id: '211', label: 'Leaf with very long name too 211' },

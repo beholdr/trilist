@@ -90,7 +90,7 @@
     const el2 = document.getElementById('trilist-2')
     el2.init({
       items: treeData,
-      labelHook: (item) => `<a style="text-decoration: underline" href="#/edit/${item.id}">${item.label}</a>`,
+      labelHook: (item) => `<a style="text-decoration: underline" href="#/edit/${item.id}">${item.label}</a> ${item.data?.description ? '<div style="font-size: 0.9em; opacity: 0.5">' + item.data.description + '</div>' : ''}`,
       onChangeHook: (value) => console.log(value)
     })
 

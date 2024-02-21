@@ -132,11 +132,9 @@ export class Trilist {
     if (this.multiselect) {
       if (this.independent) {
         this.selected.setValue(item.id, value)
-
-        return
+      } else {
+        this.setSelectedDeep(item, value)
       }
-
-      this.setSelectedDeep(item, value)
     } else {
       if (value) {
         this.selected.set([item.id])
@@ -303,26 +301,33 @@ export class Trilist {
   protected processStateDeep(item: TreeItem) {
     if (!item.children?.length) return
 
-    const selectedStore = get(this.selected)
+    const selected = get(this.selected)
     const children = this.getChildrenDeep(item, this.multiselect)
-    const selected = children.filter((el) => selectedStore.has(el.id)).length
+    const selectedChildren = children.filter((el) => selected.has(el.id)).length
 
-    if (!selected) {
-      if (this.multiselect) {
-        this.selected.setValue(item.id, false)
-      }
-      this.indeterminate.setValue(item.key, false)
-    } else if (children.length === selected) {
-      if (this.multiselect) {
-        this.selected.setValue(item.id, true)
+    if (this.independent) {
+      this.indeterminate.setValue(
+        item.key,
+        !!selectedChildren && !selected.has(item.id)
+      )
+    } else {
+      if (!selectedChildren) {
+        if (this.multiselect) {
+          this.selected.setValue(item.id, false)
+        }
         this.indeterminate.setValue(item.key, false)
+      } else if (children.length === selectedChildren) {
+        if (this.multiselect) {
+          this.selected.setValue(item.id, true)
+          this.indeterminate.setValue(item.key, false)
+        } else {
+          this.selected.setValue(item.id, false)
+          this.indeterminate.setValue(item.key, true)
+        }
       } else {
         this.selected.setValue(item.id, false)
         this.indeterminate.setValue(item.key, true)
       }
-    } else {
-      this.selected.setValue(item.id, false)
-      this.indeterminate.setValue(item.key, true)
     }
 
     item.children?.forEach((child) => this.processStateDeep(child))

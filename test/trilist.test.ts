@@ -170,7 +170,15 @@ test('independent', () => {
   trilist.toggleSelected(trilist.findItemById('5')!, false)
   expect(trilist.getValue()).toEqual(['1', '51'])
 
+  expect(get(trilist.indeterminate).size).toBe(1)
+
+  trilist.toggleSelected(trilist.findItemById('51')!, false)
+  expect(trilist.getValue()).toEqual(['1'])
   expect(get(trilist.indeterminate).size).toBe(0)
+
+  trilist.toggleSelected(trilist.findItemById('51')!)
+  expect(trilist.getValue()).toEqual(['1', '51'])
+  expect(get(trilist.indeterminate).size).toBe(1)
 })
 
 test('leafs', () => {

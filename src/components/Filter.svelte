@@ -9,15 +9,21 @@
   export let filterPlaceholder: string
 
   const trilist = getContext<Trilist>('trilist')
+  let input: HTMLInputElement
 
   const handleFilter = (query: string) => {
     trilist.filter(query)
+  }
+
+  export const autofocus = () => {
+    setTimeout(() => input.focus())
   }
 </script>
 
 <div class="trilist-filter mb-4 flex">
   <input
     on:input={(e) => handleFilter(e.currentTarget.value)}
+    bind:this={input}
     class="trilist-filter-input form-input text-base leading-normal w-full flex-grow rounded rounded-r-none border-trilist-input bg-trilist-fone"
     type="search"
     placeholder={filterPlaceholder}

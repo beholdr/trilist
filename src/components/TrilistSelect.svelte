@@ -9,6 +9,7 @@
       fieldLabel: { type: 'String', attribute: 'field-label' },
       fieldChildren: { type: 'String', attribute: 'field-children' },
       filter: { type: 'Boolean' },
+      filterAutofocus: { type: 'Boolean', attribute: 'filter-autofocus' },
       filterPlaceholder: { type: 'String', attribute: 'filter-placeholder' },
       independent: { type: 'Boolean' },
       leafs: { type: 'Boolean' },
@@ -21,7 +22,7 @@
 />
 
 <script lang="ts">
-  import { setContext, type SvelteComponent } from 'svelte'
+  import { setContext } from 'svelte'
 
   import { Trilist, type TrilistOptions, type TreeItemId } from '../lib'
 
@@ -39,6 +40,7 @@
   export let fieldLabel = ''
   export let fieldChildren = ''
   export let filter = false
+  export let filterAutofocus = false
   export let filterPlaceholder = 'Quick search'
   export let independent = false
   export let leafs = false
@@ -47,7 +49,8 @@
   export let selectButton = 'Select'
   export let cancelButton = 'Cancel'
 
-  let elTree: SvelteComponent
+  let elTree: TrilistView
+  let elFilter: Filter
   let showModal = false
   let previousValue: TreeItemId[]
   let animatedEnabled = false
@@ -67,6 +70,10 @@
     setTimeout(() => (animatedEnabled = animated), 300)
 
     previousValue = trilist.getValue()
+
+    if (filterAutofocus) {
+      elFilter.autofocus()
+    }
 
     showModal = true
   }
@@ -128,7 +135,7 @@
     <span slot="header">
       <h2 class="text-lg font-medium mb-5 leading-tight">{placeholder}</h2>
       {#if filter}
-        <Filter {filterPlaceholder} />
+        <Filter bind:this={elFilter} {filterPlaceholder} />
       {/if}
     </span>
 

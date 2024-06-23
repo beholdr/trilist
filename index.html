@@ -60,15 +60,39 @@
 <body>
   <p>Usage examples:</p>
   <div id="app">
-    <trilist-view id="trilist-1" style="--trilist-colors-accent: rgb(220, 45, 75); --trilist-border-radius: 0;"
-      selectable filter multiselect expand-selected></trilist-view>
+    <trilist-view
+      id="trilist-1"
+      expand-selected
+      filter
+      multiselect
+      selectable
+      style="--trilist-colors-accent: rgb(220, 45, 75); --trilist-border-radius: 0;"
+    ></trilist-view>
 
-    <trilist-view id="trilist-2" filter animated></trilist-view>
+    <trilist-view
+      id="trilist-2"
+      animated
+      filter
+    ></trilist-view>
 
-    <trilist-select id="trilist-3" placeholder="Choose your options" filter-placeholder="Search..."
-      select-button="Choose" cancel-button="Nevermind" multiselect expand-selected filter animated></trilist-select>
+    <trilist-select id="trilist-3"
+      animated
+      cancel-button="Nevermind"
+      expand-selected
+      filter
+      filter-autofocus
+      filter-placeholder="Search..."
+      multiselect
+      placeholder="Choose your options"
+      select-button="Choose"
+    ></trilist-select>
 
-    <trilist-select id="trilist-4" field-id="key" field-label="name" field-children="items"></trilist-select>
+    <trilist-select
+      id="trilist-4"
+      field-children="items"
+      field-id="key"
+      field-label="name"
+    ></trilist-select>
   </div>
 
   <script type="module">

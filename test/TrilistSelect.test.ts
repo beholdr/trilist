@@ -124,7 +124,7 @@ test('multi selection with selected items', async () => {
 
   const user = userEvent.setup()
   const button = result.container.querySelector(
-    '.trilist-select-tags .trilist-tag:first > button'
+    '.trilist-select-tags .trilist-tag > button'
   )
 
   await user.click(button!)
@@ -143,7 +143,7 @@ test('change event', async () => {
 
   const user = userEvent.setup()
   const checkbox = result.container.querySelector(
-    '.trilist-view [type=checkbox]:first'
+    '.trilist-view [type=checkbox]'
   )
   const selectBtn = result.container.querySelector('.trilist-dialog-select')
   const cancelBtn = result.container.querySelector('.trilist-dialog-cancel')

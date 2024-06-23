@@ -41,7 +41,7 @@ test('label hooks', async () => {
   })
 
   const label = result.container.querySelector(
-    '.trilist-view [role=treeitem] label:first'
+    '.trilist-view [role=treeitem] label'
   )
 
   expect(label).toContainHTML(
@@ -205,7 +205,7 @@ test('change event', async () => {
 
   const user = userEvent.setup()
   const checkbox = result.container.querySelector(
-    '.trilist-view [type=checkbox]:first'
+    '.trilist-view [type=checkbox]'
   )
 
   await user.click(checkbox!)

@@ -14,13 +14,13 @@
     "type": "git"
   },
   "license": "MIT",
-  "type": "module",
-  "module": "./dist/trilist.js",
+  "module": "./dist/trilist.mjs",
   "main": "./dist/trilist.umd.js",
+  "types": "./dist/types/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
-      "import": "./dist/trilist.js",
+      "import": "./dist/trilist.mjs",
       "require": "./dist/trilist.umd.js"
     }
   },

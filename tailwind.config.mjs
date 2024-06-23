@@ -20,17 +20,17 @@ export default {
       },
       borderRadius: {
         DEFAULT: `var(--trilist-border-radius, ${defaultTheme.borderRadius.md})`,
-        sm: `var(--trilist-border-radius-sm, ${defaultTheme.borderRadius.sm})`
+        sm: `var(--trilist-border-radius-sm, ${defaultTheme.borderRadius.sm})`,
       },
       fontSize: {
         base: `var(--trilist-text-base, 16px)`,
-        sm: `var(--trilist-text-sm, 14px)`
-      }
-    }
+        sm: `var(--trilist-text-sm, 14px)`,
+      },
+    },
   },
 
   plugins: [
     require('@tailwindcss/forms')({ strategy: 'class' }),
-    require('tailwindcss-animate')
-  ]
+    require('tailwindcss-animate'),
+  ],
 }

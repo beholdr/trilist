@@ -3,16 +3,17 @@
 @tailwind utilities;
 
 :host {
-  @apply text-left text-base text-trilist-text;
+  @apply text-left text-base text-trilist-color-text-primary;
 }
 
 @layer components {
-  .form-button {
-    @apply focus-visible:outline-none focus-visible:ring-1;
-  }
   .form-button,
   .form-checkbox,
   .form-input {
-    @apply focus-visible:border-trilist-accent focus-visible:ring-trilist-accent focus:ring-trilist-accent;
+    @apply border-trilist-color-border-primary focus:border-trilist-color-border-primary focus:outline-none focus:ring-0 focus:ring-offset-0 focus-visible:ring-2 focus-visible:ring-trilist-color-accent;
+  }
+  .form-button,
+  .form-input {
+    @apply focus-visible:ring-inset;
   }
 }

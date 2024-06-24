@@ -44,10 +44,10 @@
   on:click|self={handleCancel}
   on:close={handleClose}
 >
-  <div class="flex flex-col max-h-full text-trilist-text">
-    <header class="sticky top-0 pt-3 sm:pt-6 px-3 sm:px-8 z-10 bg-trilist-fone">
+  <div class="flex flex-col max-h-full text-trilist-color-text-primary">
+    <header class="sticky top-0 pt-3 sm:pt-6 px-3 sm:px-8 z-10 bg-trilist-color-bg-primary">
       <button
-        class="trilist-dialog-close form-button focus-visible:ring-2 text-trilist-icon hover:text-trilist-hover float-right ml-2 mt-0.5 -mr-1"
+        class="trilist-dialog-close form-button text-trilist-color-text-tertiary hover:text-trilist-color-text-secondary float-right ml-2 mt-0.5 -mr-1"
         on:click={handleCancel}
       >
         {@html CloseIcon}
@@ -56,23 +56,23 @@
       <slot name="header" />
     </header>
 
-    <div class="flex-grow px-3 sm:px-8 bg-trilist-fone">
+    <div class="flex-grow px-3 sm:px-8 bg-trilist-color-bg-primary">
       <slot />
     </div>
 
     <footer
-      class="sticky bottom-0 pt-4 pb-3 sm:pb-6 px-3 sm:px-8 z-10 bg-trilist-fone"
+      class="sticky bottom-0 pt-4 pb-3 sm:pb-6 px-3 sm:px-8 z-10 bg-trilist-color-bg-primary"
     >
       <!-- svelte-ignore a11y-autofocus -->
       <button
-        class="trilist-dialog-select form-button py-1 px-4 rounded border border-trilist-accent bg-trilist-accent text-white select-none mr-2"
         autofocus
+        class="trilist-dialog-select form-button py-1 px-4 rounded border border-trilist-color-accent bg-trilist-color-accent text-trilist-color-text-inversed select-none mr-2"
         on:click={handleSubmit}
       >
         {selectButton}
       </button>
       <button
-        class="trilist-dialog-cancel form-button py-1 px-4 rounded border text-trilist-icon hover:text-trilist-hover border-trilist-input select-none"
+        class="trilist-dialog-cancel form-button py-1 px-4 rounded border text-trilist-color-text-secondary select-none"
         on:click={handleCancel}
       >
         {cancelButton}

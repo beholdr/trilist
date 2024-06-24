@@ -8,15 +8,15 @@ export default {
   theme: {
     extend: {
       colors: {
-        'trilist-accent': `var(--trilist-colors-accent, ${colors.blue[600]})`,
-        'trilist-tag': `var(--trilist-colors-tag, ${colors.gray[100]})`,
-        'trilist-tag-border': `var(--trilist-colors-tag-border, ${colors.gray[200]})`,
-        'trilist-tag-text': `var(--trilist-colors-tag-text, ${colors.blue[600]})`,
-        'trilist-input': `var(--trilist-colors-input, ${colors.gray[400]})`,
-        'trilist-icon': `var(--trilist-colors-icon, ${colors.gray[400]})`,
-        'trilist-hover': `var(--trilist-colors-hover, ${colors.gray[500]})`,
-        'trilist-text': `var(--trilist-colors-text, ${colors.black})`,
-        'trilist-fone': `var(--trilist-colors-fone, ${colors.white})`
+        'trilist-color-accent': `var(--trilist-color-accent, ${colors.blue[600]})`,
+        'trilist-color-bg-primary': `var(--trilist-color-bg-primary, ${colors.white})`,
+        'trilist-color-bg-secondary': `var(--trilist-color-bg-secondary, ${colors.gray[100]})`,
+        'trilist-color-border-primary': `var(--trilist-color-border-primary, ${colors.gray[300]})`,
+        'trilist-color-border-secondary': `var(--trilist-color-border-secondary, ${colors.gray[200]})`,
+        'trilist-color-text-primary': `var(--trilist-color-text-primary, ${colors.black})`,
+        'trilist-color-text-secondary': `var(--trilist-color-text-secondary, ${colors.gray[500]})`,
+        'trilist-color-text-tertiary': `var(--trilist-color-text-tertiary, ${colors.gray[400]})`,
+        'trilist-color-text-inversed': `var(--trilist-color-text-inversed, ${colors.white})`,
       },
       borderRadius: {
         DEFAULT: `var(--trilist-border-radius, ${defaultTheme.borderRadius.md})`,

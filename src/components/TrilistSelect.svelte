@@ -97,7 +97,7 @@
   aria-controls="trilist-dialog"
 >
   <button
-    class="trilist-select-button form-button flex justify-between w-full p-2 select-none rounded border border-trilist-input bg-trilist-fone disabled:opacity-50 disabled:pointer-events-none"
+    class="trilist-select-button form-button flex justify-between w-full p-2 select-none rounded border bg-trilist-color-bg-primary disabled:opacity-50 disabled:pointer-events-none"
     {disabled}
     on:click={openModal}
   >
@@ -117,9 +117,9 @@
         </div>
       {/if}
     {:else}
-      <div class="text-trilist-icon mx-1 truncate">{placeholder}</div>
+      <div class="text-trilist-color-text-tertiary mx-1 truncate">{placeholder}</div>
     {/if}
-    <span class="text-trilist-icon hover:text-trilist-hover ml-1">
+    <span class="text-trilist-color-text-tertiary hover:text-trilist-color-text-secondary ml-1">
       {@html TreeIcon}
     </span>
   </button>

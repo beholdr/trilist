@@ -24,14 +24,14 @@
 >
   {#each ids as id}
     <div
-      class="trilist-tag inline-flex pl-2 items-center bg-trilist-tag ring-1 ring-trilist-tag-border rounded-sm text-trilist-tag-text text-sm overflow-hidden"
+      class="trilist-tag inline-flex pl-2 items-center bg-trilist-color-bg-secondary ring-1 ring-trilist-color-border-secondary rounded-sm text-trilist-color-text-secondary text-sm overflow-hidden"
       title={tagItem(id)?.label}
     >
       <div class="truncate">
         {tagItem(id)?.label}
       </div>
       <button
-        class="form-button focus-visible:ring-2 my-0.5 mx-1 text-trilist-icon hover:text-trilist-hover"
+        class="form-button my-0.5 mx-1 text-trilist-color-text-tertiary hover:text-trilist-color-text-secondary"
         {disabled}
         on:click|stopPropagation={() => handleRemove(id)}
       >

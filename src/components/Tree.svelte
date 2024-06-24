@@ -50,7 +50,7 @@
         {#if item.children?.length}
           <div class="flex">
             <button
-              class="form-button focus-visible:ring-2 flex-none h-5 w-5 text-trilist-icon -rotate-90 mr-1 mt-0.5 transition-transform"
+              class="form-button flex-none h-5 w-5 text-trilist-color-text-tertiary -rotate-90 mr-1 mt-0.5 transition-transform"
               class:rotate-0={$expanded.has(item.key)}
               on:click|preventDefault={() =>
                 handleExpand(item, $expanded.has(item.key))}
@@ -65,7 +65,7 @@
               {#if selectable}
                 <input
                   type="checkbox"
-                  class="form-checkbox mt-1 mr-2 flex-none text-trilist-accent border-trilist-input disabled:cursor-not-allowed"
+                  class="form-checkbox mt-1 mr-2 flex-none text-trilist-color-accent disabled:cursor-not-allowed"
                   value={item.id}
                   bind:group={selected}
                   disabled={$disabled.has(item.id)}
@@ -101,7 +101,7 @@
               {#if selectable}
                 <input
                   type="checkbox"
-                  class="form-checkbox mt-1 mr-2 flex-none text-trilist-accent border-trilist-input disabled:cursor-not-allowed"
+                  class="form-checkbox mt-1 mr-2 flex-none text-trilist-color-accent disabled:cursor-not-allowed"
                   value={item.id}
                   bind:group={selected}
                   disabled={$disabled.has(item.id)}

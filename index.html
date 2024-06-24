@@ -97,7 +97,8 @@
     </div>
 
     <script type="module">
-      import { treeData, treeDataAlt } from './test/fixtures.ts'
+      import treeData from './docs/treedata.json'
+      import treeDataAlt from './docs/treedata2.json'
 
       await Promise.allSettled([
         customElements.whenDefined('trilist-view'),

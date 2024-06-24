@@ -1,9 +1,10 @@
 import { render } from '@testing-library/svelte'
 import userEvent from '@testing-library/user-event'
 
-import { treeData } from './fixtures'
 import TrilistView from '../src/components/TrilistView.svelte'
 import { Trilist, type TreeItem } from '../src/lib'
+
+import treeData from '../docs/treedata.json'
 
 test('empty tree', async () => {
   const result = render(TrilistView)

@@ -1,7 +1,9 @@
 import { get } from 'svelte/store'
 
 import { Trilist, type TreeItem, type TrilistOptions } from '../src/lib/trilist'
-import { treeData, treeDataAlt } from './fixtures'
+
+import treeData from '../docs/treedata.json'
+import treeDataAlt from '../docs/treedata2.json'
 
 const createTrilist = (options: TrilistOptions) => {
   const trilist = new Trilist()

@@ -1,9 +1,10 @@
 import { render, type RenderResult } from '@testing-library/svelte'
 import userEvent from '@testing-library/user-event'
 
-import { treeData } from './fixtures'
 import TrilistSelect from '../src/components/TrilistSelect.svelte'
 import { Trilist } from '../src/lib'
+
+import treeData from '../docs/treedata.json'
 
 const showModal = async (result: RenderResult<TrilistSelect>) => {
   const user = userEvent.setup()

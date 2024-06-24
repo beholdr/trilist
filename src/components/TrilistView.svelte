@@ -20,7 +20,7 @@
 <script lang="ts">
   import { getContext, hasContext, setContext, onMount } from 'svelte'
 
-  import { Trilist, type TrilistOptions } from '../lib'
+  import { Trilist, type TreeItem, type TrilistOptions } from '../lib'
 
   import Filter from './Filter.svelte'
   import Tree from './Tree.svelte'
@@ -50,11 +50,11 @@
     setContext('trilist', trilist)
   }
 
-  let items = trilist.items
+  let items = trilist.getItems()
   let el: HTMLElement
 
   export const init = (options: TrilistOptions) => {
-    items = trilist.init(el, {
+    trilist.init(el, {
       ...options,
       ...{
         expandSelected,
@@ -66,6 +66,8 @@
         fieldChildren,
       },
     })
+
+    items = trilist.getItems()
   }
 
   const onChange = () => {

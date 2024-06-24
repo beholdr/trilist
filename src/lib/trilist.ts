@@ -40,17 +40,17 @@ export interface TrilistOptions {
 }
 
 export class Trilist {
-  items: TreeItem[] = []
-  el?: HTMLElement
-  labelHook?: TreeItemHook
-  onChangeHook?: TrilistValueHook
-
-  independent = false
-  leafs = false
-  multiselect = false
-  fieldId = 'id'
-  fieldLabel = 'label'
-  fieldChildren = 'children'
+  protected items: TreeItem[] = []
+  protected el?: HTMLElement
+  protected labelHook?: TreeItemHook
+  protected onChangeHook?: TrilistValueHook
+  protected independent = false
+  protected leafs = false
+  protected multiselect = false
+  protected expandSelected = false
+  protected fieldId = 'id'
+  protected fieldLabel = 'label'
+  protected fieldChildren = 'children'
 
   readonly disabled = createStateStore<TreeItemId>()
   readonly expanded = createStateStore<TreeItemKey>()
@@ -59,12 +59,16 @@ export class Trilist {
   readonly selected = createStateStore<TreeItemId>()
   readonly value = createValueStore(this)
 
-  init(el: HTMLElement, options: TrilistOptions): TreeItem[] {
+  init(el: HTMLElement, options: TrilistOptions) {
     this.el = el
+    this.setOptions(options)
+  }
 
+  setOptions(options: TrilistOptions) {
     this.independent = options.independent === true
     this.leafs = options.leafs === true
     this.multiselect = options.multiselect === true
+    this.expandSelected = options.expandSelected === true
 
     this.labelHook = options.labelHook
     this.onChangeHook = options.onChangeHook
@@ -73,19 +77,31 @@ export class Trilist {
     if (options.fieldLabel) this.fieldLabel = options.fieldLabel
     if (options.fieldChildren) this.fieldChildren = options.fieldChildren
 
-    if (options.items?.length) {
-      this.items = options.items.map((item) => this.processInputItem(item))
-    }
-
+    this.setItems(options.items)
     this.setDisabled(options.disabled)
     this.setValue(options.value)
+  }
 
-    if (options.expandSelected) {
-      const value = this.getValue()
-      this.items.forEach((item) => this.setExpandSelectedDeep(item, value))
-    }
-
+  getItems(): TreeItem[] {
     return this.items
+  }
+
+  setItems(items?: InputItem[]) {
+    if (typeof items == 'undefined') return
+
+    this.items = items.map((item) => this.processInputItem(item))
+  }
+
+  isIndependent(): boolean {
+    return this.independent
+  }
+
+  isLeafs(): boolean {
+    return this.leafs
+  }
+
+  isMultiselect(): boolean {
+    return this.multiselect
   }
 
   getValue(): TreeItemId[] {
@@ -110,6 +126,11 @@ export class Trilist {
         this.toggleSelected(item)
       }
     })
+
+    if (this.expandSelected) {
+      const value = this.getValue()
+      this.items.forEach((item) => this.setExpandSelectedDeep(item, value))
+    }
   }
 
   setDisabled(value: TrilistValueInput = null): void {

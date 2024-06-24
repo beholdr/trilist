@@ -13,14 +13,12 @@ const createTrilist = (options: TrilistOptions) => {
 test('init', () => {
   const trilist = createTrilist({ items: treeData })
 
-  expectTypeOf(trilist.items).toMatchTypeOf<TreeItem[]>()
-  expect(trilist.items.length).toBe(5)
+  expectTypeOf(trilist.getItems()).toMatchTypeOf<TreeItem[]>()
+  expect(trilist.getItems().length).toBe(5)
 
-  expect(trilist.independent).toBe(false)
-  expect(trilist.leafs).toBe(false)
-  expect(trilist.multiselect).toBe(false)
-  expect(trilist.labelHook).toBeUndefined()
-  expect(trilist.onChangeHook).toBeUndefined()
+  expect(trilist.isIndependent()).toBe(false)
+  expect(trilist.isLeafs()).toBe(false)
+  expect(trilist.isMultiselect()).toBe(false)
 })
 
 test('init with alt fields', () => {
@@ -31,15 +29,25 @@ test('init with alt fields', () => {
     fieldChildren: 'items',
   })
 
-  expectTypeOf(trilist.items).toMatchTypeOf<TreeItem[]>()
-  expect(trilist.items.length).toBe(2)
+  expectTypeOf(trilist.getItems()).toMatchTypeOf<TreeItem[]>()
+  expect(trilist.getItems().length).toBe(2)
 })
 
 test('no items init', () => {
   const trilist = createTrilist({})
 
-  expectTypeOf(trilist.items).toMatchTypeOf<TreeItem[]>()
-  expect(trilist.items.length).toBe(0)
+  expectTypeOf(trilist.getItems()).toMatchTypeOf<TreeItem[]>()
+  expect(trilist.getItems().length).toBe(0)
+})
+
+test('set items after init', () => {
+  const trilist = createTrilist({})
+
+  expectTypeOf(trilist.getItems()).toMatchTypeOf<TreeItem[]>()
+  expect(trilist.getItems().length).toBe(0)
+
+  trilist.setItems(treeData)
+  expect(trilist.getItems().length).toBe(5)
 })
 
 test('set value multiselect', () => {
@@ -110,7 +118,7 @@ test('single select', () => {
 
   trilist.toggleSelected(trilist.findItemById(1)!)
 
-  expect(trilist.multiselect).toBe(false)
+  expect(trilist.isMultiselect()).toBe(false)
   expect(trilist.getValue()).toEqual(['1'])
 
   trilist.dispatchChangeEvent()
@@ -133,7 +141,7 @@ test('multi select', () => {
 
   trilist.toggleSelected(trilist.findItemById(1)!)
 
-  expect(trilist.multiselect).toBe(true)
+  expect(trilist.isMultiselect()).toBe(true)
   expect(trilist.getValue()).toEqual(['1'])
 
   trilist.dispatchChangeEvent()
@@ -145,7 +153,7 @@ test('no leafs', () => {
 
   trilist.toggleSelected(trilist.findItemById(1)!)
 
-  expect(trilist.leafs).toBe(false)
+  expect(trilist.isLeafs()).toBe(false)
   expect(trilist.getValue()).toEqual(['1'])
 })
 
@@ -158,7 +166,7 @@ test('independent', () => {
 
   trilist.toggleSelected(trilist.findItemById(1)!)
 
-  expect(trilist.independent).toBe(true)
+  expect(trilist.isIndependent()).toBe(true)
   expect(trilist.getValue()).toEqual(['1'])
 
   trilist.toggleSelected(trilist.findItemById('5')!)
@@ -190,7 +198,7 @@ test('leafs', () => {
 
   trilist.toggleSelected(trilist.findItemById(1)!)
 
-  expect(trilist.leafs).toBe(true)
+  expect(trilist.isLeafs()).toBe(true)
   expect(trilist.getValue()).toEqual(['11', '12', '13'])
 })
 
@@ -200,7 +208,7 @@ test('leafs with single select', () => {
 
   trilist.toggleSelected(trilist.findItemById(1)!)
 
-  expect(trilist.leafs).toBe(true)
+  expect(trilist.isLeafs()).toBe(true)
   expect(trilist.getValue()).toEqual([])
 
   trilist.dispatchChangeEvent()
@@ -210,8 +218,6 @@ test('leafs with single select', () => {
 test('label hook', () => {
   const labelHook = vi.fn(() => 'NEW_LABEL')
   const trilist = createTrilist({ items: treeData, labelHook })
-
-  expectTypeOf(trilist.labelHook!).toBeFunction()
 
   const item = trilist.findItemById(1)
   const label = trilist.getItemLabel(item!)

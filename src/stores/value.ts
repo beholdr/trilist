@@ -5,14 +5,14 @@ import { type Trilist, type TreeItemId } from '../lib'
 export const createValueStore = (trilist: Trilist) =>
   derived(trilist.selected, ($store) => {
     const ids = [...$store]
-    const idsWithFullSections: TreeItemId[] = []
+    const idsFullSections: TreeItemId[] = []
 
     const result = ids.filter((id) => {
       const item = trilist.findItemById(id)
 
       if (!item) return false
 
-      if (trilist.leafs) {
+      if (trilist.isLeafs()) {
         return !item.children
       }
 
@@ -21,13 +21,16 @@ export const createValueStore = (trilist: Trilist) =>
         item.children.filter((child) => ids.includes(child.id)).length ===
           item.children.length
       ) {
-        item.children.forEach((child) => idsWithFullSections.push(child.id))
+        item.children.forEach((child) => idsFullSections.push(child.id))
       }
 
       return true
     })
 
-    return !trilist.independent && !trilist.leafs && idsWithFullSections.length
-      ? result.filter((id) => !idsWithFullSections.includes(id))
+    const filter =
+      !trilist.isIndependent() && !trilist.isLeafs() && idsFullSections.length
+
+    return filter
+      ? result.filter((id) => !idsFullSections.includes(id))
       : result
   })

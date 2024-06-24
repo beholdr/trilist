@@ -16,8 +16,8 @@
       multiselect: { type: 'Boolean' },
       placeholder: { type: 'String' },
       selectButton: { type: 'String', attribute: 'select-button' },
-      cancelButton: { type: 'String', attribute: 'cancel-button' }
-    }
+      cancelButton: { type: 'String', attribute: 'cancel-button' },
+    },
   }}
 />
 
@@ -97,7 +97,7 @@
   aria-controls="trilist-dialog"
 >
   <button
-    class="trilist-select-button form-button flex justify-between w-full p-2 select-none rounded border bg-trilist-color-bg-primary disabled:opacity-50 disabled:pointer-events-none"
+    class="trilist-select-button form-button flex w-full select-none justify-between rounded border bg-trilist-color-bg-primary p-2 disabled:pointer-events-none disabled:opacity-50"
     {disabled}
     on:click={openModal}
   >
@@ -110,16 +110,20 @@
         />
       {:else}
         <div
-          class="truncate mx-1"
+          class="mx-1 truncate"
           title={tagItem(showModal ? previousValue[0] : $value[0])?.label}
         >
           {tagItem(showModal ? previousValue[0] : $value[0])?.label}
         </div>
       {/if}
     {:else}
-      <div class="text-trilist-color-text-tertiary mx-1 truncate">{placeholder}</div>
+      <div class="mx-1 truncate text-trilist-color-text-tertiary">
+        {placeholder}
+      </div>
     {/if}
-    <span class="text-trilist-color-text-tertiary hover:text-trilist-color-text-secondary ml-1">
+    <span
+      class="ml-1 text-trilist-color-text-tertiary hover:text-trilist-color-text-secondary"
+    >
       {@html TreeIcon}
     </span>
   </button>
@@ -133,7 +137,7 @@
     on:trilist-cancel={onCancel}
   >
     <span slot="header">
-      <h2 class="text-lg font-medium mb-5 leading-tight">{placeholder}</h2>
+      <h2 class="mb-5 text-lg font-medium leading-tight">{placeholder}</h2>
       {#if filter}
         <Filter bind:this={elFilter} {filterPlaceholder} />
       {/if}

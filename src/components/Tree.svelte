@@ -22,7 +22,7 @@
   let indeterminate: Record<string, boolean> = {}
   trilist.indeterminate.subscribe(
     (value) =>
-      (indeterminate = Object.fromEntries([...value].map((el) => [el, true])))
+      (indeterminate = Object.fromEntries([...value].map((el) => [el, true]))),
   )
 
   const handleExpand = (item: TreeItem, selected: boolean) => {
@@ -50,7 +50,7 @@
         {#if item.children?.length}
           <div class="flex">
             <button
-              class="form-button flex-none h-5 w-5 text-trilist-color-text-tertiary -rotate-90 mr-1 mt-0.5 transition-transform"
+              class="form-button mr-1 mt-0.5 h-5 w-5 flex-none -rotate-90 text-trilist-color-text-tertiary transition-transform"
               class:rotate-0={$expanded.has(item.key)}
               on:click|preventDefault={() =>
                 handleExpand(item, $expanded.has(item.key))}
@@ -59,13 +59,13 @@
             </button>
             <label
               class={$disabled.has(item.id)
-                ? 'opacity-50 cursor-not-allowed inline-flex'
+                ? 'inline-flex cursor-not-allowed opacity-50'
                 : 'inline-flex'}
             >
               {#if selectable}
                 <input
                   type="checkbox"
-                  class="form-checkbox mt-1 mr-2 flex-none text-trilist-color-accent disabled:cursor-not-allowed"
+                  class="form-checkbox mr-2 mt-1 flex-none text-trilist-color-accent disabled:cursor-not-allowed"
                   value={item.id}
                   bind:group={selected}
                   disabled={$disabled.has(item.id)}
@@ -92,16 +92,16 @@
           </div>
         {:else}
           <div class="flex">
-            <div class="invisible flex-none h-5 w-5 mr-1 mt-0.5" />
+            <div class="invisible mr-1 mt-0.5 h-5 w-5 flex-none" />
             <label
               class={$disabled.has(item.id)
-                ? 'opacity-50 cursor-not-allowed inline-flex'
+                ? 'inline-flex cursor-not-allowed opacity-50'
                 : 'inline-flex'}
             >
               {#if selectable}
                 <input
                   type="checkbox"
-                  class="form-checkbox mt-1 mr-2 flex-none text-trilist-color-accent disabled:cursor-not-allowed"
+                  class="form-checkbox mr-2 mt-1 flex-none text-trilist-color-accent disabled:cursor-not-allowed"
                   value={item.id}
                   bind:group={selected}
                   disabled={$disabled.has(item.id)}

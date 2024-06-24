@@ -20,7 +20,7 @@ test('simple tree', async () => {
   const result = render(TrilistView, {
     independent: true,
     leafs: true,
-    multiselect: true
+    multiselect: true,
   })
 
   await result.component.init({ items: treeData })
@@ -37,15 +37,15 @@ test('label hooks', async () => {
   const result = render(TrilistView)
   await result.component.init({
     items: treeData,
-    labelHook: (item: TreeItem) => '<b class="tl-label">' + item.label + '</b>'
+    labelHook: (item: TreeItem) => '<b class="tl-label">' + item.label + '</b>',
   })
 
   const label = result.container.querySelector(
-    '.trilist-view [role=treeitem] label'
+    '.trilist-view [role=treeitem] label',
   )
 
   expect(label).toContainHTML(
-    '<b class="tl-label">' + treeData[0].label + '</b>'
+    '<b class="tl-label">' + treeData[0].label + '</b>',
   )
 })
 
@@ -56,7 +56,7 @@ test('tree with selected items', async () => {
   expect(
     result
       .getAllByRole('treeitem')
-      .filter((el) => el.getAttribute('aria-selected') === 'true').length
+      .filter((el) => el.getAttribute('aria-selected') === 'true').length,
   ).toBe(4)
 })
 
@@ -67,7 +67,7 @@ test('tree with expand selected items', async () => {
   expect(
     result
       .getAllByRole('treeitem')
-      .filter((el) => el.getAttribute('aria-expanded') === 'true').length
+      .filter((el) => el.getAttribute('aria-expanded') === 'true').length,
   ).toBe(2)
 })
 
@@ -80,7 +80,7 @@ test('empty tree with filter', async () => {
 test('non empty tree with filter', async () => {
   const result = render(TrilistView, {
     filter: true,
-    filterPlaceholder: 'FILTER_PLACEHOLDER'
+    filterPlaceholder: 'FILTER_PLACEHOLDER',
   })
   await result.component.init({ items: treeData })
 
@@ -94,7 +94,7 @@ test('single selection tree', async () => {
 
   expect(() => result.getAllByRole('checkbox')).not.toThrow()
   expect(result.getByRole('tree').getAttribute('aria-multiselectable')).toBe(
-    'false'
+    'false',
   )
 })
 
@@ -104,7 +104,7 @@ test('multi selection tree', async () => {
 
   expect(() => result.getAllByRole('checkbox')).not.toThrow()
   expect(result.getByRole('tree').getAttribute('aria-multiselectable')).toBe(
-    'true'
+    'true',
   )
 })
 
@@ -134,7 +134,7 @@ test('filtering tree', async () => {
   expect(
     result
       .getAllByRole('treeitem')
-      .filter((el) => !el.className.includes('hidden')).length
+      .filter((el) => !el.className.includes('hidden')).length,
   ).toBe(8)
 
   await user.type(input, 'x')
@@ -142,7 +142,7 @@ test('filtering tree', async () => {
   expect(
     result
       .getAllByRole('treeitem')
-      .filter((el) => !el.className.includes('hidden')).length
+      .filter((el) => !el.className.includes('hidden')).length,
   ).toBe(2)
 
   await user.type(input, 'x')
@@ -150,7 +150,7 @@ test('filtering tree', async () => {
   expect(
     result
       .getAllByRole('treeitem')
-      .filter((el) => !el.className.includes('hidden')).length
+      .filter((el) => !el.className.includes('hidden')).length,
   ).toBe(0)
 
   await user.type(input, '{backspace}{backspace}{backspace}{backspace}')
@@ -158,7 +158,7 @@ test('filtering tree', async () => {
   expect(
     result
       .getAllByRole('treeitem')
-      .filter((el) => !el.className.includes('hidden')).length
+      .filter((el) => !el.className.includes('hidden')).length,
   ).toBe(19)
 })
 
@@ -173,7 +173,7 @@ test('expand/collapse all', async () => {
   expect(
     result
       .getAllByRole('treeitem')
-      .filter((el) => el.getAttribute('aria-expanded') === 'true').length
+      .filter((el) => el.getAttribute('aria-expanded') === 'true').length,
   ).toBe(0)
 
   await user.click(expandBtn)
@@ -181,7 +181,7 @@ test('expand/collapse all', async () => {
   expect(
     result
       .getAllByRole('treeitem')
-      .filter((el) => el.getAttribute('aria-expanded') === 'true').length
+      .filter((el) => el.getAttribute('aria-expanded') === 'true').length,
   ).toBe(6)
 
   await user.click(collapseBtn)
@@ -189,7 +189,7 @@ test('expand/collapse all', async () => {
   expect(
     result
       .getAllByRole('treeitem')
-      .filter((el) => el.getAttribute('aria-expanded') === 'true').length
+      .filter((el) => el.getAttribute('aria-expanded') === 'true').length,
   ).toBe(0)
 })
 
@@ -197,7 +197,7 @@ test('change event', async () => {
   const result = render(TrilistView, {
     selectable: true,
     multiselect: true,
-    leafs: true
+    leafs: true,
   })
   const onChangeHook = vi.fn()
 
@@ -205,7 +205,7 @@ test('change event', async () => {
 
   const user = userEvent.setup()
   const checkbox = result.container.querySelector(
-    '.trilist-view [type=checkbox]'
+    '.trilist-view [type=checkbox]',
   )
 
   await user.click(checkbox!)

@@ -1,11 +1,10 @@
 import type { TrilistValue } from './trilist'
 
 export enum TrilistEvents {
-  change = 'trilist-change'
+  change = 'trilist-change',
 }
 
-export interface TrilistChangeEvent
-  extends CustomEvent<TrilistValue> {}
+export interface TrilistChangeEvent extends CustomEvent<TrilistValue> {}
 
 declare global {
   interface HTMLElementEventMap {

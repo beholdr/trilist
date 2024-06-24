@@ -27,7 +27,7 @@ test('simple select', async () => {
   const result = render(TrilistSelect, {
     independent: true,
     leafs: true,
-    multiselect: true
+    multiselect: true,
   })
 
   await result.component.init({ items: treeData })
@@ -53,25 +53,25 @@ test('custom labels', async () => {
     filterPlaceholder: 'FILTER_PLACEHOLDER',
     placeholder: 'PROP_PLACEHOLDER',
     selectButton: 'SELECT_BUTTON',
-    cancelButton: 'CANCEL_BUTTON'
+    cancelButton: 'CANCEL_BUTTON',
   })
 
   expect(() => result.getByPlaceholderText('FILTER_PLACEHOLDER')).not.toThrow()
 
   expect(
-    result.container.querySelector('.trilist-dialog-select')
+    result.container.querySelector('.trilist-dialog-select'),
   ).toHaveTextContent('SELECT_BUTTON')
 
   expect(
-    result.container.querySelector('.trilist-dialog-cancel')
+    result.container.querySelector('.trilist-dialog-cancel'),
   ).toHaveTextContent('CANCEL_BUTTON')
 
   expect(
-    result.container.querySelector('.trilist-select-button')
+    result.container.querySelector('.trilist-select-button'),
   ).toHaveTextContent('PROP_PLACEHOLDER')
 
   expect(
-    result.container.querySelector('#trilist-dialog header')
+    result.container.querySelector('#trilist-dialog header'),
   ).toHaveTextContent('PROP_PLACEHOLDER')
 })
 
@@ -83,7 +83,7 @@ test('single selection select', async () => {
 
   expect(() => result.getAllByRole('checkbox')).not.toThrow()
   expect(result.getByRole('tree').getAttribute('aria-multiselectable')).toBe(
-    'false'
+    'false',
   )
 })
 
@@ -95,7 +95,7 @@ test('multi selection select', async () => {
 
   expect(() => result.getAllByRole('checkbox')).not.toThrow()
   expect(result.getByRole('tree').getAttribute('aria-multiselectable')).toBe(
-    'true'
+    'true',
   )
 })
 
@@ -105,11 +105,11 @@ test('single selection with selected item', async () => {
 
   expect(
     result.container.querySelectorAll('.trilist-select-tags .trilist-tag')
-      .length
+      .length,
   ).toBe(0)
 
   expect(
-    result.container.querySelector('.trilist-select-button > div')
+    result.container.querySelector('.trilist-select-button > div'),
   ).toHaveTextContent('Leaf 12')
 })
 
@@ -119,19 +119,19 @@ test('multi selection with selected items', async () => {
 
   expect(
     result.container.querySelectorAll('.trilist-select-tags .trilist-tag')
-      .length
+      .length,
   ).toBe(3)
 
   const user = userEvent.setup()
   const button = result.container.querySelector(
-    '.trilist-select-tags .trilist-tag > button'
+    '.trilist-select-tags .trilist-tag > button',
   )
 
   await user.click(button!)
 
   expect(
     result.container.querySelectorAll('.trilist-select-tags .trilist-tag')
-      .length
+      .length,
   ).toBe(2)
 })
 
@@ -143,7 +143,7 @@ test('change event', async () => {
 
   const user = userEvent.setup()
   const checkbox = result.container.querySelector(
-    '.trilist-view [type=checkbox]'
+    '.trilist-view [type=checkbox]',
   )
   const selectBtn = result.container.querySelector('.trilist-dialog-select')
   const cancelBtn = result.container.querySelector('.trilist-dialog-cancel')
@@ -153,7 +153,7 @@ test('change event', async () => {
   await user.click(cancelBtn!)
 
   expect(
-    result.container.querySelector('.trilist-select-button > div')
+    result.container.querySelector('.trilist-select-button > div'),
   ).not.toHaveTextContent('Category 1')
 
   expect(onChangeHook).not.toHaveBeenCalled()
@@ -163,7 +163,7 @@ test('change event', async () => {
   await user.click(selectBtn!)
 
   expect(
-    result.container.querySelector('.trilist-select-button > div')
+    result.container.querySelector('.trilist-select-button > div'),
   ).toHaveTextContent('Category 1')
 
   expect(onChangeHook).toHaveBeenCalledWith('1')
@@ -173,13 +173,13 @@ test('disabled', async () => {
   const result = render(TrilistSelect, { disabled: true })
 
   expect(
-    result.container.querySelector('.trilist-select-button')
+    result.container.querySelector('.trilist-select-button'),
   ).toBeDisabled()
 
   expect(
     result.container.querySelectorAll(
-      '.trilist-select-tags .trilist-tag:not:disabled'
-    ).length
+      '.trilist-select-tags .trilist-tag:not:disabled',
+    ).length,
   ).toBe(0)
 
   await showModal(result)

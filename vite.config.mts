@@ -12,16 +12,16 @@ export default defineConfig({
   build: {
     lib: {
       name: 'Trilist',
-      entry: resolve(__dirname, 'src/main.ts')
-    }
+      entry: resolve(__dirname, 'src/main.ts'),
+    },
   },
   plugins: [
     svelte(),
     svgLoader(),
     dts({ outDir: 'dist/types', include: 'src/lib', entryRoot: 'src/lib' }),
     banner(
-      `/*! ${pkg.name} v${pkg.version} by ${pkg.author}. Released under the ${pkg.license} license */`
-    )
+      `/*! ${pkg.name} v${pkg.version} by ${pkg.author}. Released under the ${pkg.license} license */`,
+    ),
   ],
   test: {
     globals: true,
@@ -29,7 +29,7 @@ export default defineConfig({
     environment: 'happy-dom',
     coverage: {
       provider: 'v8',
-      reporter: ['text', 'json-summary']
-    }
-  }
+      reporter: ['text', 'json-summary'],
+    },
+  },
 })

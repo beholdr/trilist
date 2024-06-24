@@ -28,7 +28,7 @@ test('init with alt fields', () => {
     items: treeDataAlt,
     fieldId: 'key',
     fieldLabel: 'name',
-    fieldChildren: 'items'
+    fieldChildren: 'items',
   })
 
   expectTypeOf(trilist.items).toMatchTypeOf<TreeItem[]>()
@@ -46,7 +46,7 @@ test('set value multiselect', () => {
   const trilist = createTrilist({
     items: treeData,
     multiselect: true,
-    leafs: true
+    leafs: true,
   })
 
   expect(trilist.getValue()).toEqual([])
@@ -128,7 +128,7 @@ test('multi select', () => {
   const trilist = createTrilist({
     items: treeData,
     onChangeHook,
-    multiselect: true
+    multiselect: true,
   })
 
   trilist.toggleSelected(trilist.findItemById(1)!)
@@ -153,7 +153,7 @@ test('independent', () => {
   const trilist = createTrilist({
     items: treeData,
     multiselect: true,
-    independent: true
+    independent: true,
   })
 
   trilist.toggleSelected(trilist.findItemById(1)!)
@@ -185,7 +185,7 @@ test('leafs', () => {
   const trilist = createTrilist({
     items: treeData,
     leafs: true,
-    multiselect: true
+    multiselect: true,
   })
 
   trilist.toggleSelected(trilist.findItemById(1)!)
@@ -231,7 +231,7 @@ test('expand all', () => {
     '2.21',
     '2.22',
     '4',
-    '5'
+    '5',
   ])
 })
 
@@ -256,7 +256,7 @@ test('parent selection and clear for multiselect', () => {
   const trilist = createTrilist({
     items: treeData,
     multiselect: true,
-    leafs: true
+    leafs: true,
   })
 
   const parent = trilist.findItemById('4')!
@@ -273,7 +273,7 @@ test('parent selection and clear for multiselect', () => {
 
 test('parent selection and clear for single', () => {
   const trilist = createTrilist({
-    items: treeData
+    items: treeData,
   })
 
   const parent = trilist.findItemById('4')!
@@ -315,7 +315,7 @@ test('expand selected', () => {
   const trilist = createTrilist({
     items: treeData,
     value: '41',
-    expandSelected: true
+    expandSelected: true,
   })
 
   expect(trilist.getValue()).toEqual(['41'])
@@ -327,7 +327,7 @@ test('expand selected category', () => {
     items: treeData,
     value: '22',
     multiselect: true,
-    expandSelected: true
+    expandSelected: true,
   })
 
   expect(trilist.getValue()).toEqual(['22'])
@@ -340,7 +340,7 @@ test('expand selected category with leafs', () => {
     value: '22',
     multiselect: true,
     leafs: true,
-    expandSelected: true
+    expandSelected: true,
   })
 
   expect(trilist.getValue()).toEqual(['221', '222'])
@@ -351,7 +351,7 @@ test('indeterminate state', () => {
   const trilist = createTrilist({
     items: treeData,
     value: '222',
-    multiselect: true
+    multiselect: true,
   })
 
   expect(trilist.getValue()).toEqual(['222'])
@@ -368,7 +368,7 @@ test('indeterminate child check / uncheck', () => {
     items: treeData,
     value: '2',
     multiselect: true,
-    expandSelected: true
+    expandSelected: true,
   })
 
   expect(trilist.getValue()).toEqual(['2'])
@@ -422,7 +422,7 @@ test('indeterminate child single', () => {
   const trilist = createTrilist({
     items: treeData,
     value: '221',
-    expandSelected: true
+    expandSelected: true,
   })
 
   expect(trilist.getValue()).toEqual(['221'])
@@ -475,7 +475,7 @@ test('disabled multi select', () => {
   const trilist = createTrilist({
     items: treeData,
     disabled: '21',
-    multiselect: true
+    multiselect: true,
   })
 
   expect(trilist.getValue()).toEqual([])
@@ -516,7 +516,7 @@ test('disabled multi select deep', () => {
   const trilist = createTrilist({
     items: treeData,
     disabled: '21',
-    multiselect: true
+    multiselect: true,
   })
 
   expect(trilist.getValue()).toEqual([])

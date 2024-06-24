@@ -202,15 +202,15 @@ export class Trilist {
     /* c8 ignore next 5 */
     this.findHost(this.el!)?.dispatchEvent(
       new CustomEvent(TrilistEvents.change, {
-        detail
-      }) satisfies TrilistChangeEvent
+        detail,
+      }) satisfies TrilistChangeEvent,
     )
   }
 
   protected filterDeep(item: TreeItem, query: string) {
     const matchLabel = item.label.toLowerCase().includes(query)
     const matchDeep = this.getChildrenDeep(item).some((item) =>
-      item.label.toLowerCase().includes(query)
+      item.label.toLowerCase().includes(query),
     )
 
     if (!matchLabel && !matchDeep) {
@@ -244,12 +244,12 @@ export class Trilist {
       id: item[this.fieldId].toString(),
       key: key ? key + '.' + item[this.fieldId] : item[this.fieldId].toString(),
       label: item[this.fieldLabel],
-      data
+      data,
     }
 
     if (item[this.fieldChildren] && item[this.fieldChildren].length) {
       result.children = (item[this.fieldChildren] as InputItem[]).map((child) =>
-        this.processInputItem(child, result.key)
+        this.processInputItem(child, result.key),
       )
     }
 
@@ -288,7 +288,7 @@ export class Trilist {
       .map((item) => ({
         id: item.id,
         key: item.key,
-        label: item.label
+        label: item.label,
       }))
 
     item.children.forEach((child) => {
@@ -308,7 +308,7 @@ export class Trilist {
     if (this.independent) {
       this.indeterminate.setValue(
         item.key,
-        !!selectedChildren && !selected.has(item.id)
+        !!selectedChildren && !selected.has(item.id),
       )
     } else {
       if (!selectedChildren) {

@@ -20,18 +20,18 @@
 </script>
 
 <div
-  class="trilist-select-tags w-[calc(100%-28px)] max-h-36 flex gap-1.5 flex-wrap"
+  class="trilist-select-tags flex max-h-36 w-[calc(100%-28px)] flex-wrap gap-1.5"
 >
   {#each ids as id}
     <div
-      class="trilist-tag inline-flex pl-2 items-center bg-trilist-color-bg-secondary ring-1 ring-trilist-color-border-secondary rounded-sm text-trilist-color-text-secondary text-sm overflow-hidden"
+      class="trilist-tag inline-flex items-center overflow-hidden rounded-sm bg-trilist-color-bg-secondary pl-2 text-sm text-trilist-color-text-secondary ring-1 ring-trilist-color-border-secondary"
       title={tagItem(id)?.label}
     >
       <div class="truncate">
         {tagItem(id)?.label}
       </div>
       <button
-        class="form-button my-0.5 mx-1 text-trilist-color-text-tertiary hover:text-trilist-color-text-secondary"
+        class="form-button mx-1 my-0.5 text-trilist-color-text-tertiary hover:text-trilist-color-text-secondary"
         {disabled}
         on:click|stopPropagation={() => handleRemove(id)}
       >

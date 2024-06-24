@@ -16,6 +16,6 @@ export const createStateStore = <T>() => {
     subscribe,
     set: (value?: T[]) => set(new Set(value)),
     clear: () => set(new Set([])),
-    setValue
+    setValue,
   }
 }

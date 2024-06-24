@@ -1,132 +1,133 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trilist Demo</title>
 
-  <title>Trilist Demo</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%220.9em%22 font-size=%22120%22>☘️</text></svg>"
+    />
 
-  <link rel="icon"
-    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%220.9em%22 font-size=%22120%22>☘️</text></svg>">
-
-  <style>
-    html {
-      color: #888;
-      background: #fff;
-      font-size: 24px;
-      text-align: center;
-    }
-
-    @media (prefers-color-scheme: dark) {
+    <style>
       html {
-        color: #eee;
-        background: #333;
-
-        --trilist-color-accent: #427cf9;
-        --trilist-color-bg-primary: #333;
-        --trilist-color-bg-secondary: #444;
-        --trilist-color-border-primary: #666;
-        --trilist-color-border-secondary: #555;
-        --trilist-color-text-primary: #eee;
-        --trilist-color-text-secondary: #ccc;
-        --trilist-color-text-tertiary: #999;
-        --trilist-color-text-inversed: #fff;
+        color: #888;
+        background: #fff;
+        font-size: 24px;
+        text-align: center;
       }
-    }
 
-    #app {
-      margin: 1em auto;
-      max-width: 1200px;
-    }
+      @media (prefers-color-scheme: dark) {
+        html {
+          color: #eee;
+          background: #333;
 
-    @media screen and (min-width: 640px) {
+          --trilist-color-accent: #427cf9;
+          --trilist-color-bg-primary: #333;
+          --trilist-color-bg-secondary: #444;
+          --trilist-color-border-primary: #666;
+          --trilist-color-border-secondary: #555;
+          --trilist-color-text-primary: #eee;
+          --trilist-color-text-secondary: #ccc;
+          --trilist-color-text-tertiary: #999;
+          --trilist-color-text-inversed: #fff;
+        }
+      }
+
       #app {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        column-gap: 16px;
-        row-gap: 16px;
+        margin: 1em auto;
+        max-width: 1200px;
       }
-    }
 
-    @media screen and (min-width: 1024px) {
-      #app {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
+      @media screen and (min-width: 640px) {
+        #app {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          column-gap: 16px;
+          row-gap: 16px;
+        }
       }
-    }
-  </style>
-</head>
 
-<body>
-  <p>Usage examples:</p>
-  <div id="app">
-    <trilist-view
-      id="trilist-1"
-      expand-selected
-      filter
-      multiselect
-      selectable
-      style="--trilist-color-accent: rgb(220, 45, 75); --trilist-border-radius: 0;"
-    ></trilist-view>
+      @media screen and (min-width: 1024px) {
+        #app {
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+      }
+    </style>
+  </head>
 
-    <trilist-view
-      id="trilist-2"
-      animated
-      filter
-    ></trilist-view>
+  <body>
+    <p>Usage examples:</p>
+    <div id="app">
+      <trilist-view
+        id="trilist-1"
+        expand-selected
+        filter
+        multiselect
+        selectable
+        style="
+          --trilist-color-accent: rgb(220, 45, 75);
+          --trilist-border-radius: 0;
+        "
+      ></trilist-view>
 
-    <trilist-select id="trilist-3"
-      animated
-      cancel-button="Nevermind"
-      expand-selected
-      filter
-      filter-autofocus
-      filter-placeholder="Search..."
-      multiselect
-      placeholder="Choose your options"
-      select-button="Choose"
-    ></trilist-select>
+      <trilist-view id="trilist-2" animated filter></trilist-view>
 
-    <trilist-select
-      id="trilist-4"
-      field-children="items"
-      field-id="key"
-      field-label="name"
-    ></trilist-select>
-  </div>
+      <trilist-select
+        id="trilist-3"
+        animated
+        cancel-button="Nevermind"
+        expand-selected
+        filter
+        filter-autofocus
+        filter-placeholder="Search..."
+        multiselect
+        placeholder="Choose your options"
+        select-button="Choose"
+      ></trilist-select>
 
-  <script type="module">
-    import { treeData, treeDataAlt } from './test/fixtures.ts'
+      <trilist-select
+        id="trilist-4"
+        field-children="items"
+        field-id="key"
+        field-label="name"
+      ></trilist-select>
+    </div>
 
-    await Promise.allSettled([
-      customElements.whenDefined('trilist-view'),
-      customElements.whenDefined('trilist-select'),
-    ])
+    <script type="module">
+      import { treeData, treeDataAlt } from './test/fixtures.ts'
 
-    const el1 = document.getElementById('trilist-1')
-    el1.init({
-      items: treeData,
-      value: '2',
-      disabled: ['21'],
-      onChangeHook: (value) => console.log(value)
-    })
+      await Promise.allSettled([
+        customElements.whenDefined('trilist-view'),
+        customElements.whenDefined('trilist-select'),
+      ])
 
-    const el2 = document.getElementById('trilist-2')
-    el2.init({
-      items: treeData,
-      labelHook: (item) => `<a style="text-decoration: underline" href="#/edit/${item.id}">${item.label}</a> ${item.data?.description ? '<div style="font-size: 0.9em; opacity: 0.5">' + item.data.description + '</div>' : ''}`,
-      onChangeHook: (value) => console.log(value)
-    })
+      const el1 = document.getElementById('trilist-1')
+      el1.init({
+        items: treeData,
+        value: '2',
+        disabled: ['21'],
+        onChangeHook: (value) => console.log(value),
+      })
 
-    const el3 = document.getElementById('trilist-3')
-    el3.init({ items: treeData, value: 21 })
-    el3.addEventListener('trilist-change', (e) => console.log(e.detail))
+      const el2 = document.getElementById('trilist-2')
+      el2.init({
+        items: treeData,
+        labelHook: (item) =>
+          `<a style="text-decoration: underline" href="#/edit/${item.id}">${item.label}</a> ${item.data?.description ? '<div style="font-size: 0.9em; opacity: 0.5">' + item.data.description + '</div>' : ''}`,
+        onChangeHook: (value) => console.log(value),
+      })
 
-    const el4 = document.getElementById('trilist-4')
-    el4.init({ items: treeDataAlt, value: '21' })
-  </script>
+      const el3 = document.getElementById('trilist-3')
+      el3.init({ items: treeData, value: 21 })
+      el3.addEventListener('trilist-change', (e) => console.log(e.detail))
 
-  <script type="module" src="/src/main.ts"></script>
-</body>
+      const el4 = document.getElementById('trilist-4')
+      el4.init({ items: treeDataAlt, value: '21' })
+    </script>
 
+    <script type="module" src="/src/main.ts"></script>
+  </body>
 </html>

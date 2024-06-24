@@ -12,8 +12,8 @@
       independent: { type: 'Boolean' },
       leafs: { type: 'Boolean' },
       multiselect: { type: 'Boolean' },
-      selectable: { type: 'Boolean' }
-    }
+      selectable: { type: 'Boolean' },
+    },
   }}
 />
 
@@ -63,8 +63,8 @@
         multiselect,
         fieldId,
         fieldLabel,
-        fieldChildren
-      }
+        fieldChildren,
+      },
     })
   }
 

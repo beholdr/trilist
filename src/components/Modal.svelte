@@ -63,9 +63,7 @@
     <footer
       class="sticky bottom-0 pt-4 pb-3 sm:pb-6 px-3 sm:px-8 z-10 bg-trilist-color-bg-primary"
     >
-      <!-- svelte-ignore a11y-autofocus -->
       <button
-        autofocus
         class="trilist-dialog-select form-button py-1 px-4 rounded border border-trilist-color-accent bg-trilist-color-accent text-trilist-color-text-inversed select-none mr-2"
         on:click={handleSubmit}
       >

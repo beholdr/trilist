@@ -1,4 +1,4 @@
-import styles from './app.postcss?inline'
+import styles from './app.css?inline'
 
 const prepareStyles = (styles: string, root: string) => {
   return styles

@@ -1,7 +1,6 @@
 module.exports = {
   plugins: {
-    tailwindcss: {},
+    '@tailwindcss/postcss': {},
     'postcss-rem-to-responsive-pixel': { propList: ['*'] },
-    autoprefixer: {},
   },
 }

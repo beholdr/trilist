@@ -24,7 +24,7 @@
   <input
     on:input={(e) => handleFilter(e.currentTarget.value)}
     bind:this={input}
-    class="trilist-filter-input form-input w-full flex-grow rounded rounded-r-none bg-trilist-color-bg-primary text-base leading-normal placeholder:text-trilist-color-text-tertiary"
+    class="trilist-filter-input form-input w-full grow rounded rounded-r-none bg-trilist-color-bg-primary text-base leading-normal placeholder:text-trilist-color-text-tertiary"
     type="search"
     placeholder={filterPlaceholder}
   />

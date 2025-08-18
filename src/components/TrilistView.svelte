@@ -22,10 +22,9 @@
 
   import { Trilist, type TreeItem, type TrilistOptions } from '../lib'
 
+  import Styles from './Styles.svelte'
   import Filter from './Filter.svelte'
   import Tree from './Tree.svelte'
-
-  import { getStyles } from '../theme'
 
   export let animated = false
   export let animatedEnabled = false // passed from TrilistSelect as reactive prop
@@ -80,8 +79,6 @@
   onMount(async () => setTimeout(() => (animatedEnabled = animated), 300))
 </script>
 
-{@html getStyles()}
-
 <div
   {...$$restProps}
   class="trilist-view"
@@ -100,4 +97,6 @@
     animated={animatedEnabled}
     on:trilist-change={onChange}
   />
+
+  <Styles host={el} />
 </div>

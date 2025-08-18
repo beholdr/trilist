@@ -26,6 +26,7 @@
 
   import { Trilist, type TrilistOptions, type TreeItemId } from '../lib'
 
+  import Styles from './Styles.svelte'
   import Tags from './Tags.svelte'
   import Filter from './Filter.svelte'
   import Modal from './Modal.svelte'
@@ -59,6 +60,7 @@
   setContext('trilist', trilist)
 
   const value = trilist.value
+  let el: HTMLElement
 
   export const init = (options: TrilistOptions) => {
     elTree.init(options)
@@ -95,6 +97,7 @@
   role="combobox"
   aria-expanded={showModal}
   aria-controls="trilist-dialog"
+  bind:this={el}
 >
   <button
     class="trilist-select-button form-button flex w-full select-none justify-between rounded border bg-trilist-color-bg-primary p-2 disabled:pointer-events-none disabled:opacity-50"
@@ -156,4 +159,6 @@
       selectable
     />
   </Modal>
+
+  <Styles host={el} />
 </div>

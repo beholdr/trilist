@@ -40,7 +40,7 @@
 <dialog
   {...$$restProps}
   bind:this={dialog}
-  class="mt-5 w-[32em] rounded shadow-md animate-in slide-in-from-top-4 backdrop:backdrop-blur backdrop:animate-in backdrop:fade-in-0 sm:mt-10 sm:max-h-[90dvh]"
+  class="mx-auto mt-5 w-[32em] animate-in rounded shadow-md slide-in-from-top-4 backdrop:animate-in backdrop:backdrop-blur-sm backdrop:fade-in-0 sm:mt-10 sm:max-h-[90dvh]"
   on:click|self={handleCancel}
   on:close={handleClose}
 >
@@ -58,7 +58,7 @@
       <slot name="header" />
     </header>
 
-    <div class="flex-grow bg-trilist-color-bg-primary px-3 sm:px-8">
+    <div class="grow bg-trilist-color-bg-primary px-3 sm:px-8">
       <slot />
     </div>
 

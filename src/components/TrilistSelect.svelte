@@ -117,14 +117,14 @@
         />
       {:else}
         <div
-          class="truncate"
+          class="mx-1 truncate"
           title={tagItem(showModal ? previousValue[0] : $value[0])?.label}
         >
           {tagItem(showModal ? previousValue[0] : $value[0])?.label}
         </div>
       {/if}
     {:else}
-      <div class="truncate text-trilist-color-text-tertiary">
+      <div class="mx-1 truncate text-trilist-color-text-tertiary">
         {placeholder}
       </div>
     {/if}

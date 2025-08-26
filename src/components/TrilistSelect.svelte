@@ -14,6 +14,7 @@
       independent: { type: 'Boolean' },
       leafs: { type: 'Boolean' },
       multiselect: { type: 'Boolean' },
+      noBorder: { type: 'Boolean', attribute: 'no-border' },
       placeholder: { type: 'String' },
       selectButton: { type: 'String', attribute: 'select-button' },
       cancelButton: { type: 'String', attribute: 'cancel-button' },
@@ -46,6 +47,7 @@
   export let independent = false
   export let leafs = false
   export let multiselect = false
+  export let noBorder = false
   export let placeholder = 'Please select...'
   export let selectButton = 'Select'
   export let cancelButton = 'Cancel'
@@ -100,7 +102,9 @@
   bind:this={el}
 >
   <button
-    class="trilist-select-button form-button flex w-full select-none justify-between rounded border bg-trilist-color-bg-primary p-2 disabled:pointer-events-none disabled:opacity-50"
+    class="trilist-select-button flex w-full items-center justify-between rounded form-button bg-trilist-color-bg-primary px-trilist-px py-trilist-py select-none disabled:pointer-events-none disabled:opacity-50"
+    class:border={!noBorder}
+    class:focus-visible:ring-0={noBorder}
     {disabled}
     on:click={openModal}
   >
@@ -113,14 +117,14 @@
         />
       {:else}
         <div
-          class="mx-1 truncate"
+          class="truncate"
           title={tagItem(showModal ? previousValue[0] : $value[0])?.label}
         >
           {tagItem(showModal ? previousValue[0] : $value[0])?.label}
         </div>
       {/if}
     {:else}
-      <div class="mx-1 truncate text-trilist-color-text-tertiary">
+      <div class="truncate text-trilist-color-text-tertiary">
         {placeholder}
       </div>
     {/if}

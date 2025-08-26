@@ -21,6 +21,9 @@
 
   --text-base: var(--trilist-text-base, 16px);
   --text-sm: var(--trilist-text-sm, 14px);
+
+  --spacing-trilist-px: var(--trilist-px, calc(var(--spacing) * 2));
+  --spacing-trilist-py: var(--trilist-py, calc(var(--spacing) * 2));
 }
 
 /*

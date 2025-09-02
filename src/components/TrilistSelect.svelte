@@ -102,7 +102,7 @@
   bind:this={el}
 >
   <button
-    class="trilist-select-button flex w-full items-center justify-between rounded form-button bg-trilist-color-bg-primary px-trilist-px py-trilist-py select-none disabled:pointer-events-none disabled:opacity-50"
+    class="trilist-select-button flex w-full items-center justify-between rounded form-button bg-trilist-color-bg-primary px-trilist-select-x py-trilist-select-y select-none disabled:pointer-events-none disabled:opacity-50"
     class:border={!noBorder}
     class:focus-visible:ring-0={noBorder}
     {disabled}
@@ -117,14 +117,14 @@
         />
       {:else}
         <div
-          class="mx-1 truncate"
+          class="truncate"
           title={tagItem(showModal ? previousValue[0] : $value[0])?.label}
         >
           {tagItem(showModal ? previousValue[0] : $value[0])?.label}
         </div>
       {/if}
     {:else}
-      <div class="mx-1 truncate text-trilist-color-text-tertiary">
+      <div class="truncate text-trilist-color-text-tertiary">
         {placeholder}
       </div>
     {/if}

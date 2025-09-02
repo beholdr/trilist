@@ -50,7 +50,7 @@
         {#if item.children?.length}
           <div class="flex">
             <button
-              class="form-button mr-1 mt-0.5 h-5 w-5 flex-none -rotate-90 text-trilist-color-text-tertiary transition-transform"
+              class="form-button mr-1 mt-0.5 size-5 flex-none -rotate-90 text-trilist-color-text-tertiary transition-transform"
               class:rotate-0={$expanded.has(item.key)}
               on:click|preventDefault={() =>
                 handleExpand(item, $expanded.has(item.key))}
@@ -59,13 +59,13 @@
             </button>
             <label
               class={$disabled.has(item.id)
-                ? 'inline-flex cursor-not-allowed opacity-50'
-                : 'inline-flex'}
+                ? 'inline-flex cursor-not-allowed gap-trilist-checkbox-x opacity-50'
+                : 'inline-flex gap-trilist-checkbox-x'}
             >
               {#if selectable}
                 <input
                   type="checkbox"
-                  class="form-checkbox mr-2 mt-1 flex-none text-trilist-color-accent disabled:cursor-not-allowed"
+                  class="form-checkbox mt-trilist-checkbox-y flex-none text-trilist-color-accent disabled:cursor-not-allowed"
                   value={item.id}
                   bind:group={selected}
                   disabled={$disabled.has(item.id)}
@@ -92,16 +92,16 @@
           </div>
         {:else}
           <div class="flex">
-            <div class="invisible mr-1 mt-0.5 h-5 w-5 flex-none" />
+            <div class="invisible mr-1 mt-0.5 size-5 flex-none" />
             <label
               class={$disabled.has(item.id)
-                ? 'inline-flex cursor-not-allowed opacity-50'
-                : 'inline-flex'}
+                ? 'inline-flex cursor-not-allowed gap-trilist-checkbox-x opacity-50'
+                : 'inline-flex gap-trilist-checkbox-x'}
             >
               {#if selectable}
                 <input
                   type="checkbox"
-                  class="form-checkbox mr-2 mt-1 flex-none text-trilist-color-accent disabled:cursor-not-allowed"
+                  class="form-checkbox mt-trilist-checkbox-y flex-none text-trilist-color-accent disabled:cursor-not-allowed"
                   value={item.id}
                   bind:group={selected}
                   disabled={$disabled.has(item.id)}

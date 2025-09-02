@@ -22,8 +22,10 @@
   --text-base: var(--trilist-text-base, 16px);
   --text-sm: var(--trilist-text-sm, 14px);
 
-  --spacing-trilist-px: var(--trilist-px, calc(var(--spacing) * 2));
-  --spacing-trilist-py: var(--trilist-py, calc(var(--spacing) * 2));
+  --spacing-trilist-select-x: var(--trilist-select-x, calc(var(--spacing) * 2));
+  --spacing-trilist-select-y: var(--trilist-select-y, calc(var(--spacing) * 2));
+  --spacing-trilist-checkbox-x: var(--trilist-checkbox-x, calc(var(--spacing) * 2));
+  --spacing-trilist-checkbox-y: var(--trilist-checkbox-y, var(--spacing));
 }
 
 /*
